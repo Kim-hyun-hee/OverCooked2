@@ -37,14 +37,4 @@ public class IngredientTable : Table
     //{
     //    return false;
     //}
-
-    public override bool PutObject(Object newObject)
-    {
-        return base.PutObject(newObject);
-    }
-
-    public void TestButton()
-    {
-        obj = Instantiate(ingredient).GetComponent<Object>();
-    }
 }
