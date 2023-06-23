@@ -32,9 +32,4 @@ public class IngredientTable : Table
             return objectToReturn;
         }
     }
-
-    //override public bool PutObject(Object Object)
-    //{
-    //    return false;
-    //}
 }
