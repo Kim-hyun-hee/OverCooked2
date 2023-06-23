@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Table nearTable;
+    [SerializeField] private Table nearTable;
     private Object carriedObject;
 
     void OnTriggerStay(Collider collision)
@@ -12,7 +12,16 @@ public class Player : MonoBehaviour
         // Debug.Log(collision);
         if (collision.gameObject.GetComponentInParent<Table>() != null)
         {
-            Debug.Log(collision.gameObject.GetComponentInParent<Table>().name);
+            nearTable = collision.gameObject.GetComponentInParent<Table>();
+            if (nearTable.GetComponentInParent<IngredientTable>() == null)
+            {
+                nearTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 1);
+            }
+            else
+            {
+                nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
+            }
+
             // 모서리일때 쳐다보는 방향에 있는 테이블 => nearTable
             // return;
             float dist = 10f;
@@ -28,9 +37,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider collision)
     {
-        nearTable = null;
+        if (collision.gameObject.GetComponentInParent<Table>() != null)
+        {
+            if (collision.gameObject.GetComponentInParent<IngredientTable>() == null)
+            {
+                collision.gameObject.GetComponentInParent<Table>().transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 0);
+            }
+            else
+            {
+                collision.gameObject.GetComponentInParent<Table>().transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 0);
+            }
+            nearTable = null;
+        }
         // Renderer 원상복구
     }
 
