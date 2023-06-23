@@ -57,30 +57,30 @@ public class Ingredient : Object
 
     public void Update()
     {
-        if (!overcooking && warning.gameObject.activeSelf)
-        {
-            warning.gameObject.SetActive(false);
-        }
-        overcooking = false;
+        //if (!overcooking && warning.gameObject.activeSelf)
+        //{
+        //    warning.gameObject.SetActive(false);
+        //}
+        //overcooking = false;
 
-        if (state != State.OVERCOOKED && remainingOvercookTime < (0.75f * overcookTime))
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-        }
-        else if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        //if (state != State.OVERCOOKED && remainingOvercookTime < (0.75f * overcookTime))
+        //{
+        //    if (!audioSource.isPlaying)
+        //    {
+        //        audioSource.Play();
+        //    }
+        //}
+        //else if (audioSource.isPlaying)
+        //{
+        //    audioSource.Stop();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //audioManager.Play("Delivery");
-            audioSource.Stop();
-            cookCheat = !cookCheat;
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    //audioManager.Play("Delivery");
+        //    audioSource.Stop();
+        //    cookCheat = !cookCheat;
+        //}
     }
 
     public IngredientName GetIngredientName()

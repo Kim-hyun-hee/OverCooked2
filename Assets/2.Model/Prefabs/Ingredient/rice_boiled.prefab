@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2960776844168771611}
+  - component: {fileID: 6236654090170902252}
   m_Layer: 0
   m_Name: rice_boiled
   m_TagString: Untagged
@@ -24,13 +25,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2476164467676799649}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5707448373309419383}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6236654090170902252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476164467676799649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43df060e214a81943be56192bc3dfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: 0
+  state: 0
+  kitchenTool: 2
+  choppable: 0
+  cookable: 0
+  cookCheat: 0
+  chopTime: 0
+  cookTime: 0
+  raw: {fileID: 0}
+  chopped: {fileID: 0}
+  cooked: {fileID: 0}
+  overcooked: {fileID: 0}
 --- !u!1 &6281983638851062706
 GameObject:
   m_ObjectHideFlags: 0

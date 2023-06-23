@@ -5,7 +5,7 @@ using UnityEngine;
 public class IngredientTable : Table
 {
     public GameObject ingredient;
-
+    public Object obj;
     private void Start()
     {
         //audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -18,14 +18,33 @@ public class IngredientTable : Table
     }
 
 
-    override public Object GetObject()
+    public override Object GetObject()
     {
-        Object objectToReturn = Instantiate(ingredient).GetComponent<Object>();
-        return objectToReturn;
+        if(placedObject != null)
+        {
+            Object objectToReturn = placedObject;
+            placedObject = null;
+            return objectToReturn;
+        }
+        else
+        {
+            Object objectToReturn = Instantiate(ingredient).GetComponent<Object>();
+            return objectToReturn;
+        }
     }
 
-    override public bool PutObject(Object Object) // 원작은 놓을 수 있긴 함,,
+    //override public bool PutObject(Object Object)
+    //{
+    //    return false;
+    //}
+
+    public override bool PutObject(Object newObject)
     {
-        return false;
+        return base.PutObject(newObject);
+    }
+
+    public void TestButton()
+    {
+        obj = Instantiate(ingredient).GetComponent<Object>();
     }
 }
