@@ -7,6 +7,45 @@ public class Player : MonoBehaviour
     [SerializeField] private Table nearTable;
     [SerializeField] private Object carriedObject;
 
+    private void Update()
+    {
+        TableInteraction();
+    }
+
+    private void TableInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && nearTable != null)
+        {
+            if (carriedObject == null)
+            {
+                GetObjectFromTable();
+            }
+            else
+            {
+                PutObjectOnTable();
+            }
+        }
+    }
+
+    private void GetObjectFromTable()
+    {
+        Object placedObject = nearTable.GetObject();
+        if (placedObject != null)
+        {
+            carriedObject = placedObject;
+            carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
+            carriedObject.transform.localPosition = new Vector3(0.0f, 0.008f, 0.006f);
+        }
+    }
+
+    private void PutObjectOnTable()
+    {
+        if (nearTable.PutObject(carriedObject))
+        {
+            carriedObject = null;
+        }
+    }
+
     void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.GetComponentInParent<Table>() != null)
