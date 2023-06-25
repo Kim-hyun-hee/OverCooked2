@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dir = Vector3.zero;
     private float moveSpeed = 4f;
     private PlayerAnimationController ani;
+    private Puff puff;
 
     private void Start()
     {
         ani = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out playerRb);
+        puff = transform.Find("puff").GetComponent<Puff>();
     }
 
     private void Update()
@@ -31,11 +33,19 @@ public class PlayerMovement : MonoBehaviour
         {
             // Walk or Run animation
             ani.Walk();
+            if(puff.isStopped)
+            {
+                puff.Play();
+            }
         }
         else
         {
             // Idle animation
             ani.Idle();
+            if(puff.isPlaying)
+            {
+                puff.Stop();
+            }
         }
     }
 }
