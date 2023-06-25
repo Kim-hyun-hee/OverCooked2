@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CutTable : Table
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        fire = transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
     }
 }
