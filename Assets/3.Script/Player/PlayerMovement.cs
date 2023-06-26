@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isPlay = false;
     private ObjectPool objectPool;
     private Coroutine running;
-    private Transform puffPos;
+    private Transform puffTransform;
 
     private void Start()
     {
         ani = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out playerRb);
         objectPool = FindObjectOfType<ObjectPool>();
-        puffPos = GameObject.FindGameObjectWithTag("PuffPos").transform;
+        puffTransform = GameObject.FindGameObjectWithTag("PuffPos").transform;
     }
 
     private void Update()
@@ -77,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             GameObject puff = objectPool.GetObject();
-            puff.transform.position = transform.position + new Vector3(0, 0.3f, 0);
+            puff.transform.position = puffTransform.position;
             yield return wfs;
         }
     }
