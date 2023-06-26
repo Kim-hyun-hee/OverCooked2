@@ -47,13 +47,13 @@ MonoBehaviour:
   ingredientName: 3
   state: 0
   kitchenTool: 0
-  choppable: 0
+  choppable: 1
   cookable: 0
   cookCheat: 0
   chopTime: 0
   cookTime: 0
   raw: {fileID: 0}
-  chopped: {fileID: 0}
+  chopped: {fileID: 6377918065620355615, guid: 7c0d56e58ffeb634d80c506250d913b5, type: 3}
   cooked: {fileID: 0}
   overcooked: {fileID: 0}
 --- !u!1 &2813765680688294216

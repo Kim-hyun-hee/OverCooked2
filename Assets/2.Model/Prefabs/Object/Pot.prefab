@@ -1228,7 +1228,7 @@ GameObject:
   - component: {fileID: 6246820389616108451}
   - component: {fileID: 4131051473411129183}
   m_Layer: 0
-  m_Name: utensil_pot_01
+  m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1262,6 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaacef8de505932439a0dd0026c1d956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tool: 1
 --- !u!1 &6898061874756913455
 GameObject:
   m_ObjectHideFlags: 0

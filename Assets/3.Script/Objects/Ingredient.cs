@@ -13,36 +13,37 @@ public enum IngredientName
 
 public enum State
 {
-    RAW, CHOPPED, COOKED, OVERCOOKED
+    RAW, CHOPPED, COOKED, OVERCOOKED, PLATED
 };
 
 public class Ingredient : Object
 {
-    // 재료의 속성
+    [Header("재료의 속성")]
     public IngredientName ingredientName;
     public State state = State.RAW;
     public KitchenTools kitchenTool;
 
     private AudioSource audioSource;
-
+    
     public bool choppable, cookable, cookCheat = false;
     public float chopTime, cookTime;
     private float overcookTime, remainingOvercookTime, remainingChopTime, remainingCookTime;
     private bool overcooking = false;
 
-    public GameObject raw, chopped, cooked, overcooked;
-    private GameObject[] states = new GameObject[4];
+    public GameObject raw, chopped, cooked, overcooked, plated;
+    private GameObject[] states = new GameObject[5];
 
-    private Slider slider;
-    private Image warning;
+    //private Slider slider;
+    //private Image warning;
 
     public void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         states[(int)State.RAW] = raw;
         states[(int)State.CHOPPED] = chopped;
         states[(int)State.COOKED] = cooked;
         states[(int)State.OVERCOOKED] = overcooked;
+        states[(int)State.PLATED] = plated;
 
         //slider = transform.GetChild(0).GetChild(0).GetComponent<Slider>();
         //slider.gameObject.SetActive(false);
@@ -117,26 +118,26 @@ public class Ingredient : Object
         if (choppable && state == State.RAW)
         {
             remainingChopTime -= Time.deltaTime;
-            slider.gameObject.SetActive(true);
-            slider.value = (chopTime - remainingChopTime) / chopTime;
+            //slider.gameObject.SetActive(true);
+            //slider.value = (chopTime - remainingChopTime) / chopTime;
             if (remainingChopTime <= 0)
             {
                 SetState(State.CHOPPED);
-                slider.gameObject.SetActive(false);
+                //slider.gameObject.SetActive(false);
             }
         }
     }
 
     public override void Burn()
     {
-        if (cookable)
-        {
-            SetState(State.OVERCOOKED);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    //    if (cookable)
+    //    {
+    //        SetState(State.OVERCOOKED);
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
     }
 
     public bool Cook()
@@ -144,8 +145,8 @@ public class Ingredient : Object
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             //audioManager.Play("Delivery");
-            SetState(State.COOKED);
-            slider.gameObject.SetActive(false);
+            //SetState(State.COOKED);
+            //slider.gameObject.SetActive(false);
         }
         else if (state != State.OVERCOOKED)
         {
@@ -157,30 +158,30 @@ public class Ingredient : Object
                 if (remainingOvercookTime <= 0)
                 {
                     SetState(State.OVERCOOKED);
-                    warning.gameObject.SetActive(false);
-                    slider.gameObject.SetActive(false);
+                    //warning.gameObject.SetActive(false);
+                    //slider.gameObject.SetActive(false);
                     return false;
                 }
                 else if (remainingOvercookTime <= (0.4f * overcookTime))
                 {
-                    warning.gameObject.SetActive(true);
-                    warning.color = Color.red;
+                    //warning.gameObject.SetActive(true);
+                    //warning.color = Color.red;
                 }
                 else if (remainingOvercookTime <= (0.75f * overcookTime))
                 {
-                    warning.gameObject.SetActive(true);
+                    //warning.gameObject.SetActive(true);
                 }
             }
             else
             {
                 remainingCookTime -= Time.deltaTime;
-                slider.gameObject.SetActive(true);
-                slider.value = (cookTime - remainingCookTime) / cookTime;
+                //slider.gameObject.SetActive(true);
+                //slider.value = (cookTime - remainingCookTime) / cookTime;
 
                 if (remainingCookTime <= 0)
                 {
                     SetState(State.COOKED);
-                    slider.gameObject.SetActive(false);
+                    //slider.gameObject.SetActive(false);
                 }
             }
         }

@@ -72,10 +72,10 @@ public class Table : MonoBehaviour
 
     public virtual bool PutObject(Object newObject) // 테이블 위에 newObject 들고 상호작용 키 눌렀을때 테이블 위에 newObject 두는지
     {
-        if (fire.IsPlaying()) // 불이 났으면
-        {
-            return false;
-        }
+        //if (fire.IsPlaying()) // 불이 났으면
+        //{
+        //    return false;
+        //}
 
         if (placedObject == null)
         {

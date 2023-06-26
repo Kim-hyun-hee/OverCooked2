@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: 0
   state: 0
-  kitchenTool: 2
+  kitchenTool: 1
   choppable: 0
-  cookable: 0
+  cookable: 1
   cookCheat: 0
   chopTime: 0
   cookTime: 0
@@ -56,6 +56,7 @@ MonoBehaviour:
   chopped: {fileID: 0}
   cooked: {fileID: 0}
   overcooked: {fileID: 0}
+  plated: {fileID: 0}
 --- !u!1 &6281983638851062706
 GameObject:
   m_ObjectHideFlags: 0

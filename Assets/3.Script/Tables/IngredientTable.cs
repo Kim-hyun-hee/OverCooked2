@@ -28,8 +28,15 @@ public class IngredientTable : Table
         }
         else
         {
-            Object objectToReturn = Instantiate(ingredient).GetComponent<Object>();
-            return objectToReturn;
+            if(!fire.IsPlaying())
+            {
+                Object objectToReturn = Instantiate(ingredient).GetComponent<Object>();
+                return objectToReturn;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

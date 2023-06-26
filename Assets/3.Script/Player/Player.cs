@@ -50,15 +50,17 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.GetComponentInParent<Table>() != null)
         {
-            // TODO: 하나로 특정 나중에 해주기
             nearTable = collision.gameObject.GetComponentInParent<Table>();
-            if (nearTable.GetComponentInParent<IngredientTable>() == null)
+            if (nearTable != null)
             {
-                nearTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 1);
-            }
-            else
-            {
-                nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
+                if (nearTable.GetComponentInParent<IngredientTable>() == null)
+                {
+                    nearTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 1);
+                }
+                else
+                {
+                    nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
+                }
             }
         }
     }
