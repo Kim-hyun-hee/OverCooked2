@@ -8,13 +8,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dir = Vector3.zero;
     private float moveSpeed = 4f;
     private PlayerAnimationController ani;
-    private Puff puff;
+
+    private bool isPlay = false;
+    private ObjectPool objectPool;
+    private Coroutine running;
+    private Transform puffPos;
 
     private void Start()
     {
         ani = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out playerRb);
-        puff = transform.Find("puff").GetComponent<Puff>();
+        objectPool = FindObjectOfType<ObjectPool>();
+        puffPos = GameObject.FindGameObjectWithTag("PuffPos").transform;
     }
 
     private void Update()
@@ -33,19 +38,47 @@ public class PlayerMovement : MonoBehaviour
         {
             // Walk or Run animation
             ani.Walk();
-            if(puff.isStopped)
+            if(!isPlay)
             {
-                puff.Play();
+                PlayPuff();
             }
         }
         else
         {
             // Idle animation
             ani.Idle();
-            if(puff.isPlaying)
+            if(isPlay)
             {
-                puff.Stop();
+                StopPuff();
             }
+        }
+    }
+
+    public void PlayPuff() // puff DeQueue
+    {
+        running = StartCoroutine(Puff_co());
+    }
+
+    public void StopPuff()
+    {
+        StopCoroutine(running);
+        isPlay = false;
+    }
+
+    public bool IsPlay()
+    {
+        return isPlay;
+    }
+
+    private IEnumerator Puff_co()
+    {
+        isPlay = true;
+        WaitForSeconds wfs = new WaitForSeconds(0.15f);
+        while (true)
+        {
+            GameObject puff = objectPool.GetObject();
+            puff.transform.position = transform.position + new Vector3(0, 0.3f, 0);
+            yield return wfs;
         }
     }
 }
