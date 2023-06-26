@@ -18,7 +18,6 @@ public enum State
 
 public class Ingredient : Object
 {
-    [Header("재료의 속성")]
     public IngredientName ingredientName;
     public State state = State.RAW;
     public KitchenTools kitchenTool;

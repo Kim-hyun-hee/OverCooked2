@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plate : Object
 {
     //private List<Ingredient> ingredients = new List<Ingredient>();
-    //private Recipe recipe;
+    private Recipe recipe;
     //private ParticleSystem boom;
 
     //new public void Awake()
@@ -46,23 +46,16 @@ public class Plate : Object
     //}
 
     public override void Burn() { }
-    //public override void Burn()
-    //{
-    //    foreach (var ingredient in ingredients)
-    //    {
-    //        ingredient.Burn();
-    //    }
-    //}
 
-    //public bool IsRecipe()
-    //{
-    //    return recipe != null;
-    //}
+    public bool IsRecipe()
+    {
+        return recipe != null;
+    }
 
-    //public Recipe GetRecipe()
-    //{
-    //    return recipe;
-    //}
+    public Recipe GetRecipe()
+    {
+        return recipe;
+    }
 
     public override void ThrowToBin() { }
     //public override void ThrowToBin()
