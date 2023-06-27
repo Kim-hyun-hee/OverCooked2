@@ -23,10 +23,16 @@ public class Plate : Object
 
         if (ingredients.Count == 0)
         {
-            ingredients.Add(ingredient);
-            ingredient.transform.SetParent(transform.GetChild(0)); // attach point
-            ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
-            return true;
+            if(ingredient.choppable && ingredient.state is State.CHOPPED ||
+                ingredient.cookable && ingredient.state is State.COOKED || 
+               (!ingredient.cookable && !ingredient.choppable) && ingredient.state is State.RAW)
+            {
+                ingredients.Add(ingredient);
+                ingredient.transform.SetParent(transform.GetChild(0)); // attach point
+                ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
+                return true;
+            }
+            return false;
         }
 
         ingredients.Add(ingredient);
