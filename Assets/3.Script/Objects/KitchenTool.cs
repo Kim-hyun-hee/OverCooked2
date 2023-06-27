@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum KitchenTools
 {
-    NONE, POT
+    NONE, POT, PAN
 };
 
 public class KitchenTool : Object
@@ -65,6 +65,10 @@ public class KitchenTool : Object
                 ingredient.transform.SetParent(transform.GetChild(0).GetChild(1));
                 ingredient.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 ingredient.gameObject.SetActive(false); // 임시 조치
+            }
+            if(tool == KitchenTools.PAN)
+            {
+
             }
             this.ingredient = ingredient;
             return true;
