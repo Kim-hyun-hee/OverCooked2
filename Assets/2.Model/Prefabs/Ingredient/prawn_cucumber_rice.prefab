@@ -252,6 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598906519891548589}
+  - component: {fileID: -4594902470677938903}
   m_Layer: 0
   m_Name: prawn_cucumber_rice
   m_TagString: Untagged
@@ -276,3 +277,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4594902470677938903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790141589119910679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f13d0d66c64dd4db9863c5e1be2e18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredients:
+  - ingredient: 0
+    state: 0
+  - ingredient: 2
+    state: 1
+  - ingredient: 3
+    state: 1
+  - ingredient: 0
+    state: 2
+  recipeModel: {fileID: 0}
+  price: 0

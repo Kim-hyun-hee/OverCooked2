@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5628483497607275775
+--- !u!1 &1157146330166604742
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6564005948186382034}
-  - component: {fileID: 4421660683494664321}
-  - component: {fileID: 4015442499854880376}
+  - component: {fileID: 5197664402155156587}
+  - component: {fileID: 7370204871307173994}
+  - component: {fileID: 3225711074374033432}
   m_Layer: 0
-  m_Name: m_ingredients_prawn_sliced_diced_01_0
+  m_Name: m_ingredients_seaweed_01_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6564005948186382034
+--- !u!4 &5197664402155156587
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628483497607275775}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_GameObject: {fileID: 1157146330166604742}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6110847385772890955}
+  m_Father: {fileID: 5188243854900379260}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4421660683494664321
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &7370204871307173994
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628483497607275775}
-  m_Mesh: {fileID: -4099940822298934987, guid: e7bca2a6d7894984aaa71b7ca9169e6c, type: 3}
---- !u!23 &4015442499854880376
+  m_GameObject: {fileID: 1157146330166604742}
+  m_Mesh: {fileID: 6288962990022169689, guid: 587d5fa31a8f2024db04d7ce0f1c4688, type: 3}
+--- !u!23 &3225711074374033432
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628483497607275775}
+  m_GameObject: {fileID: 1157146330166604742}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ce263007e3f2ab47a653c75e671de7c, type: 2}
+  - {fileID: 2100000, guid: 68343d5aef9a72d4e871e320ae5801d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6883127501442138609
+--- !u!1 &4849119922430731462
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,51 +89,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6110847385772890955}
-  - component: {fileID: -5882120999648823593}
+  - component: {fileID: 5188243854900379260}
+  - component: {fileID: -1149271026840334737}
   m_Layer: 0
-  m_Name: prawn_sliced_dice
+  m_Name: seaweed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6110847385772890955
+--- !u!4 &5188243854900379260
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6883127501442138609}
+  m_GameObject: {fileID: 4849119922430731462}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6564005948186382034}
+  - {fileID: 5197664402155156587}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5882120999648823593
+--- !u!114 &-1149271026840334737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6883127501442138609}
+  m_GameObject: {fileID: 4849119922430731462}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43df060e214a81943be56192bc3dfa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientName: 2
-  state: 1
+  ingredientName: 1
+  state: 0
   kitchenTool: 0
   choppable: 0
   cookable: 0
   cookCheat: 0
   chopTime: 0
   cookTime: 0
-  raw: {fileID: 0}
+  raw: {fileID: 919132149155446097, guid: 587d5fa31a8f2024db04d7ce0f1c4688, type: 3}
   chopped: {fileID: 0}
   cooked: {fileID: 0}
   overcooked: {fileID: 0}
+  plated: {fileID: 919132149155446097, guid: 1830db889f7a82d41b7d5dfe343e1c11, type: 3}

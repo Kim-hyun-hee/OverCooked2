@@ -190,7 +190,8 @@ public class Ingredient : Object
 
     private void UpdateModel(State state)
     {
-        // state model로 바꾸기
+        GetComponent<MeshFilter>().mesh = states[(int)state].GetComponent<MeshFilter>().sharedMesh;
+        GetComponent<Renderer>().materials = states[(int)state].GetComponent<Renderer>().sharedMaterials;
     }
 
     override public void ThrowToBin()
