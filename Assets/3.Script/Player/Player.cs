@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Table nearTable;
+    private Table preTable;
     [SerializeField] private Object carriedObject;
 
     private void Update()
     {
+        GetNearTable();
         TableInteraction();
     }
 
@@ -46,38 +48,76 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider collision)
+    private void GetNearTable()
     {
-        if (collision.gameObject.GetComponentInParent<Table>() != null)
+        if (nearTable != preTable) // nearTable이 갱신됐을때
         {
-            nearTable = collision.gameObject.GetComponentInParent<Table>();
-            if (nearTable != null)
+            if (preTable != null) // preTable이 null이 아니라면
             {
-                if (nearTable.GetComponentInParent<IngredientTable>() == null)
+                if (preTable.GetComponentInParent<IngredientTable>() == null) // preTable 꺼주기
                 {
-                    nearTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 1);
+                    preTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 0);
                 }
                 else
                 {
-                    nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
+                    preTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 0);
+                }
+            }
+            preTable = nearTable;
+        }
+
+        bool isTable = false;
+        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 1f))
+        {
+            if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
+            {
+                nearTable = hit.collider.gameObject.GetComponentInParent<Table>();
+                isTable = true;
+                break;
+            }
+        }
+
+        if(!isTable)
+        {
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 1f))
+            {
+                if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
+                {
+                    nearTable = hit.collider.gameObject.GetComponentInParent<Table>();
+                    isTable = true;
+                    break;
                 }
             }
         }
-    }
 
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.GetComponentInParent<Table>() != null)
+        if (!isTable)
         {
-            if (collision.gameObject.GetComponentInParent<IngredientTable>() == null)
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 1f))
             {
-                collision.gameObject.GetComponentInParent<Table>().transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 0);
+                if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
+                {
+                    nearTable = hit.collider.gameObject.GetComponentInParent<Table>();
+                    isTable = true;
+                    break;
+                }
+            }
+        }
+
+        if (!isTable)
+        {
+            nearTable = null;
+        }
+
+        if (nearTable != null)
+        {
+            if (nearTable.GetComponentInParent<IngredientTable>() == null)
+            {
+                nearTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 1);
             }
             else
             {
-                collision.gameObject.GetComponentInParent<Table>().transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 0);
+                nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
             }
-            nearTable = null;
         }
     }
 }
