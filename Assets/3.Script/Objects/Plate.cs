@@ -23,9 +23,9 @@ public class Plate : Object
 
         if (ingredients.Count == 0)
         {
-            if(ingredient.choppable && ingredient.state is State.CHOPPED ||
-                ingredient.cookable && ingredient.state is State.COOKED || 
-               (!ingredient.cookable && !ingredient.choppable) && ingredient.state is State.RAW)
+            if(ingredient.choppable && ingredient.GetState() == State.CHOPPED ||
+                ingredient.cookable && ingredient.GetState() == State.COOKED || 
+               (!ingredient.cookable && !ingredient.choppable) && ingredient.GetState() == State.RAW)
             {
                 ingredients.Add(ingredient);
                 ingredient.transform.SetParent(transform.GetChild(0)); // attach point
