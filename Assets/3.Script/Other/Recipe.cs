@@ -20,7 +20,7 @@ public class Recipe : MonoBehaviour
     public GameObject recipeModel;
     public int price;
 
-    public bool IsRecipe(List<Ingredient> plate) // 접시위에 있는 음식이 최종 레시피랑 같은지
+    public bool IsRecipe(List<Ingredient> plate) // 접시위에 있는 음식이 레시피랑 같은지
     {
         List<RecipeIngredient> notFoundIngredients = new List<RecipeIngredient>(ingredients);
         foreach(Ingredient plateIngredient in plate)

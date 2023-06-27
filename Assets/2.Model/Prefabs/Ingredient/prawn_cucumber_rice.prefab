@@ -298,5 +298,5 @@ MonoBehaviour:
     state: 1
   - ingredient: 0
     state: 2
-  recipeModel: {fileID: 0}
+  recipeModel: {fileID: 3790141589119910679}
   price: 0

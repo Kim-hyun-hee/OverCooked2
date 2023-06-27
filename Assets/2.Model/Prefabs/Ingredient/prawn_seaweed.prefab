@@ -133,7 +133,7 @@ MonoBehaviour:
     state: 1
   - ingredient: 1
     state: 0
-  recipeModel: {fileID: 0}
+  recipeModel: {fileID: 8511129263204070862}
   price: 0
 --- !u!1 &8895596637173856697
 GameObject:
