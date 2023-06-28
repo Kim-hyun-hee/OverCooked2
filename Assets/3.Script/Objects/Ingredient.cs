@@ -190,13 +190,14 @@ public class Ingredient : Object
 
     private void UpdateModel(State state)
     {
-        GetComponent<MeshFilter>().mesh = states[(int)state].GetComponent<MeshFilter>().sharedMesh;
-        GetComponent<Renderer>().materials = states[(int)state].GetComponent<Renderer>().sharedMaterials;
+        transform.GetChild(0).GetComponent<MeshFilter>().mesh = states[(int)state].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
+        //transform.GetChild(0).GetComponent<Renderer>().materials = states[(int)state].transform.GetChild(0).GetComponent<Renderer>().sharedMaterials;
     }
 
     override public void ThrowToBin()
     {
         Destroy(gameObject);
     }
+
 }
 

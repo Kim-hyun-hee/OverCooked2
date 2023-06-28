@@ -47,8 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredients:
   - ingredient: 0
-    state: 0
-  - ingredient: 0
     state: 2
   - ingredient: 3
     state: 1

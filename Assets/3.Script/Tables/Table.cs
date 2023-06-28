@@ -81,7 +81,7 @@ public class Table : MonoBehaviour
         {
             placedObject = newObject;
             placedObject.transform.SetParent(transform.GetChild(1));
-            placedObject.transform.localPosition = new Vector3(0.0f, 0.005f, 0.0f);
+            placedObject.transform.localPosition = new Vector3(0.0f, 0.005f, 0.0f); // cutTable에서만 위치 이상함;
             return true;
         }
         else if (newObject is Ingredient) // 놓을 오브젝트가 재료일때

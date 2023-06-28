@@ -133,8 +133,8 @@ MonoBehaviour:
   cookCheat: 0
   chopTime: 0
   cookTime: 0
-  raw: {fileID: 919132149155446097, guid: 587d5fa31a8f2024db04d7ce0f1c4688, type: 3}
+  raw: {fileID: 4849119922430731462}
   chopped: {fileID: 0}
   cooked: {fileID: 0}
   overcooked: {fileID: 0}
-  plated: {fileID: 919132149155446097, guid: 1830db889f7a82d41b7d5dfe343e1c11, type: 3}
+  plated: {fileID: 4544192181233843608, guid: 73dbcce85e370d84dbec8a83dcc68d76, type: 3}

@@ -5,13 +5,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Table nearTable;
+    private CutTable cuttingTable;
     private Table preTable;
+
+    private PlayerAnimationController playerAnimationController;
     [SerializeField] private Object carriedObject;
 
     private void Update()
     {
         GetNearTable();
         TableInteraction();
+        CutIngredient();
+        UseExtinguisher();
+
+        if (carriedObject == null)
+        {
+            //playerAnimationController.StopCarry();
+        }
+        else
+        {
+            //playerAnimationController.Carry();
+        }
     }
 
     private void TableInteraction()
@@ -37,6 +51,11 @@ public class Player : MonoBehaviour
             carriedObject = placedObject;
             carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
             carriedObject.transform.localPosition = new Vector3(0.0f, 0.008f, 0.006f);
+
+            if(placedObject is Extinguisher)
+            {
+                placedObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            }
         }
     }
 
@@ -117,6 +136,53 @@ public class Player : MonoBehaviour
             else
             {
                 nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
+            }
+        }
+    }
+
+    private void CutIngredient()
+    {
+        if(!IsCutting() && Input.GetKey(KeyCode.LeftControl) && nearTable is CutTable && ((CutTable)nearTable).HasCuttableObject()) // 처음 자를때
+        {
+            cuttingTable = (CutTable)nearTable;
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true); // 플레이어가 들고 있는 knife 활성화
+            //playerAnimationController.Cut();
+            //cuttingTable.SetKnifeState(false);
+            cuttingTable.Cut();
+        }
+        else if(IsCutting() && (!Input.GetKey(KeyCode.LeftControl) || !(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
+        {
+            //playerAnimationController.StopCutting();
+            transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
+            //cuttingTable.SetKnifeState(true);
+            cuttingTable = null;
+        }
+        else if (IsCutting())
+        {
+            cuttingTable.Cut();
+        }
+    }
+
+    private bool IsCutting()
+    {
+        return cuttingTable != null;
+    }
+
+    private void UseExtinguisher()
+    {
+        if (carriedObject != null && carriedObject is Extinguisher)
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                //if (!audioManager.IsPlaying("Fire Extinguisher"))
+                //    audioManager.Play("Fire Extinguisher");
+
+                ((Extinguisher)carriedObject).Activate();
+            }
+            else
+            {
+                ((Extinguisher)carriedObject).Deactivate();
+                //audioManager.Stop("Fire Extinguisher");
             }
         }
     }

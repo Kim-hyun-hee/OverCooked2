@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Plate : Object
 {
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
-    private Recipe recipe;
+    [SerializeField] private Recipe recipe;
     //private ParticleSystem boom;
 
     //new public void Awake()
@@ -23,8 +24,8 @@ public class Plate : Object
 
         if (ingredients.Count == 0)
         {
-            if(ingredient.choppable && ingredient.GetState() == State.CHOPPED ||
-                ingredient.cookable && ingredient.GetState() == State.COOKED || 
+            if (ingredient.choppable && ingredient.GetState() == State.CHOPPED ||
+                ingredient.cookable && ingredient.GetState() == State.COOKED ||
                (!ingredient.cookable && !ingredient.choppable) && ingredient.GetState() == State.RAW)
             {
                 ingredients.Add(ingredient);
@@ -50,6 +51,8 @@ public class Plate : Object
             SetRecipe(recipe);
         }
 
+        ingredient.transform.SetParent(transform.GetChild(0)); // attach point
+        ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
         return true;
     }
 
@@ -58,7 +61,7 @@ public class Plate : Object
         this.recipe = recipe;
         //audioManager.Play("Delivery");
         //boom.Play();
-        ingredients.ForEach(ingredient => Destroy(ingredient.gameObject));
+        //ingredients.ForEach(ingredient => Destroy(ingredient.gameObject));
         //ingredients = new List<Ingredient>();
 
         GameObject recipeModel = Instantiate(recipe.GetModel());

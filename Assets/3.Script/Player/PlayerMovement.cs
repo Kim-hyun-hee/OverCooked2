@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody playerRb;
     private Vector3 dir = Vector3.zero;
-    private float moveSpeed = 4f;
-    private PlayerAnimationController ani;
+    private float moveSpeed = 5f;
+    private PlayerAnimationController playerAnimationController;
 
     private bool isPlay = false;
     private ObjectPool objectPool;
@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        ani = FindObjectOfType<PlayerAnimationController>();
+        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out playerRb);
         objectPool = FindObjectOfType<ObjectPool>();
         puffTransform = GameObject.FindGameObjectWithTag("PuffPos").transform;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         if (dir.magnitude > 0)
         {
             // Walk or Run animation
-            ani.Walk();
+            playerAnimationController.Walk();
             if(!isPlay)
             {
                 PlayPuff();
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // Idle animation
-            ani.Idle();
+            playerAnimationController.Idle();
             if(isPlay)
             {
                 StopPuff();

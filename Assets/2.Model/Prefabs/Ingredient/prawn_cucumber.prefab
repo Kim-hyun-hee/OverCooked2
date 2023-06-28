@@ -208,8 +208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredients:
-  - ingredient: 0
-    state: 0
   - ingredient: 2
     state: 1
   - ingredient: 3

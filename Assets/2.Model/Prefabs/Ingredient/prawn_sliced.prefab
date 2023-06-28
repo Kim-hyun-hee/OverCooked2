@@ -126,8 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredients:
-  - ingredient: 0
-    state: 0
   - ingredient: 2
     state: 1
   recipeModel: {fileID: 6883127501442138609}
