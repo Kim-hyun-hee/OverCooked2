@@ -6,10 +6,12 @@ public class IngredientTable : Table
 {
     public GameObject ingredient;
     public Object obj;
+    private Animator ani;
     private void Start()
     {
         //audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         fire = transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
+        TryGetComponent(out ani);
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class IngredientTable : Table
             if(!fire.IsPlaying())
             {
                 Object objectToReturn = Instantiate(ingredient).GetComponent<Object>();
+                ani.SetTrigger("Open");
                 return objectToReturn;
             }
             else
