@@ -10,6 +10,7 @@ public class DeliveryTable : Table
     {
         //audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         fire = this.transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
+        plateReturnTable = FindObjectOfType<PlateReturnTable>();
     }
 
     override public bool PutObject(Object newObject)
@@ -22,7 +23,7 @@ public class DeliveryTable : Table
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
             Plate plate = (Plate)newObject;
-            //RecipeManager.Instance.AddCompletedRecipe(plate.GetRecipe());
+            //OrderManager.Instance.AddCompletedRecipe(plate.GetRecipe());
             plate.ThrowToBin();
             Destroy(plate.gameObject);
             plateReturnTable.AddPlate();
