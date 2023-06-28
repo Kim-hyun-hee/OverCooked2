@@ -25,6 +25,7 @@ public class PlateReturnTable : Table
 
     public void AddPlate()
     {
+        // 10√ ?
         placedObject = Instantiate(dirtyPlate.GetComponent<Plate>());
         placedObject.transform.SetParent(transform.GetChild(1));
         placedObject.transform.localPosition = new Vector3(0f, 0.005f + (dirtyPlates.Count * 0.00f), 0f);
