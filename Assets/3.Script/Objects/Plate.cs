@@ -61,7 +61,7 @@ public class Plate : Object
         this.recipe = recipe;
         //audioManager.Play("Delivery");
         //boom.Play();
-        //ingredients.ForEach(ingredient => Destroy(ingredient.gameObject));
+        ingredients.ForEach(ingredient => ingredient.gameObject.SetActive(false));
         //ingredients = new List<Ingredient>();
 
         GameObject recipeModel = Instantiate(recipe.GetModel());
@@ -85,7 +85,10 @@ public class Plate : Object
     {
         if (IsRecipe())
         {
-            Destroy(transform.GetChild(0).GetChild(0).gameObject);
+            foreach(Transform ingredient in transform.GetChild(0))
+            {
+                Destroy(ingredient.gameObject);
+            }
             recipe = null;
             ingredients = new List<Ingredient>();
         }
