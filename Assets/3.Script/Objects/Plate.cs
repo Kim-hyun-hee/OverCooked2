@@ -7,6 +7,7 @@ public class Plate : Object
 {
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
     [SerializeField] private Recipe recipe;
+    private RecipeManager recipeManager;
     //private ParticleSystem boom;
 
     //new public void Awake()
@@ -14,6 +15,11 @@ public class Plate : Object
     //    audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     //    boom = transform.GetChild(2).GetComponent<ParticleSystem>();
     //}
+
+    private void Start()
+    {
+        recipeManager = FindObjectOfType<RecipeManager>();
+    }
 
     public bool AddIngredient(Ingredient ingredient)
     {
@@ -37,7 +43,7 @@ public class Plate : Object
         }
 
         ingredients.Add(ingredient);
-        recipe = RecipeManager.Instance.GetRecipe(ingredients); // OrderManager는 왼쪽 위 UI에 띄울 Recipe 관리하는거고
+        recipe = recipeManager.GetRecipe(ingredients); // OrderManager는 왼쪽 위 UI에 띄울 Recipe 관리하는거고
         // RecipeManager 하나 만들어서 가능한 모든 경우의 모델들 넣어주기
         if (recipe == null)
         {
@@ -61,7 +67,7 @@ public class Plate : Object
         this.recipe = recipe;
         //audioManager.Play("Delivery");
         //boom.Play();
-        //ingredients.ForEach(ingredient => Destroy(ingredient.gameObject));
+        ingredients.ForEach(ingredient => ingredient.gameObject.SetActive(false));
         //ingredients = new List<Ingredient>();
 
         GameObject recipeModel = Instantiate(recipe.GetModel());
@@ -85,7 +91,10 @@ public class Plate : Object
     {
         if (IsRecipe())
         {
-            Destroy(transform.GetChild(0).GetChild(0).gameObject);
+            foreach(Transform ingredient in transform.GetChild(0))
+            {
+                Destroy(ingredient.gameObject);
+            }
             recipe = null;
             ingredients = new List<Ingredient>();
         }
