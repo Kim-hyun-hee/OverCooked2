@@ -37,6 +37,11 @@ public class Plate : Object
                 ingredients.Add(ingredient);
                 ingredient.transform.SetParent(transform.GetChild(0)); // attach point
                 ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
+                recipe = recipeManager.GetRecipe(ingredients);
+                if(recipe!= null)
+                {
+                    SetRecipe(recipe);
+                }
                 return true;
             }
             return false;

@@ -19,13 +19,14 @@ public class DeliveryTable : Table
         //{
         //    return false;
         //}
+        Debug.Log("0");
 
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
-            Plate plate = (Plate)newObject;
+            Debug.Log("1");
             //OrderManager.Instance.AddCompletedRecipe(plate.GetRecipe());
-            plate.ThrowToBin();
-            Destroy(plate.gameObject);
+            ((Plate)newObject).ThrowToBin();
+            Destroy(((Plate)newObject).gameObject);
             plateReturnTable.AddPlate();
             //audioManager.Play("Delivery");
             //money.Play();
