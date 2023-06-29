@@ -19,11 +19,9 @@ public class DeliveryTable : Table
         //{
         //    return false;
         //}
-        Debug.Log("0");
 
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
-            Debug.Log("1");
             //OrderManager.Instance.AddCompletedRecipe(plate.GetRecipe());
             ((Plate)newObject).ThrowToBin();
             Destroy(((Plate)newObject).gameObject);
@@ -34,6 +32,7 @@ public class DeliveryTable : Table
         }
         else
         {
+            // 접시가 필요하다! 
             return false;
         }
 

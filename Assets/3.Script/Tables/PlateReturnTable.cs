@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlateReturnTable : Table
 {
-    public Plate dirtyPlate;
+    public GameObject dirtyPlate;
 
-    private Stack<Plate> dirtyPlates = new Stack<Plate>();
+    [SerializeField] private Stack<Object> dirtyPlates = new Stack<Object>();
 
     private void Start()
     {
@@ -20,15 +20,20 @@ public class PlateReturnTable : Table
 
     public override Object GetObject()
     {
-        return dirtyPlates.Pop();
+        Object objectToReturn = dirtyPlates.Pop();
+        if(dirtyPlates.Count == 0)
+        {
+            placedObject = null;
+        }
+        return objectToReturn;
     }
 
     public void AddPlate()
     {
         // 10√ ?
-        placedObject = Instantiate(dirtyPlate.GetComponent<Plate>());
+        placedObject = Instantiate(dirtyPlate.GetComponent<Object>());
         placedObject.transform.SetParent(transform.GetChild(1));
-        placedObject.transform.localPosition = new Vector3(0f, 0.005f + (dirtyPlates.Count * 0.00f), 0f);
-        dirtyPlates.Push(dirtyPlate);
+        placedObject.transform.localPosition = new Vector3(0f, 0.004f + (dirtyPlates.Count * 0.001f), 0f);
+        dirtyPlates.Push(placedObject);
     }
 }

@@ -73,6 +73,10 @@ public class Plate : Object
         //audioManager.Play("Delivery");
         //boom.Play();
         ingredients.ForEach(ingredient => ingredient.gameObject.SetActive(false));
+        foreach (Transform ingredient in transform.GetChild(0))
+        {
+            ingredient.gameObject.SetActive(false);
+        }
         //ingredients = new List<Ingredient>();
 
         GameObject recipeModel = Instantiate(recipe.GetModel());

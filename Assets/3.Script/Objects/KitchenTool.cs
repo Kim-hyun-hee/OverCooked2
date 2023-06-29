@@ -61,10 +61,10 @@ public class KitchenTool : Object
         {
             if(tool == KitchenTools.POT)
             {
-                transform.GetChild(0).GetChild(1).gameObject.SetActive(true); // 냄비 안에 내용물
+                //transform.GetChild(0).GetChild(1).gameObject.SetActive(true); // 냄비 안에 내용물
                 ingredient.transform.SetParent(transform.GetChild(0).GetChild(1));
                 ingredient.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-                ingredient.gameObject.SetActive(false); // 임시 조치
+                //ingredient.gameObject.SetActive(false); // 임시 조치
             }
             if(tool == KitchenTools.PAN)
             {
@@ -99,6 +99,7 @@ public class KitchenTool : Object
     {
         if (ingredient != null)
         {
+            //transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
             Destroy(ingredient.gameObject);
             ingredient = null;
         }

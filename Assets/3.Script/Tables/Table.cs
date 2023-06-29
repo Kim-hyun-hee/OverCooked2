@@ -41,13 +41,13 @@ public class Table : MonoBehaviour
         fire.ActivateFire();
         fireSound.Play();
 
-        if (placedObject != null)
-        {
-            if (!(this is IngredientTable))
-            {
-                placedObject.Burn();
-            }
-        }
+        //if (placedObject != null)
+        //{
+        //    if (!(this is IngredientTable))
+        //    {
+        //        placedObject.Burn();
+        //    }
+        //}
     }
 
     public virtual void ExtinguisFire()
