@@ -7,13 +7,14 @@ public class SinkTable : Table
     public GameObject plate;
 
     [SerializeField] private Stack<Object> dirtyPlates = new Stack<Object>();
+    [SerializeField] private List<Object> cleanPlates = new List<Object>();
 
     public override bool PutObject(Object newObject)
     {
         if(newObject is Plate && ((Plate)newObject).IsDirty())
         {
-            // 설거지 하기
-            // AddCleanPlate
+            dirtyPlates.Push(newObject);
+            // 물 안에 접시 SetActive(true)
             return true;
         }
 
@@ -22,8 +23,9 @@ public class SinkTable : Table
 
     public override Object GetObject()
     {
-        Object objectToReturn = dirtyPlates.Pop();
-        if (dirtyPlates.Count == 0)
+        Object objectToReturn = cleanPlates[0];
+        cleanPlates.RemoveAt(0);
+        if (cleanPlates.Count == 0)
         {
             placedObject = null;
         }

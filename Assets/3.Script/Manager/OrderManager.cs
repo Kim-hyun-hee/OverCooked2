@@ -24,6 +24,7 @@ public class OrderManager : MonoBehaviour
     public List<Recipe> recipes = new List<Recipe>();
     public float levelTime = 300.0f;
     public float orderTime = 60.0f;
+    public int tip = 8;
 
     public Text uiMoney, uiCrono;
     public GameObject uiOrderPrefab;
