@@ -8,6 +8,7 @@ public class Plate : Object
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
     [SerializeField] private Recipe recipe;
     private RecipeManager recipeManager;
+    public bool isDirty = false;
     //private ParticleSystem boom;
 
     //new public void Awake()
@@ -21,9 +22,14 @@ public class Plate : Object
         recipeManager = FindObjectOfType<RecipeManager>();
     }
 
+    public bool IsDirty()
+    {
+        return isDirty;
+    }
+
     public bool AddIngredient(Ingredient ingredient)
     {
-        if(transform.childCount == 0)
+        if(isDirty == true)
         {
             return false;
         }

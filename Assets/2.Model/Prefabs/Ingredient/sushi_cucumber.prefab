@@ -54,7 +54,7 @@ MonoBehaviour:
   - ingredient: 3
     state: 1
   recipeModel: {fileID: 427495196542151182}
-  price: 15
+  price: 60
 --- !u!1 &1084898402926225409
 GameObject:
   m_ObjectHideFlags: 0

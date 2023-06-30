@@ -10,8 +10,10 @@ public class RecipeManager : MonoBehaviour
     {
         foreach (Recipe recipe in recipes)
         {
-            if (recipe.IsRecipe(plate))
+            if(recipe.IsRecipe(plate))
+            {
                 return recipe;
+            }
         }
         return null;
     }

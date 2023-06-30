@@ -22,10 +22,10 @@ public class DeliveryTable : Table
 
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
-            //OrderManager.Instance.AddCompletedRecipe(plate.GetRecipe());
+            OrderManager.Instance.AddCompletedRecipe(((Plate)newObject).GetRecipe());
             ((Plate)newObject).ThrowToBin();
             Destroy(((Plate)newObject).gameObject);
-            plateReturnTable.AddPlate();
+            plateReturnTable.AddDirtyPlate();
             //audioManager.Play("Delivery");
             //money.Play();
             return true;
