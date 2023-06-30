@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 159370870274451632}
   - component: {fileID: 159370870274451631}
   - component: {fileID: 159370870274451630}
-  - component: {fileID: -7156410202674909477}
+  - component: {fileID: -6000085830496990716}
   m_Layer: 0
   m_Name: DirtyPlate
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7156410202674909477
+--- !u!114 &-6000085830496990716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

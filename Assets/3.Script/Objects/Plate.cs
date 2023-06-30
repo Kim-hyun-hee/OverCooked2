@@ -23,6 +23,11 @@ public class Plate : Object
 
     public bool AddIngredient(Ingredient ingredient)
     {
+        if(transform.childCount == 0)
+        {
+            return false;
+        }
+
         if (ingredient == null)
         {
             return false;
