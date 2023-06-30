@@ -22,7 +22,7 @@ public class OrderManager : MonoBehaviour
     public static OrderManager Instance { get { return instance; } }
 
     public List<Recipe> recipes = new List<Recipe>();
-    public float levelTime = 300.0f;
+    public float levelTime = 180.0f;
     public float orderTime = 60.0f;
     public int tip = 8;
 
@@ -67,7 +67,8 @@ public class OrderManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        UpdateCrono();
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(paused)
             {
@@ -108,13 +109,19 @@ public class OrderManager : MonoBehaviour
         {
             minutesString = string.Format("0{0}", minutes);
         }
-        else minutesString = string.Format("{0}", minutes);
+        else
+        {
+            minutesString = string.Format("{0}", minutes);
+        }
 
         if (seconds < 10)
         {
             secondsString = string.Format("0{0}", seconds);
         }
-        else secondsString = string.Format("{0}", seconds);
+        else
+        {
+            secondsString = string.Format("{0}", seconds);
+        }
 
         uiCrono.text = minutesString + ":" + secondsString;
 
