@@ -27,9 +27,55 @@ public class Plate : Object
         return isDirty;
     }
 
+    public List<Ingredient> GetIngredients()
+    {
+        return ingredients;
+    }
+
+    public bool AddIngredients(List<Ingredient> ingredients)
+    {
+        if (isDirty == true)
+        {
+            return false;
+        }
+
+        if (ingredients.Count == 0)
+        {
+            return false;
+        }
+
+        if (this.ingredients.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (Ingredient ingredient in ingredients)
+        {
+            this.ingredients.Add(ingredient);
+            recipe = recipeManager.GetRecipe(this.ingredients);
+
+            if (recipe == null)
+            {
+                //ingredient.transform.SetParent(transform.GetChild(0));
+                //ingredient.transform.localPosition = new Vector3(0f, (ingredients.Count * 0.003f), 0f);
+                this.ingredients.RemoveAt(this.ingredients.Count - 1);
+                return false;
+            }
+            else
+            {
+                SetRecipe(recipe);
+            }
+
+            ingredient.transform.SetParent(transform.GetChild(0)); // attach point
+            ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
+        }
+
+        return true;
+    }
+
     public bool AddIngredient(Ingredient ingredient)
     {
-        if(isDirty == true)
+        if (isDirty == true)
         {
             return false;
         }
@@ -48,7 +94,7 @@ public class Plate : Object
                 ingredients.Add(ingredient);
                 ingredient.transform.SetParent(transform.GetChild(0)); // attach point
                 ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
-                recipe = recipeManager.GetRecipe(ingredients);
+                recipe = recipeManager.GetRecipe(ingredients); // prawn은 한개로도 레시피가 되기 때문에
                 if(recipe!= null)
                 {
                     SetRecipe(recipe);

@@ -5,35 +5,36 @@ using UnityEngine;
 public class SinkTable : Table
 {
     public GameObject plate;
-
+    [SerializeField] private Transform[] dirtyPlate = new Transform[3];
     [SerializeField] private Stack<Object> dirtyPlates = new Stack<Object>();
-    [SerializeField] private List<Object> cleanPlates = new List<Object>();
+
+    private void Start()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            dirtyPlate[i] = transform.GetChild(1).GetChild(i + 1);
+        }
+    }
 
     public override bool PutObject(Object newObject)
     {
         if(newObject is Plate && ((Plate)newObject).IsDirty())
         {
             dirtyPlates.Push(newObject);
-            // 물 안에 접시 SetActive(true)
+            newObject.transform.SetParent(transform.GetChild(3).GetChild(0));
+            newObject.gameObject.SetActive(false);
+            if(dirtyPlates.Count != 4)
+            {
+                dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(true);
+            }
             return true;
         }
 
         return false;
     }
 
-    public override Object GetObject()
+    public bool HasWashableObject()
     {
-        Object objectToReturn = cleanPlates[0];
-        cleanPlates.RemoveAt(0);
-        if (cleanPlates.Count == 0)
-        {
-            placedObject = null;
-        }
-        return objectToReturn;
-    }
-
-    private void AddCleanPlate()
-    {
-        //isDirty = false;
+        return (dirtyPlates.Count != 0);
     }
 }

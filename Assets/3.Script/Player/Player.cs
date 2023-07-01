@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Table nearTable;
     private CutTable cuttingTable;
+    private SinkTable washingTable;
     private Table preTable;
 
     private PlayerAnimationController playerAnimationController;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
         GetNearTable();
         TableInteraction();
         CutIngredient();
+        WashDish();
         UseExtinguisher();
 
         if (carriedObject == null)
@@ -166,6 +168,21 @@ public class Player : MonoBehaviour
         {
             cuttingTable.Cut();
         }
+    }
+
+    private void WashDish()
+    {
+        if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is SinkTable && ((SinkTable)nearTable).HasWashableObject())
+        {
+            washingTable = (SinkTable)nearTable;
+            // 애니메이션
+            // Wash();
+        }
+    }
+
+    private bool IsWashing()
+    {
+        return washingTable != null;
     }
 
     private bool IsCutting()

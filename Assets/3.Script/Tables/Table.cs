@@ -113,12 +113,18 @@ public class Table : MonoBehaviour
             placedObject = null;
             return false;
         }
-        // 조리도구 위에 접시 /조리도구 안에 있는 재료가 접시 위에 올라갈 수 있을때 (정해진 레시피와 조리방법에 따라 판단)
+        // 조리도구 위에 접시 / 조리도구 안에 있는 재료가 접시 위에 올라갈 수 있을때 (정해진 레시피와 조리방법에 따라 판단)
         else if (newObject is Plate && placedObject is KitchenTool && ((Plate)newObject).AddIngredient(((KitchenTool)placedObject).GetIngredient()))
         {
             ((KitchenTool)placedObject).DeleteIngredient(); // 조리도구 안에 있는 재료 빼기
             return false;
         }
+        // 접시 위에 접시 / newObject위에 있는 재료가 placedObject에 있는 재료 위에 올라갈 수 있을때 (정해진 레시피와 조리방법에 따라 판단)
+        else if (newObject is Plate && placedObject is Plate && ((Plate)placedObject).AddIngredients(((Plate)newObject).GetIngredients()))
+        {
+            return false;
+        }
+
         return false;
     }
 }
