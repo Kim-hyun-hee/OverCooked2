@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SinkTable : Table
 {
+
     public override bool PutObject(Object newObject)
     {
         return false;

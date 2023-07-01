@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         }
         else if (IsCutting())
         {
-            cuttingTable.Cut();
+            cuttingTable.Cut(); // 코루틴으로 cut하면 여기 없애도 됨
         }
     }
 
@@ -195,8 +195,17 @@ public class Player : MonoBehaviour
         if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is WashTable && ((WashTable)nearTable).HasWashableObject())
         {
             washingTable = (WashTable)nearTable;
+            washingTable.Wash();
             // 애니메이션
             // Wash();
+        }
+        else if(IsWashing() && (!Input.GetKey(KeyCode.LeftControl) || !(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
+        {
+            washingTable = null;
+        }
+        else if(IsWashing())
+        {
+            washingTable.Wash(); // 코루틴으로 wash하면 여기 없애도 됨
         }
     }
 

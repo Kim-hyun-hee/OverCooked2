@@ -6,6 +6,13 @@ public class WashTable : Table
 {
     [SerializeField] private Transform[] dirtyPlate = new Transform[3];
     [SerializeField] private Stack<Object> dirtyPlates = new Stack<Object>();
+    private DryTable dryTable;
+
+    private void Start()
+    {
+        fire = transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
+        dryTable = FindObjectOfType<DryTable>();
+    }
 
     public override bool PutObject(Object newObject)
     {
@@ -31,7 +38,10 @@ public class WashTable : Table
 
     public void Wash()
     {
-
+        dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(false);
+        Destroy(transform.GetChild(1).GetChild(dirtyPlates.Count - 1).gameObject);
+        dirtyPlates.Pop();
+        dryTable.AddCleanPlate();
     }
 }
 
