@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     private PlayerAnimationController playerAnimationController;
     [SerializeField] private Object carriedObject;
 
+    private void Start()
+    {
+        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
+    }
+
     private void Update()
     {
         GetNearTable();
@@ -146,13 +151,13 @@ public class Player : MonoBehaviour
         {
             cuttingTable = (CutTable)nearTable;
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true); // 플레이어가 들고 있는 knife 활성화
-            //playerAnimationController.Cut();
+            playerAnimationController.Cut();
             //cuttingTable.SetKnifeState(false);
             cuttingTable.Cut();
         }
         else if(IsCutting() && (!Input.GetKey(KeyCode.LeftControl) || !(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
         {
-            //playerAnimationController.StopCutting();
+            playerAnimationController.StopCutting();
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
             //cuttingTable.SetKnifeState(true);
             cuttingTable = null;
