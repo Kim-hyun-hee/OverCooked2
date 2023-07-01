@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Table nearTable;
     private CutTable cuttingTable;
-    private SinkTable washingTable;
+    private WashTable washingTable;
     private Table preTable;
 
     private PlayerAnimationController playerAnimationController;
@@ -80,6 +80,11 @@ public class Player : MonoBehaviour
         {
             if (preTable != null) // preTable이 null이 아니라면
             {
+                if (preTable is WashTable || preTable is DryTable)
+                {
+                    preTable = preTable.transform.parent.GetComponent<Table>();
+                }
+
                 if (preTable.GetComponentInParent<IngredientTable>() == null) // preTable 꺼주기
                 {
                     preTable.transform.GetChild(1).GetChild(0).GetComponent<MeshRenderer>().material.SetFloat("_EmissionPower", 0);
@@ -145,6 +150,21 @@ public class Player : MonoBehaviour
                 nearTable.transform.GetChild(1).GetChild(0).GetComponent<SkinnedMeshRenderer>().materials[0].SetFloat("_EmissionPower", 1);
             }
         }
+
+        if(nearTable is SinkTable)
+        {
+            Transform washTable = ((SinkTable)nearTable).transform.GetChild(3);
+            Transform dryTable = ((SinkTable)nearTable).transform.GetChild(2);
+            
+            if(Vector3.SqrMagnitude(transform.position - washTable.position) >= Vector3.SqrMagnitude(transform.position - dryTable.position))
+            {
+                nearTable = dryTable.gameObject.GetComponent<Table>();
+            }
+            else
+            {
+                nearTable = washTable.gameObject.GetComponent<Table>();
+            }
+        }
     }
 
     private void CutIngredient()
@@ -172,9 +192,9 @@ public class Player : MonoBehaviour
 
     private void WashDish()
     {
-        if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is SinkTable && ((SinkTable)nearTable).HasWashableObject())
+        if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is WashTable && ((WashTable)nearTable).HasWashableObject())
         {
-            washingTable = (SinkTable)nearTable;
+            washingTable = (WashTable)nearTable;
             // 애니메이션
             // Wash();
         }

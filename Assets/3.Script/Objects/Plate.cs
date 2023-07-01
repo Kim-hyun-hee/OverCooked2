@@ -5,8 +5,8 @@ using System.Linq;
 
 public class Plate : Object
 {
-    [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
-    [SerializeField] private Recipe recipe;
+    private List<Ingredient> ingredients = new List<Ingredient>();
+    private Recipe recipe;
     private RecipeManager recipeManager;
     public bool isDirty = false;
     //private ParticleSystem boom;
