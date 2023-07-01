@@ -129,8 +129,8 @@ public class Plate : Object
         this.recipe = recipe;
         //audioManager.Play("Delivery");
         //boom.Play();
-        ingredients.ForEach(ingredient => ingredient.gameObject.SetActive(false));
-        foreach (Transform ingredient in transform.GetChild(0))
+        ingredients.ForEach(ingredient => ingredient.gameObject.SetActive(false)); // 재료들
+        foreach (Transform ingredient in transform.GetChild(0)) // 레시피 모델
         {
             ingredient.gameObject.SetActive(false);
         }
