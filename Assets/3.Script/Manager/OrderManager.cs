@@ -14,6 +14,7 @@ public class Order
     public Recipe recipe;
     public float remainingTime;
     public Slider slider;
+    public GameObject uiOrderPrefab;
 } 
 
 public class OrderManager : MonoBehaviour
@@ -30,7 +31,6 @@ public class OrderManager : MonoBehaviour
     public Text uiMoney, uiCrono;
     public Slider cronoSlider;
     private float hue;
-    public GameObject uiOrderPrefab;
     public GameObject EndMenu;
     public GameObject PauseMenu;
     public Transform uiOrders;
@@ -45,7 +45,8 @@ public class OrderManager : MonoBehaviour
     public struct OrderImage
     {
         public string name;
-        public Sprite image;
+        public Sprite menuImg;
+        public Sprite ingredientsImg;
     }
 
     public OrderImage[] images;
@@ -137,13 +138,14 @@ public class OrderManager : MonoBehaviour
 
     private void InstantiateOrderInUI(Order newOrder)
     {
-        GameObject UIOrder = Instantiate(uiOrderPrefab, uiOrders.transform);
+        GameObject UIOrder = Instantiate(newOrder.uiOrderPrefab, uiOrders.transform);
         newOrder.slider = UIOrder.transform.GetChild(0).GetComponent<Slider>();
         for(int i = 0; i < images.Length; i++)
         {
             if(images[i].name == newOrder.recipe.name)
             {
-                UIOrder.GetComponent<Image>().sprite = images[i].image;
+                UIOrder.GetComponent<Image>().sprite = images[i].menuImg;
+                // images[i].ingredientsImg
                 break;
             }
         }

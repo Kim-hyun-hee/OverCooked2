@@ -22,6 +22,8 @@ public class Ingredient : Object
     public State state = State.RAW;
     public KitchenTools kitchenTool;
 
+    public Image icon;
+
     private AudioSource audioSource;
     
     public bool choppable, cookable, cookCheat = false;
