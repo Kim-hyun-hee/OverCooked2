@@ -25,7 +25,7 @@ public class DeliveryTable : Table
             OrderManager.Instance.AddCompletedRecipe(((Plate)newObject).GetRecipe());
             ((Plate)newObject).ThrowToBin();
             Destroy(((Plate)newObject).gameObject);
-            plateReturnTable.AddDirtyPlate();
+            StartCoroutine(AddDirtyPlate_co());
             //audioManager.Play("Delivery");
             //money.Play();
             return true;
@@ -36,5 +36,20 @@ public class DeliveryTable : Table
             return false;
         }
 
+    }
+
+    private IEnumerator AddDirtyPlate_co()
+    {
+        float remainingTime = 10f;
+        while(true)
+        {
+            remainingTime -= Time.deltaTime;
+            if(remainingTime <= 0)
+            {
+                break;
+            }
+            yield return null;
+        }
+        plateReturnTable.AddDirtyPlate();
     }
 }
