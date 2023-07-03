@@ -23,10 +23,13 @@ public class OrderManager : MonoBehaviour
 
     public List<Recipe> recipes = new List<Recipe>();
     public float levelTime = 180.0f;
+    public float remainingTime;
     public float orderTime = 60.0f;
     public int tip = 8;
 
     public Text uiMoney, uiCrono;
+    public Slider cronoSlider;
+    private float hue;
     public GameObject uiOrderPrefab;
     public GameObject EndMenu;
     public GameObject PauseMenu;
@@ -62,6 +65,8 @@ public class OrderManager : MonoBehaviour
 
     public void Start()
     {
+        remainingTime = levelTime;
+        hue = (float)120 / 360;
         SetMoney(0);
     }
 
@@ -87,20 +92,20 @@ public class OrderManager : MonoBehaviour
 
     private void UpdateCrono()
     {
-        if (levelTime > 0 && cronoRunning)
+        if (remainingTime > 0 && cronoRunning)
         {
-            levelTime -= Time.deltaTime;
+            remainingTime -= Time.deltaTime;
         }
         else if (cronoRunning)
         {
             cronoRunning = false;
-            levelTime = 0;
+            remainingTime = 0;
             Time.timeScale = 0;
             EndMenu.SetActive(true);
         }
 
-        int minutes = Mathf.FloorToInt(levelTime / 60);
-        int seconds = Mathf.FloorToInt(levelTime % 60);
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
 
         string minutesString;
         string secondsString;
@@ -124,7 +129,10 @@ public class OrderManager : MonoBehaviour
         }
 
         uiCrono.text = minutesString + ":" + secondsString;
-
+        cronoSlider.value = remainingTime / levelTime;
+        float hue = this.hue;
+        hue *= cronoSlider.value;
+        cronoSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.HSVToRGB(hue, 1, 0.85f);
     }
 
     private void InstantiateOrderInUI(Order newOrder)
