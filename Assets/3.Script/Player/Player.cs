@@ -174,19 +174,14 @@ public class Player : MonoBehaviour
             cuttingTable = (CutTable)nearTable;
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true); // 플레이어가 들고 있는 knife 활성화
             playerAnimationController.Cut();
-            //cuttingTable.SetKnifeState(false);
-            cuttingTable.Cut();
+            cuttingTable.StartCut();
         }
-        else if(IsCutting() && (!Input.GetKey(KeyCode.LeftControl) || !(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
+        else if(IsCutting() && (!(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
         {
             playerAnimationController.StopCutting();
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
-            //cuttingTable.SetKnifeState(true);
+            cuttingTable.StopCut();
             cuttingTable = null;
-        }
-        else if (IsCutting())
-        {
-            cuttingTable.Cut(); // 코루틴으로 cut하면 여기 없애도 됨
         }
     }
 
@@ -195,21 +190,15 @@ public class Player : MonoBehaviour
         if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is WashTable && ((WashTable)nearTable).HasWashableObject())
         {
             washingTable = (WashTable)nearTable;
-            washingTable.Wash();
+            washingTable.StartWash();
             // 애니메이션
-            Debug.Log("설거지 시작");
             // Wash();
         }
         else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
         {
-            Debug.Log("설거지 끝");
             washingTable.StopWash();
             washingTable = null;
         }
-        //else if(IsWashing())
-        //{
-        //    washingTable.Wash(); // 코루틴으로 wash하면 여기 없애도 됨
-        //}
     }
 
     private bool IsWashing()

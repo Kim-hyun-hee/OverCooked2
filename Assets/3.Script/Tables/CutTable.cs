@@ -21,15 +21,20 @@ public class CutTable : Table
         }
     }
 
-    public void Cut()
+    public void StartCut()
     {
         if (placedObject != null)
         {
-            ((Ingredient)placedObject).Cut();
+            ((Ingredient)placedObject).StartCut();
 
             //if (!audioManager.IsPlaying("Cutting"))
             //    audioManager.Play("Cutting");
         }
+    }
+
+    public void StopCut()
+    {
+        ((Ingredient)placedObject).StopCut();
     }
 
     public bool HasCuttableObject()

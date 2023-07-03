@@ -37,7 +37,7 @@ public class WashTable : Table
         return (dirtyPlates.Count != 0);
     }
 
-    public void Wash()
+    public void StartWash()
     {
         StartCoroutine(Wash_co());
     }
@@ -47,7 +47,6 @@ public class WashTable : Table
         while(true)
         {
             remainingWashTime -= Time.deltaTime;
-            Debug.Log(remainingWashTime);
             //slider.gameObject.SetActive(true);
             //slider.value = (chopTime - remainingChopTime) / chopTime;
             if (remainingWashTime <= 0)

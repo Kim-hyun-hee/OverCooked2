@@ -112,19 +112,34 @@ public class Ingredient : Object
         }
     }
 
-    public void Cut()
+    public void StartCut()
     {
-        if (choppable && state == State.RAW)
+        StartCoroutine(Cut_co());
+    }
+
+    private IEnumerator Cut_co()
+    {
+        while(true)
         {
-            remainingChopTime -= Time.deltaTime;
-            //slider.gameObject.SetActive(true);
-            //slider.value = (chopTime - remainingChopTime) / chopTime;
-            if (remainingChopTime <= 0)
+            if(choppable && state == State.RAW)
             {
-                SetState(State.CHOPPED);
-                //slider.gameObject.SetActive(false);
+                remainingChopTime -= Time.deltaTime;
+                //slider.gameObject.SetActive(true);
+                //slider.value = (chopTime - remainingChopTime) / chopTime;
+                if (remainingChopTime <= 0)
+                {
+                    SetState(State.CHOPPED);
+                    //slider.gameObject.SetActive(false);
+                    break;
+                }
             }
+            yield return null;
         }
+    }
+
+    public void StopCut()
+    {
+        StopAllCoroutines();
     }
 
     public override void Burn()
