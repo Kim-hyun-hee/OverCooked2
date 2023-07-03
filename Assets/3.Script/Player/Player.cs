@@ -197,16 +197,19 @@ public class Player : MonoBehaviour
             washingTable = (WashTable)nearTable;
             washingTable.Wash();
             // 애니메이션
+            Debug.Log("설거지 시작");
             // Wash();
         }
-        else if(IsWashing() && (!Input.GetKey(KeyCode.LeftControl) || !(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
+        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
         {
+            Debug.Log("설거지 끝");
+            washingTable.StopWash();
             washingTable = null;
         }
-        else if(IsWashing())
-        {
-            washingTable.Wash(); // 코루틴으로 wash하면 여기 없애도 됨
-        }
+        //else if(IsWashing())
+        //{
+        //    washingTable.Wash(); // 코루틴으로 wash하면 여기 없애도 됨
+        //}
     }
 
     private bool IsWashing()

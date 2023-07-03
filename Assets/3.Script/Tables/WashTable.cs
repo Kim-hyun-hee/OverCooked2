@@ -5,8 +5,9 @@ using UnityEngine;
 public class WashTable : Table
 {
     [SerializeField] private Transform[] dirtyPlate = new Transform[3];
-    [SerializeField] private Stack<Object> dirtyPlates = new Stack<Object>();
+    private Stack<Object> dirtyPlates = new Stack<Object>();
     private DryTable dryTable;
+    [SerializeField] private float remainingWashTime = 3;
 
     private void Start()
     {
@@ -38,10 +39,33 @@ public class WashTable : Table
 
     public void Wash()
     {
-        dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(false);
-        Destroy(transform.GetChild(1).GetChild(dirtyPlates.Count - 1).gameObject);
-        dirtyPlates.Pop();
-        dryTable.AddCleanPlate();
+        StartCoroutine(Wash_co());
+    }
+
+    private IEnumerator Wash_co()
+    {
+        while(true)
+        {
+            remainingWashTime -= Time.deltaTime;
+            Debug.Log(remainingWashTime);
+            //slider.gameObject.SetActive(true);
+            //slider.value = (chopTime - remainingChopTime) / chopTime;
+            if (remainingWashTime <= 0)
+            {
+                dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(false);
+                Destroy(transform.GetChild(1).GetChild(dirtyPlates.Count - 1).gameObject);
+                dirtyPlates.Pop();
+                dryTable.AddCleanPlate();
+                break;
+            }
+            yield return null;
+        }
+        remainingWashTime = 3;
+    }
+
+    public void StopWash()
+    {
+        StopAllCoroutines();
     }
 }
 

@@ -50,7 +50,7 @@ MonoBehaviour:
   choppable: 1
   cookable: 0
   cookCheat: 0
-  chopTime: 0
+  chopTime: 7
   cookTime: 0
   raw: {fileID: 1196302746702272657}
   chopped: {fileID: 6377918065620355615, guid: 7c0d56e58ffeb634d80c506250d913b5, type: 3}
