@@ -14,7 +14,6 @@ public class Order
     public Recipe recipe;
     public float remainingTime;
     public Slider slider;
-    public GameObject uiOrderPrefab;
 } 
 
 public class OrderManager : MonoBehaviour
@@ -33,6 +32,7 @@ public class OrderManager : MonoBehaviour
     private float hue;
     public GameObject EndMenu;
     public GameObject PauseMenu;
+    public List<GameObject> uiOrderPrefabs = new List<GameObject>();
     public Transform uiOrders;
 
     private List<Order> queue = new List<Order>();
@@ -40,16 +40,6 @@ public class OrderManager : MonoBehaviour
     private int money;
     private bool cronoRunning = true;
     private bool paused = false;
-
-    [System.Serializable]
-    public struct OrderImage
-    {
-        public string name;
-        public Sprite menuImg;
-        public Sprite ingredientsImg;
-    }
-
-    public OrderImage[] images;
 
 
     private void Awake()
@@ -136,19 +126,10 @@ public class OrderManager : MonoBehaviour
         cronoSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.HSVToRGB(hue, 1, 0.85f);
     }
 
-    private void InstantiateOrderInUI(Order newOrder)
+    private void InstantiateOrderInUI(Order newOrder, int index)
     {
-        GameObject UIOrder = Instantiate(newOrder.uiOrderPrefab, uiOrders.transform);
-        newOrder.slider = UIOrder.transform.GetChild(0).GetComponent<Slider>();
-        for(int i = 0; i < images.Length; i++)
-        {
-            if(images[i].name == newOrder.recipe.name)
-            {
-                UIOrder.GetComponent<Image>().sprite = images[i].menuImg;
-                // images[i].ingredientsImg
-                break;
-            }
-        }
+        GameObject UIOrder = Instantiate(uiOrderPrefabs[index], uiOrders.transform);
+        newOrder.slider = UIOrder.transform.GetChild(1).GetChild(0).GetComponent<Slider>();
     }
 
     private void UpdateNewOrder()
@@ -157,9 +138,10 @@ public class OrderManager : MonoBehaviour
         if(timeToNewOrder <= 0.0f && queue.Count < 5)
         {
             timeToNewOrder = 15;
-            Order NewOrder = new Order(recipes[Random.Range(0, recipes.Count)], orderTime);
+            int index = Random.Range(0, recipes.Count);
+            Order NewOrder = new Order(recipes[index], orderTime);
             queue.Add(NewOrder);
-            InstantiateOrderInUI(NewOrder);
+            InstantiateOrderInUI(NewOrder, index);
         }
     }
 
