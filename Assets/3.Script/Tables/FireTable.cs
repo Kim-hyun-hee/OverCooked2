@@ -26,6 +26,15 @@ public class FireTable : Table
 
     public void Cook()
     {
+        if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((KitchenTool)placedObject).Cook())
+        {
+            FireOn();
+        }
+        else
+        {
+            FireOff();
+        }
+
         if(placedObject != null && !((KitchenTool)placedObject).Cook())
         {
             ActivateFire();
@@ -51,5 +60,15 @@ public class FireTable : Table
             return false;
         }
         return true;
+    }
+
+    private void FireOn()
+    {
+        transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+    private void FireOff()
+    {
+        transform.GetChild(2).gameObject.SetActive(false);
     }
 }
