@@ -22,19 +22,29 @@ public class DeliveryTable : Table
 
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
-            OrderManager.Instance.AddCompletedRecipe(((Plate)newObject).GetRecipe());
-            ((Plate)newObject).ThrowToBin();
-            Destroy(((Plate)newObject).gameObject);
-            StartCoroutine(AddDirtyPlate_co());
+            OrderManager.Instance.AddRecipe(((Plate)newObject).GetRecipe());
+            //((Plate)newObject).ThrowToBin();
+            //Destroy(((Plate)newObject).gameObject);
+            //StartCoroutine(AddDirtyPlate_co());
             //audioManager.Play("Delivery");
             //money.Play();
-            return true;
+            //return true;
         }
-        else
+        else if(newObject is Plate && !((Plate)newObject).IsRecipe())
         {
-            // 접시가 필요하다! 
+            Debug.Log("틀림");
+            // 콤보 초기화 해 줘야함 아마도?
+        }
+        else if (!(newObject is Plate))
+        {
+            Debug.Log("접시 필요!");
             return false;
         }
+
+        ((Plate)newObject).ThrowToBin();
+        Destroy(((Plate)newObject).gameObject);
+        StartCoroutine(AddDirtyPlate_co());
+        return true;
 
     }
 

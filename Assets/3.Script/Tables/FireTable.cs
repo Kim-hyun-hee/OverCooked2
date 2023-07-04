@@ -43,23 +43,23 @@ public class FireTable : Table
 
     public override bool PutObject(Object newObject)
     {
-        if (placedObject == null && newObject is KitchenTool)
+        if (placedObject == null && newObject is KitchenTool) // 아무것도 없고 조리도구 올려놓기
         {
             placedObject = newObject;
             placedObject.transform.SetParent(transform.GetChild(1));
             placedObject.transform.localPosition = new Vector3(0.0f, 0.0061f, 0.0f);
             return true;
         }
-        else if (placedObject != null && newObject is Ingredient)
+        else if (placedObject != null && newObject is Ingredient) // 조리도구 위에 재료
         {
             return ((KitchenTool)placedObject).AddIngredient((Ingredient)newObject);
         }
-        else if (placedObject != null && newObject is Plate && ((Plate)newObject).AddIngredient(((KitchenTool)placedObject).GetIngredient()))
+        else if (placedObject != null && newObject is Plate && ((Plate)newObject).AddIngredient(((KitchenTool)placedObject).GetIngredient())) // 조리도구 위에 접시
         {
             ((KitchenTool)placedObject).DeleteIngredient();
             return false;
         }
-        return true;
+        return false;
     }
 
     private void FireOn()
