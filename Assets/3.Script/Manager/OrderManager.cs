@@ -14,6 +14,7 @@ public class Order
     public Recipe recipe;
     public float remainingTime;
     public Slider[] sliders = new Slider[3];
+    public float sizeX;
 } 
 
 public class OrderManager : MonoBehaviour
@@ -145,6 +146,7 @@ public class OrderManager : MonoBehaviour
         {
             newOrder.sliders[i] = UIOrder.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<Slider>();
         }
+        newOrder.sizeX = UIOrder.GetComponent<BoxCollider2D>().size.x;
     }
 
     private void UpdateNewOrder()
@@ -157,7 +159,13 @@ public class OrderManager : MonoBehaviour
             Order NewOrder = new Order(recipes[index], orderTime);
             queue.Add(NewOrder);
             InstantiateOrderInUI(NewOrder, index);
+            OrderMovement();
         }
+    }
+
+    private void OrderMovement() // ¡¬∑Œ ¿Ãµø
+    {
+
     }
 
     private void UpdateOrders()
@@ -240,11 +248,14 @@ public class OrderManager : MonoBehaviour
         {
             if(order.recipe == recipe)
             {
-                //DeleteOrderFromUI(queue.IndexOf(order));
-                //queue.Remove(order);
+                DeleteOrderFromUI(queue.IndexOf(order));
+                queue.Remove(order);
                 SetMoney(money + recipe.GetPrice()); // ∆¡ √ﬂ∞° «ÿ¡÷±‚
                 return;
-
+            }
+            else
+            {
+                Debug.Log("ª‡");
             }
         }
     }
@@ -252,5 +263,6 @@ public class OrderManager : MonoBehaviour
     private void DeleteOrderFromUI(int index)
     {
         Destroy(uiOrders.GetChild(index).gameObject);
+        // æ’¿∏∑Œ ∂Ø±‚±‚
     }
 }
