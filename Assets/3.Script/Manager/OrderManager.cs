@@ -13,7 +13,7 @@ public class Order
 
     public Recipe recipe;
     public float remainingTime;
-    public Slider slider;
+    public Slider[] sliders = new Slider[3];
 } 
 
 public class OrderManager : MonoBehaviour
@@ -24,7 +24,7 @@ public class OrderManager : MonoBehaviour
     public List<Recipe> recipes = new List<Recipe>();
     public float levelTime = 180.0f;
     public float remainingTime;
-    public float orderTime = 60.0f;
+    public float orderTime = 180.0f;
     public int tip = 8;
 
     public Text uiMoney, uiCrono;
@@ -36,7 +36,7 @@ public class OrderManager : MonoBehaviour
     public Transform uiOrders;
 
     private List<Order> queue = new List<Order>();
-    private float timeToNewOrder = 10.0f;
+    private float timeToNewOrder = 10f;
     private int money;
     private bool cronoRunning = true;
     private bool paused = false;
@@ -53,6 +53,12 @@ public class OrderManager : MonoBehaviour
             instance = this;
         }
     }
+    //public Recipe First()
+    //{
+    //    if (queue.Count > 0)
+    //        return queue[0].recipe;
+    //    return null;
+    //}
 
     public void Start()
     {
@@ -63,6 +69,8 @@ public class OrderManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateNewOrder();
+        UpdateOrders();
         UpdateCrono();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -95,8 +103,12 @@ public class OrderManager : MonoBehaviour
             EndMenu.SetActive(true);
         }
 
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        int minutes = (Mathf.CeilToInt(remainingTime) / 60);
+        int seconds = Mathf.CeilToInt(remainingTime % 60);
+        if(seconds == 60)
+        {
+            seconds = 0;
+        }
 
         string minutesString;
         string secondsString;
@@ -129,7 +141,10 @@ public class OrderManager : MonoBehaviour
     private void InstantiateOrderInUI(Order newOrder, int index)
     {
         GameObject UIOrder = Instantiate(uiOrderPrefabs[index], uiOrders.transform);
-        newOrder.slider = UIOrder.transform.GetChild(1).GetChild(0).GetComponent<Slider>();
+        for(int i = 0; i < newOrder.sliders.Length; i++)
+        {
+            newOrder.sliders[i] = UIOrder.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<Slider>();
+        }
     }
 
     private void UpdateNewOrder()
@@ -137,7 +152,7 @@ public class OrderManager : MonoBehaviour
         timeToNewOrder -= Time.deltaTime;
         if(timeToNewOrder <= 0.0f && queue.Count < 5)
         {
-            timeToNewOrder = 15;
+            timeToNewOrder = 10 + timeToNewOrder;
             int index = Random.Range(0, recipes.Count);
             Order NewOrder = new Order(recipes[index], orderTime);
             queue.Add(NewOrder);
@@ -150,12 +165,28 @@ public class OrderManager : MonoBehaviour
         foreach (Order order in queue.ToArray())
         {
             order.remainingTime -= Time.deltaTime;
-            order.slider.value = 1 - ((orderTime - order.remainingTime) / orderTime);
+            
+            if(order.remainingTime > orderTime * 2 / 3)
+            {
+                order.sliders[2].value = (((order.remainingTime * 3) / orderTime) - 2);
+            }
+            else if(order.remainingTime > orderTime / 3)
+            {
+                order.sliders[2].value = 0;
+                order.sliders[1].value = ( ((order.remainingTime * 3) / orderTime) - 1);
+            }
+            else
+            {
+                order.sliders[1].value = 0;
+                order.sliders[0].value =  ((order.remainingTime * 3) / orderTime);
+            }
+
             if (order.remainingTime <= 0)
             {
+                order.sliders[0].value = 0;
                 DeleteOrderFromUI(queue.IndexOf(order));
                 queue.Remove(order);
-                SetMoney(money - 15);
+                //SetMoney(money - 15);
             }
         }
     }
