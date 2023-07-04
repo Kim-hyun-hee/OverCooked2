@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody playerRb;
     private Vector3 dir = Vector3.zero;
-    private float moveSpeed = 5f;
+    private float moveSpeed = 10f;
     private PlayerAnimationController playerAnimationController;
 
     private bool isPlay = false;

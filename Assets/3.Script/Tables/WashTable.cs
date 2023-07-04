@@ -51,7 +51,10 @@ public class WashTable : Table
             //slider.value = (chopTime - remainingChopTime) / chopTime;
             if (remainingWashTime <= 0)
             {
-                dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(false);
+                if(dirtyPlates.Count < 4)
+                {
+                    dirtyPlate[dirtyPlates.Count - 1].gameObject.SetActive(false);
+                }
                 Destroy(transform.GetChild(1).GetChild(dirtyPlates.Count - 1).gameObject);
                 dirtyPlates.Pop();
                 dryTable.AddCleanPlate();

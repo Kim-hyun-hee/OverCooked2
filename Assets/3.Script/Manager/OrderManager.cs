@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Order
 {
@@ -139,7 +140,7 @@ public class OrderManager : MonoBehaviour
         cronoSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.HSVToRGB(hue, 1, 0.85f);
     }
 
-    private void InstantiateOrderInUI(Order newOrder, int index)
+    private GameObject InstantiateOrderInUI(Order newOrder, int index)
     {
         GameObject UIOrder = Instantiate(uiOrderPrefabs[index], uiOrders.transform);
         for(int i = 0; i < newOrder.sliders.Length; i++)
@@ -147,6 +148,8 @@ public class OrderManager : MonoBehaviour
             newOrder.sliders[i] = UIOrder.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetComponent<Slider>();
         }
         newOrder.sizeX = UIOrder.GetComponent<BoxCollider2D>().size.x;
+        UIOrder.transform.localPosition = new Vector3(950 - newOrder.sizeX / 2, UIOrder.transform.localPosition.y, 0);
+        return UIOrder;
     }
 
     private void UpdateNewOrder()
@@ -158,14 +161,20 @@ public class OrderManager : MonoBehaviour
             int index = Random.Range(0, recipes.Count);
             Order NewOrder = new Order(recipes[index], orderTime);
             queue.Add(NewOrder);
-            InstantiateOrderInUI(NewOrder, index);
-            OrderMovement();
+            GameObject UIOrder = InstantiateOrderInUI(NewOrder, index);
+            OrderMovement(UIOrder);
         }
     }
 
-    private void OrderMovement() // ÁÂ·Î ÀÌµ¿
+    private void OrderMovement(GameObject UIOrder) // ÁÂ·Î ÀÌµ¿
     {
-
+        float targetX = -950;
+        for(int i = 0; i < queue.Count -1; i++)
+        {
+            targetX += queue[i].sizeX;
+        }
+        targetX += queue[queue.Count - 1].sizeX / 2;
+        UIOrder.transform.DOLocalMoveX(targetX, 0.5f);
     }
 
     private void UpdateOrders()
@@ -253,16 +262,17 @@ public class OrderManager : MonoBehaviour
                 SetMoney(money + recipe.GetPrice()); // ÆÁ Ãß°¡ ÇØÁÖ±â
                 return;
             }
-            else
-            {
-                Debug.Log("»à");
-            }
         }
+        Debug.Log("»à");
     }
 
     private void DeleteOrderFromUI(int index)
     {
+        float moveX = queue[index].sizeX;
         Destroy(uiOrders.GetChild(index).gameObject);
-        // ¾ÕÀ¸·Î ¶¯±â±â
+        for(int i = index + 1; i < queue.Count; i++)
+        {
+            uiOrders.GetChild(i).DOLocalMoveX(uiOrders.GetChild(i).localPosition.x - moveX, 0.2f);
+        }
     }
 }
