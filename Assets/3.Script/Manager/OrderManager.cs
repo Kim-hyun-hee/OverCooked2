@@ -45,6 +45,7 @@ public class OrderManager : MonoBehaviour
     private bool paused = false;
 
     private int combo;
+    private bool isRing = true;
 
 
     private void Awake()
@@ -105,9 +106,31 @@ public class OrderManager : MonoBehaviour
 
         int minutes = (Mathf.CeilToInt(remainingTime) / 60);
         int seconds = Mathf.CeilToInt(remainingTime % 60);
+
         if(seconds == 60)
         {
             seconds = 0;
+        }
+
+        if(seconds == 0 && !isRing)
+        {
+            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+            isRing = true;
+        }
+        else if(seconds == 30 && minutes != 0 && !isRing)
+        {
+            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+            isRing = true;
+        }
+        else if(seconds <= 30 && minutes == 0 && !isRing)
+        {
+            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("infalram");
+            isRing = true;
+        }
+
+        if(seconds != 0 && seconds != 30)
+        {
+            isRing = false;
         }
 
         string minutesString;
