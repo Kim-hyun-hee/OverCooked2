@@ -299,7 +299,7 @@ public class OrderManager : MonoBehaviour
         ui.transform.localPosition = Vector3.zero;
         ui.GetComponent<Text>().text = text;
         ui.transform.DOLocalMoveY(40, 1);
-        ui.GetComponent<Text>().DOFade(0.0f, 1);
+        ui.GetComponent<Text>().DOFade(0.0f, 1).SetEase(Ease.InQuad);
         StartCoroutine(DestroyMoneyUI_co(ui));
     }
 
