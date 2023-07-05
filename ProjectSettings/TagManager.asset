@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ObjectPool
   - PuffPos
+  - ObjectUI
   layers:
   - Default
   - TransparentFX

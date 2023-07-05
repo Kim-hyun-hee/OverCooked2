@@ -32,11 +32,14 @@ public class Ingredient : Object
     public GameObject raw, chopped, cooked, overcooked, plated;
     private GameObject[] states = new GameObject[5];
 
-    //private Slider slider;
+    [Header("UI")]
+    public Slider slider;
+    public Image icon;
     //private Image warning;
+    public Transform uiTransform;
 
     public void Start()
-    {
+    { 
         //audioSource = GetComponent<AudioSource>();
         states[(int)State.RAW] = raw;
         states[(int)State.CHOPPED] = chopped;
@@ -48,6 +51,11 @@ public class Ingredient : Object
         //slider.gameObject.SetActive(false);
 
         //warning = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+
+        uiTransform = GameObject.FindGameObjectWithTag("ObjectUI").transform;
+
+        icon = transform.GetChild(1).GetChild(0).GetComponent<Image>();
+        icon.transform.SetParent(uiTransform.GetChild(1));
         //warning.gameObject.SetActive(false);
 
         remainingChopTime = chopTime;
@@ -81,6 +89,8 @@ public class Ingredient : Object
         //    audioSource.Stop();
         //    cookCheat = !cookCheat;
         //}
+
+        icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 70f, Camera.main.WorldToScreenPoint(transform.position).z);
     }
 
     public IngredientName GetIngredientName()
@@ -125,11 +135,13 @@ public class Ingredient : Object
             {
                 remainingChopTime -= Time.deltaTime;
                 //slider.gameObject.SetActive(true);
+                icon.gameObject.SetActive(false);
                 //slider.value = (chopTime - remainingChopTime) / chopTime;
                 if (remainingChopTime <= 0)
                 {
                     SetState(State.CHOPPED);
                     //slider.gameObject.SetActive(false);
+                    icon.gameObject.SetActive(true);
                     break;
                 }
             }

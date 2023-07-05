@@ -64,7 +64,7 @@ public class OrderManager : MonoBehaviour
     {
         remainingTime = levelTime;
         hue = (float)120 / 360;
-        SetMoney(0);
+        SetMoney(0, 0, 0);
     }
 
     private void Update()
@@ -276,7 +276,7 @@ public class OrderManager : MonoBehaviour
         return null;
     }
 
-    private void SetMoney(int money)
+    private void SetMoney(int money, int recipe, int tip)
     {
         if(money < 0)
         {
@@ -286,8 +286,10 @@ public class OrderManager : MonoBehaviour
         { 
             this.money = money;
         }
-        
-        uiMoney.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = this.money.ToString();
+        int get = recipe + tip;
+        uiMoney.transform.GetChild(1).GetComponent<Text>().text = this.money.ToString();
+        uiMoney.transform.GetChild(2).GetComponent<Text>().text = "+" + get.ToString();
+        uiMoney.transform.GetChild(3).GetComponent<Text>().text = "+" + tip.ToString() + " Tip!";
     }
 
     public void AddRecipe(Recipe recipe)
@@ -312,7 +314,7 @@ public class OrderManager : MonoBehaviour
                     }
                     if(combo == 4)
                     {
-                        uiMoney.transform.GetChild(0).GetChild(3).gameObject.SetActive(true); // flame
+                        uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(true); // flame
                     }
                 }
                 else
@@ -325,18 +327,18 @@ public class OrderManager : MonoBehaviour
                         uiMoney.transform.GetChild(0).GetChild(1).GetChild(i).gameObject.SetActive(false); // bar
                     }
                     uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false); // Tip x 0
-                    uiMoney.transform.GetChild(0).GetChild(3).gameObject.SetActive(false); // flame
+                    uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame
                 }
                 DeleteOrderFromUI(queue.IndexOf(order));
                 queue.Remove(order);
-                SetMoney(money + recipe.GetPrice() + tip);
-                uiMoney.transform.GetChild(0).GetChild(4).GetChild(0).GetComponent<Animator>().SetTrigger("spin");
+                SetMoney(money + recipe.GetPrice() + tip, recipe.GetPrice(), tip);
+                uiMoney.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<Animator>().SetTrigger("spin");
                 return;
             }
         }
         Debug.Log("레시피 모델은 있지만 오더에 없는 음식");
         combo = 0;
-        uiMoney.transform.GetChild(0).GetChild(3).gameObject.SetActive(false); // flame
+        uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame
         uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false);
         for (int i = 1; i < 4; i++)
         {
