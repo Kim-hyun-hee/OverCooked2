@@ -31,6 +31,7 @@ public class OrderManager : MonoBehaviour
     public int tip;
 
     public GameObject uiMoney, uiCrono;
+    public GameObject getPrefab, tipPrefab;
     public Slider cronoSlider;
     private float hue;
     public GameObject EndMenu;
@@ -64,7 +65,7 @@ public class OrderManager : MonoBehaviour
     {
         remainingTime = levelTime;
         hue = (float)120 / 360;
-        SetMoney(0, 0, 0);
+        money = 0;
     }
 
     private void Update()
@@ -288,8 +289,24 @@ public class OrderManager : MonoBehaviour
         }
         int get = recipe + tip;
         uiMoney.transform.GetChild(1).GetComponent<Text>().text = this.money.ToString();
-        uiMoney.transform.GetChild(2).GetComponent<Text>().text = "+" + get.ToString();
-        uiMoney.transform.GetChild(3).GetComponent<Text>().text = "+" + tip.ToString() + " Tip!";
+        InstantiateMoneyUI(getPrefab, "+" + get.ToString(), 2);
+        InstantiateMoneyUI(tipPrefab, "+" + tip.ToString() + " Tip!", 3);
+    }
+
+    private void InstantiateMoneyUI(GameObject uiPrefab, string text, int i)
+    {
+        GameObject ui = Instantiate(uiPrefab, uiMoney.transform.GetChild(i));
+        ui.transform.localPosition = Vector3.zero;
+        ui.GetComponent<Text>().text = text;
+        ui.transform.DOLocalMoveY(40, 1);
+        ui.GetComponent<Text>().DOFade(0.0f, 1);
+        StartCoroutine(DestroyMoneyUI_co(ui));
+    }
+
+    private IEnumerator DestroyMoneyUI_co(GameObject ui)
+    {
+        yield return ui.transform.DOLocalMoveY(40, 1).WaitForCompletion();
+        Destroy(ui);
     }
 
     public void AddRecipe(Recipe recipe)
