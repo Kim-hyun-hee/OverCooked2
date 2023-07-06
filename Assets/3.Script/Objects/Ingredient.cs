@@ -33,8 +33,11 @@ public class Ingredient : Object
     private GameObject[] states = new GameObject[5];
 
     [Header("UI")]
-    public Slider slider;
     public Image icon;
+    public Slider slider;
+    public Image done;
+    public Image warning;
+    public Image burn;
     //private Image warning;
     public Transform uiTransform;
     public List<Image> icons = new List<Image>();
@@ -48,17 +51,27 @@ public class Ingredient : Object
         states[(int)State.OVERCOOKED] = overcooked;
         states[(int)State.PLATED] = plated;
 
-        //slider = transform.GetChild(0).GetChild(0).GetComponent<Slider>();
-        //slider.gameObject.SetActive(false);
-
-        //warning = transform.GetChild(0).GetChild(1).GetComponent<Image>();
-
         uiTransform = GameObject.FindGameObjectWithTag("ObjectUI").transform;
 
         icon = transform.GetChild(1).GetChild(0).GetComponent<Image>();
-        icon.transform.SetParent(uiTransform.GetChild(1));
+        icon.transform.SetParent(uiTransform);
         icons.Add(icon);
-        //warning.gameObject.SetActive(false);
+
+        slider = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
+        slider.transform.SetParent(uiTransform);
+        slider.gameObject.SetActive(false);
+
+        done = transform.GetChild(1).GetChild(2).GetComponent<Image>();
+        done.transform.SetParent(uiTransform);
+        done.gameObject.SetActive(false);
+
+        warning = transform.GetChild(1).GetChild(3).GetComponent<Image>();
+        warning.transform.SetParent(uiTransform);
+        warning.gameObject.SetActive(false);
+
+        burn = transform.GetChild(1).GetChild(4).GetComponent<Image>();
+        burn.transform.SetParent(uiTransform);
+        burn.gameObject.SetActive(false);
 
         remainingChopTime = chopTime;
         remainingCookTime = cookTime;
