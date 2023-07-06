@@ -69,7 +69,7 @@ public class CutTable : Table
             placedObject.transform.localPosition = new Vector3(0.0f, 0.005f, 0.0955f);
             return true;
         }
-        else if (newObject is Plate && ((Plate)newObject).AddIngredient((Ingredient)placedObject))
+        else if (placedObject != null && newObject is Plate && ((Plate)newObject).AddIngredient((Ingredient)placedObject))
         {
             placedObject = null;
             return false;

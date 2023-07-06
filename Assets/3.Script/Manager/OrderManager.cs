@@ -265,7 +265,7 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    public Recipe GetRecipe(List<Ingredient> plate)
+    public Recipe GetRecipe(List<IngredientIcon> plate)
     {
         foreach(Recipe recipe in recipes)
         {

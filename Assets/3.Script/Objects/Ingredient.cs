@@ -37,6 +37,7 @@ public class Ingredient : Object
     public Image icon;
     //private Image warning;
     public Transform uiTransform;
+    public List<Image> icons = new List<Image>();
 
     public void Start()
     { 
@@ -56,6 +57,7 @@ public class Ingredient : Object
 
         icon = transform.GetChild(1).GetChild(0).GetComponent<Image>();
         icon.transform.SetParent(uiTransform.GetChild(1));
+        icons.Add(icon);
         //warning.gameObject.SetActive(false);
 
         remainingChopTime = chopTime;
@@ -89,8 +91,19 @@ public class Ingredient : Object
         //    audioSource.Stop();
         //    cookCheat = !cookCheat;
         //}
+        UpdateIconImg();
+    }
 
-        icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 70f, Camera.main.WorldToScreenPoint(transform.position).z);
+    private void UpdateIconImg()
+    {
+        if(icons.Count > 0)
+        {
+            icons[0].transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+        }
+        else
+        {
+            return;
+        }
     }
 
     public IngredientName GetIngredientName()

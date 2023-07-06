@@ -20,15 +20,15 @@ public class Recipe : MonoBehaviour
     public GameObject recipeModel;
     public int price;
 
-    public bool IsRecipe(List<Ingredient> plate) // 접시위에 있는 음식이 레시피랑 같은지
+    public bool IsRecipe(List<IngredientIcon> plate) // 접시위에 있는 음식이 레시피랑 같은지
     {
         List<RecipeIngredient> notFoundIngredients = new List<RecipeIngredient>(ingredients);
-        foreach(Ingredient plateIngredient in plate)
+        foreach (IngredientIcon plateIngredienticon in plate)
         {
             bool found = false;
             foreach(RecipeIngredient recipeIngredient in notFoundIngredients)
             {
-                if (recipeIngredient.Equals(plateIngredient))
+                if (recipeIngredient.Equals(plateIngredienticon.ingredient))
                 {
                     notFoundIngredients.Remove(recipeIngredient);
                     found = true;
@@ -45,7 +45,7 @@ public class Recipe : MonoBehaviour
 
     public int GetPrice()
     {
-        return price;
+        return price; 
     }
 
     public GameObject GetModel()
