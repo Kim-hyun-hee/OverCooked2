@@ -54,23 +54,22 @@ public class Ingredient : Object
         uiTransform = GameObject.FindGameObjectWithTag("ObjectUI").transform;
 
         icon = transform.GetChild(1).GetChild(0).GetComponent<Image>();
+        slider = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
+        done = transform.GetChild(1).GetChild(2).GetComponent<Image>();
+        warning = transform.GetChild(1).GetChild(3).GetComponent<Image>();
+        burn = transform.GetChild(1).GetChild(4).GetComponent<Image>();
+
         icon.transform.SetParent(uiTransform);
+        slider.transform.SetParent(uiTransform);
+        done.transform.SetParent(uiTransform);
+        warning.transform.SetParent(uiTransform);
+        burn.transform.SetParent(uiTransform);
+        
         icons.Add(icon);
 
-        slider = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
-        slider.transform.SetParent(uiTransform);
         slider.gameObject.SetActive(false);
-
-        done = transform.GetChild(1).GetChild(2).GetComponent<Image>();
-        done.transform.SetParent(uiTransform);
         done.gameObject.SetActive(false);
-
-        warning = transform.GetChild(1).GetChild(3).GetComponent<Image>();
-        warning.transform.SetParent(uiTransform);
         warning.gameObject.SetActive(false);
-
-        burn = transform.GetChild(1).GetChild(4).GetComponent<Image>();
-        burn.transform.SetParent(uiTransform);
         burn.gameObject.SetActive(false);
 
         remainingChopTime = chopTime;
