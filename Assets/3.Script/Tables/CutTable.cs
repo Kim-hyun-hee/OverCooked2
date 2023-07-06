@@ -67,6 +67,7 @@ public class CutTable : Table
             placedObject = newObject;
             placedObject.transform.SetParent(transform.GetChild(1));
             placedObject.transform.localPosition = new Vector3(0.0f, 0.005f, 0.0955f);
+            placedObject.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
             return true;
         }
         else if (placedObject != null && newObject is Plate && ((Plate)newObject).AddIngredient((Ingredient)placedObject))
