@@ -135,8 +135,6 @@ public class Plate : Object
 
     public bool AddIngredient(Ingredient ingredient) // 재료 하나
     {
-        IngredientIcon ingreicon = new IngredientIcon(ingredient, ingredient.icon);
-
         if (isDirty == true)
         {
             return false;
@@ -146,6 +144,8 @@ public class Plate : Object
         {
             return false;
         }
+
+        IngredientIcon ingreicon = new IngredientIcon(ingredient, ingredient.icon);
 
         if (this.ingreicons.Count == 0)
         {

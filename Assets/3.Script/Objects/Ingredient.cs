@@ -236,6 +236,7 @@ public class Ingredient : Object
 
     override public void ThrowToBin()
     {
+        Destroy(icon.gameObject);
         Destroy(gameObject);
     }
 

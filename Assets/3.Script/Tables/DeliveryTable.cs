@@ -36,6 +36,7 @@ public class DeliveryTable : Table
         }
         else if(newObject is Plate && !((Plate)newObject).IsRecipe())
         {
+            OrderManager.Instance.UpdateCombo(0);
             Debug.Log("틀림");
             // 콤보 초기화 해 줘야함 아마도?
         }

@@ -291,6 +291,7 @@ public class OrderManager : MonoBehaviour
         uiMoney.transform.GetChild(1).GetComponent<Text>().text = this.money.ToString();
         InstantiateMoneyUI(getPrefab, "+" + get.ToString(), 2);
         InstantiateMoneyUI(tipPrefab, "+" + tip.ToString() + " Tip!", 3);
+        uiMoney.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<Animator>().SetTrigger("spin");
     }
 
     private void InstantiateMoneyUI(GameObject uiPrefab, string text, int i)
@@ -317,39 +318,15 @@ public class OrderManager : MonoBehaviour
             {
                 if(queue.IndexOf(order) == 0)
                 {
-                    if(combo != 4)
-                    {
-                        combo++;
-                        tip = combo * TIP;
-
-                        if(combo > 1 && combo <= 4)
-                        {
-                            uiMoney.transform.GetChild(0).GetChild(1).GetChild(combo - 1).gameObject.SetActive(true); // bar
-                        }
-                        uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(true); // Tip x 0
-                        uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).GetComponent<Text>().text = "Tip x " + combo.ToString();
-                    }
-                    if(combo == 4)
-                    {
-                        uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(true); // flame
-                    }
+                    UpdateCombo(++combo);
                 }
                 else
                 {
-                    combo = 0;
-                    tip = TIP;
-                    
-                    for(int i = 1; i < 4; i++)
-                    {
-                        uiMoney.transform.GetChild(0).GetChild(1).GetChild(i).gameObject.SetActive(false); // bar
-                    }
-                    uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false); // Tip x 0
-                    uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame
+                    UpdateCombo(0);
                 }
                 DeleteOrderFromUI(queue.IndexOf(order));
                 queue.Remove(order);
                 SetMoney(money + recipe.GetPrice() + tip, recipe.GetPrice(), tip);
-                uiMoney.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<Animator>().SetTrigger("spin");
                 return;
             }
         }
@@ -363,6 +340,35 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    public void UpdateCombo(int combo)
+    {
+        if(combo == 0)
+        {
+            tip = TIP;
+            for (int i = 1; i < 4; i++)
+            {
+                uiMoney.transform.GetChild(0).GetChild(1).GetChild(i).gameObject.SetActive(false); // bar
+            }
+            uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false); // Tip x 0
+            uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame
+            this.combo = combo;
+        }
+        else
+        {
+            tip = combo * TIP;
+            if (combo > 1 && combo <= 4)
+            {
+                uiMoney.transform.GetChild(0).GetChild(1).GetChild(combo - 1).gameObject.SetActive(true); // bar
+            }
+            uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(true); // Tip x 0
+            uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).GetComponent<Text>().text = "Tip x " + combo.ToString();
+            if (combo == 4)
+            {
+                uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(true); // flame
+            }
+        }
+    }
+
     private void DeleteOrderFromUI(int index)
     {
         float moveX = queue[index].sizeX;
@@ -371,5 +377,6 @@ public class OrderManager : MonoBehaviour
         {
             uiOrders.GetChild(i).DOLocalMoveX(uiOrders.GetChild(i).localPosition.x - moveX, 0.2f);
         }
+        //UpdateCombo(0);
     }
 }

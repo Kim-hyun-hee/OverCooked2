@@ -100,6 +100,7 @@ public class KitchenTool : Object
         if (ingredient != null)
         {
             //transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            Destroy(ingredient.icon.gameObject);
             Destroy(ingredient.gameObject);
             ingredient = null;
         }
