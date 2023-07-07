@@ -39,7 +39,7 @@ public class Table : MonoBehaviour
     protected virtual void ActivateFire()
     {
         fire.ActivateFire();
-        fireSound.Play();
+        //fireSound.Play();
 
         //if (placedObject != null)
         //{

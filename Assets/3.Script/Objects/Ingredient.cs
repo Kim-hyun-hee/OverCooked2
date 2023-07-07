@@ -24,9 +24,9 @@ public class Ingredient : Object
 
     private AudioSource audioSource;
     
-    public bool choppable, cookable, cookCheat = false;
-    public float chopTime, cookTime;
-    private float overcookTime, remainingOvercookTime, remainingChopTime, remainingCookTime;
+    public bool choppable, cookable = false;
+    public float chopTime, cookTime, overcookTime;
+    public float remainingOvercookTime, remainingChopTime, remainingCookTime;
     private bool overcooking = false;
 
     public GameObject raw, chopped, cooked, overcooked, plated;
@@ -36,11 +36,11 @@ public class Ingredient : Object
     public Image icon;
     public Slider slider;
     public Image done;
-    public Image warning;
+    //public Image warning;
     public Image burn;
     //private Image warning;
     public Transform uiTransform;
-    public List<Image> icons = new List<Image>();
+    public List<GameObject> icons = new List<GameObject>();
 
     public void Start()
     { 
@@ -56,25 +56,29 @@ public class Ingredient : Object
         icon = transform.GetChild(1).GetChild(0).GetComponent<Image>();
         slider = transform.GetChild(1).GetChild(1).GetComponent<Slider>();
         done = transform.GetChild(1).GetChild(2).GetComponent<Image>();
-        warning = transform.GetChild(1).GetChild(3).GetComponent<Image>();
-        burn = transform.GetChild(1).GetChild(4).GetComponent<Image>();
+       // warning = transform.GetChild(1).GetChild(3).GetComponent<Image>();
+        burn = transform.GetChild(1).GetChild(3).GetComponent<Image>();
+
+        icons.Add(icon.gameObject);
+        icons.Add(slider.gameObject);
+        icons.Add(done.gameObject);
+        //icons.Add(warning.gameObject);
+        icons.Add(burn.gameObject);
 
         icon.transform.SetParent(uiTransform);
         slider.transform.SetParent(uiTransform);
         done.transform.SetParent(uiTransform);
-        warning.transform.SetParent(uiTransform);
+        //warning.transform.SetParent(uiTransform);
         burn.transform.SetParent(uiTransform);
-        
-        icons.Add(icon);
 
-        slider.gameObject.SetActive(false);
+        slider.gameObject.SetActive(false);                                                                        
         done.gameObject.SetActive(false);
-        warning.gameObject.SetActive(false);
+       // warning.gameObject.SetActive(false);
         burn.gameObject.SetActive(false);
 
         remainingChopTime = chopTime;
         remainingCookTime = cookTime;
-        remainingOvercookTime = overcookTime = cookTime * 0.6f;
+        remainingOvercookTime = overcookTime;
     }
 
     public void Update()
@@ -104,18 +108,12 @@ public class Ingredient : Object
         //    cookCheat = !cookCheat;
         //}
         UpdateIconImg();
+        UpdateUI();
     }
 
     private void UpdateIconImg()
     {
-        if(icons.Count > 0)
-        {
-            icons[0].transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
-        }
-        else
-        {
-            return;
-        }
+        icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 55f, Camera.main.WorldToScreenPoint(transform.position).z);
     }
 
     public IngredientName GetIngredientName()
@@ -149,6 +147,7 @@ public class Ingredient : Object
 
     public void StartCut()
     {
+        slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
         StartCoroutine(Cut_co());
     }
 
@@ -159,13 +158,13 @@ public class Ingredient : Object
             if(choppable && state == State.RAW)
             {
                 remainingChopTime -= Time.deltaTime;
-                //slider.gameObject.SetActive(true);
+                slider.gameObject.SetActive(true);
                 icon.gameObject.SetActive(false);
-                //slider.value = (chopTime - remainingChopTime) / chopTime;
+                slider.value = (chopTime - remainingChopTime) / chopTime;
                 if (remainingChopTime <= 0)
                 {
                     SetState(State.CHOPPED);
-                    //slider.gameObject.SetActive(false);
+                    slider.gameObject.SetActive(false);
                     icon.gameObject.SetActive(true);
                     break;
                 }
@@ -191,17 +190,18 @@ public class Ingredient : Object
     //    }
     }
 
+    public void UpdateUI()
+    {
+        //warning.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+        burn.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 55f, Camera.main.WorldToScreenPoint(transform.position).z);
+        slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+    }
+
     public bool Cook()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (state != State.OVERCOOKED)
         {
-            //audioManager.Play("Delivery");
-            //SetState(State.COOKED);
-            //slider.gameObject.SetActive(false);
-        }
-        else if (state != State.OVERCOOKED)
-        {
-            if (state == State.COOKED && !cookCheat)
+            if (state == State.COOKED)
             {
                 overcooking = true;
                 remainingOvercookTime -= Time.deltaTime;
@@ -210,29 +210,33 @@ public class Ingredient : Object
                 {
                     SetState(State.OVERCOOKED);
                     //warning.gameObject.SetActive(false);
-                    //slider.gameObject.SetActive(false);
+                    slider.gameObject.SetActive(false);
+                    //burn.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+                    burn.gameObject.SetActive(true);
+                    icon.gameObject.SetActive(false);
+
                     return false;
-                }
-                else if (remainingOvercookTime <= (0.4f * overcookTime))
-                {
-                    //warning.gameObject.SetActive(true);
-                    //warning.color = Color.red;
                 }
                 else if (remainingOvercookTime <= (0.75f * overcookTime))
                 {
+                    //warning.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+                    done.gameObject.SetActive(false);
                     //warning.gameObject.SetActive(true);
                 }
             }
             else
             {
                 remainingCookTime -= Time.deltaTime;
-                //slider.gameObject.SetActive(true);
-                //slider.value = (cookTime - remainingCookTime) / cookTime;
+                //slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+                slider.gameObject.SetActive(true);
+                slider.value = (cookTime - remainingCookTime) / cookTime;
 
                 if (remainingCookTime <= 0)
                 {
                     SetState(State.COOKED);
-                    //slider.gameObject.SetActive(false);
+                    slider.gameObject.SetActive(false);
+                    done.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+                    done.gameObject.SetActive(true);
                 }
             }
         }
@@ -248,7 +252,7 @@ public class Ingredient : Object
 
     override public void ThrowToBin()
     {
-        Destroy(icon.gameObject);
+        icons.ForEach(icon => Destroy(icon));
         Destroy(gameObject);
     }
 

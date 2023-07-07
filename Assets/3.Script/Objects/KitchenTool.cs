@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum KitchenTools
 {
@@ -12,10 +13,16 @@ public class KitchenTool : Object
     public KitchenTools tool;
     private Ingredient ingredient;
     private ParticleSystem smoke;
+    private Image missingIcon;
+    public Transform uiTransform;
 
     public void Start()
     {
         //smoke = transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
+        uiTransform = GameObject.FindGameObjectWithTag("ObjectUI").transform;
+        missingIcon = transform.GetChild(2).GetComponent<Image>();
+        missingIcon.transform.SetParent(uiTransform);
+        missingIcon.gameObject.SetActive(true);
     }
 
     public void Update()
@@ -31,6 +38,22 @@ public class KitchenTool : Object
             //    smoke.Stop();
             //}
         }
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (!HasIngredient())
+        {
+            missingIcon.gameObject.SetActive(true);
+            missingIcon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.GetChild(0).GetChild(1).position).x, Camera.main.WorldToScreenPoint(transform.GetChild(0).GetChild(1).position).y + 55f, Camera.main.WorldToScreenPoint(transform.GetChild(0).GetChild(1).position).z);
+        }
+        else
+        {
+            missingIcon.gameObject.SetActive(false);
+        }
+
     }
 
     public bool Cook()
@@ -100,7 +123,7 @@ public class KitchenTool : Object
         if (ingredient != null)
         {
             //transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-            Destroy(ingredient.icon.gameObject);
+            ingredient.icons.ForEach(icon => Destroy(icon));
             Destroy(ingredient.gameObject);
             ingredient = null;
         }
