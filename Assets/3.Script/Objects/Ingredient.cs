@@ -108,7 +108,10 @@ public class Ingredient : Object
         //    cookCheat = !cookCheat;
         //}
         UpdateIconImg();
-        UpdateUI();
+        if(cookable)
+        {
+            UpdateUI();
+        }
     }
 
     private void UpdateIconImg()
@@ -153,7 +156,7 @@ public class Ingredient : Object
 
     private IEnumerator Cut_co()
     {
-        while(true)
+        while (true)
         {
             if(choppable && state == State.RAW)
             {

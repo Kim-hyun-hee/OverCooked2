@@ -186,7 +186,7 @@ public class OrderManager : MonoBehaviour
             GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, 0);
             OrderMovement(UIOrder);
         }
-        else if (timeToNewOrder > 0 && queue.Count == 0)
+        else if (queue.Count == 0)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -197,7 +197,7 @@ public class OrderManager : MonoBehaviour
                 OrderMovement(UIOrder);
             }
         }
-        else if (timeToNewOrder > 0 && queue.Count == 1)
+        else if (queue.Count == 1)
         {
             int index = Random.Range(0, recipes.Count);
             Order NewOrder = new Order(recipes[index], orderTime);
@@ -355,6 +355,11 @@ public class OrderManager : MonoBehaviour
         }
         else
         {
+            if(combo > 4)
+            {
+                combo = 4;
+            }
+            this.combo = combo;
             tip = combo * TIP;
             if (combo > 1 && combo <= 4)
             {
