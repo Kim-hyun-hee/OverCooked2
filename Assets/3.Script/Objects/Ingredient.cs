@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public enum IngredientName
 {
@@ -223,7 +224,7 @@ public class Ingredient : Object
                 else if (remainingOvercookTime <= (0.75f * overcookTime))
                 {
                     //warning.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
-                    done.gameObject.SetActive(false);
+                    //done.gameObject.SetActive(false);
                     //warning.gameObject.SetActive(true);
                 }
             }
