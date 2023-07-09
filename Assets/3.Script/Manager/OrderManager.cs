@@ -86,7 +86,7 @@ public class OrderManager : MonoBehaviour
             {
                 Time.timeScale = 0;
                 PauseMenu.SetActive(true);
-                paused = false;
+                paused = true;
             }
         }
     }
