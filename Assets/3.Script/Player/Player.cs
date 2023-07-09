@@ -27,11 +27,11 @@ public class Player : MonoBehaviour
 
         if (carriedObject == null)
         {
-            //playerAnimationController.StopCarry();
+            playerAnimationController.StopCarry();
         }
         else
         {
-            //playerAnimationController.Carry();
+            playerAnimationController.Carry();
         }
     }
 
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         {
             carriedObject = placedObject;
             carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
-            carriedObject.transform.localPosition = new Vector3(0.0f, 0.008f, 0.006f);
+            carriedObject.transform.localPosition = new Vector3(0.0f, 0.0058f, 0.006f);
 
             if(placedObject is Extinguisher)
             {
@@ -191,12 +191,14 @@ public class Player : MonoBehaviour
         {
             washingTable = (WashTable)nearTable;
             washingTable.StartWash();
+            playerAnimationController.Wash();
             // 애니메이션
             // Wash();
         }
         else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
         {
             washingTable.StopWash();
+            playerAnimationController.StopWash();
             washingTable = null;
         }
     }

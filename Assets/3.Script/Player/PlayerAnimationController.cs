@@ -41,5 +41,15 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool("Cut", false);
     }
 
+    public void Wash()
+    {
+        animator.SetBool("Wash", true);
+    }
+
+    public void StopWash()
+    {
+        animator.SetBool("Wash", false);
+    }
+
 }
 
