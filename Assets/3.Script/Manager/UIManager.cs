@@ -45,8 +45,8 @@ public class UIManager : MonoBehaviour
 
             if (panels.Count > 1)
             {
-                panels[panels.Count - 1].SetActive(false);
-                panels.RemoveAt(panels.Count - 1);
+                //panels[panels.Count - 1].SetActive(false);
+                //panels.RemoveAt(panels.Count - 1);
             }
             else if (panels.Count == 1)
             {
