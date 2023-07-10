@@ -24,6 +24,7 @@ public class FireTable : Table
 
     private void Update()
     {
+        SpreadFire();
         Cook();
 
         if (placedObject != null && ((KitchenTool)placedObject).HasIngredient())
@@ -65,6 +66,11 @@ public class FireTable : Table
 
     public override bool PutObject(Object newObject)
     {
+        if (fire.IsPlaying())
+        {
+            return false;
+        }
+
         if (placedObject == null && newObject is KitchenTool) // 아무것도 없고 조리도구 올려놓기
         {
             placedObject = newObject;

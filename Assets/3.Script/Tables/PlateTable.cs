@@ -13,4 +13,9 @@ public class PlateTable : Table
         placedObject.transform.SetParent(transform.GetChild(1));
         placedObject.transform.localPosition = new Vector3(0.0f, 0.005f, 0.0f);
     }
+
+    private void Update()
+    {
+        SpreadFire();
+    }
 }

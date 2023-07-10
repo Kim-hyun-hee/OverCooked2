@@ -7,6 +7,7 @@ public class Table : MonoBehaviour
     public Object placedObject;
 
     [SerializeField] private AudioSource fireSound;
+    [SerializeField] protected List<GameObject> nearTables = new List<GameObject>();
     protected AudioManager audioManager;
 
     [SerializeField] protected Fire fire;
@@ -32,8 +33,19 @@ public class Table : MonoBehaviour
 
     protected void SpreadFire()
     {
-        // 불이 났으면
-        // 불 번지기
+        if(fire.IsPlaying())
+        {
+            spreadFireCounter -= Time.deltaTime;
+            if(spreadFireCounter <= 0)
+            {
+                for(int i = 0; i < nearTables.Count; i++)
+                {
+                    nearTables[i].GetComponent<Table>().ActivateFire();
+                    nearTables[i].GetComponent<Table>().spreadFireCounter = 10;
+                }
+                spreadFireCounter = 10;
+            }
+        }
     }
 
     protected virtual void ActivateFire()
