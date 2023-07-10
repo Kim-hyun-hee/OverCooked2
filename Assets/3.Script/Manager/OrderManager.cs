@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -35,8 +34,6 @@ public class OrderManager : MonoBehaviour
     public GameObject getPrefab, tipPrefab;
     public Slider cronoSlider;
     private float hue;
-    public GameObject EndMenu;
-    public GameObject PauseMenu;
     public List<GameObject> uiOrderPrefabs = new List<GameObject>();
     public Transform uiOrders;
 
@@ -44,7 +41,6 @@ public class OrderManager : MonoBehaviour
     private float timeToNewOrder = 10f;
     private int money;
     private bool cronoRunning = true;
-    private bool paused = false;
 
     private int combo;
     private bool isRing = true;
@@ -74,39 +70,23 @@ public class OrderManager : MonoBehaviour
         UpdateNewOrder();
         UpdateOrders();
         UpdateCrono();
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-            //if (paused)
-            //{
-            //    Time.timeScale = 1;
-            //    PauseMenu.SetActive(false);
-            //    paused = false;
-            //}
-            //else
-            //{
-            //    Time.timeScale = 0;
-            //    PauseMenu.SetActive(true);
-            //    paused = true;
-            //}
-        //}
     }
 
-    void OnExit(InputValue value)
-    {
-        if (paused)
-        {
-            Time.timeScale = 1;
-            PauseMenu.SetActive(false);
-            paused = false;
-        }
-        else
-        {
-            Time.timeScale = 0;
-            PauseMenu.SetActive(true);
-            paused = true;
-        }
-    }
+    //void OnExit(InputValue value)
+    //{
+    //    if (paused)
+    //    {
+    //        Time.timeScale = 1;
+    //        PauseMenu.SetActive(false);
+    //        paused = false;
+    //    }
+    //    else
+    //    {
+    //        Time.timeScale = 0;
+    //        PauseMenu.SetActive(true);
+    //        paused = true;
+    //    }
+    //}
 
     private void UpdateCrono()
     {
@@ -119,7 +99,7 @@ public class OrderManager : MonoBehaviour
             cronoRunning = false;
             remainingTime = 0;
             Time.timeScale = 0;
-            EndMenu.SetActive(true);
+            UIManager.Instance.EndMenu.SetActive(true);
         }
 
         int minutes = (Mathf.CeilToInt(remainingTime) / 60);

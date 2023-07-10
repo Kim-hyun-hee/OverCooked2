@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -12,22 +11,18 @@ public class PausePanel : MonoBehaviour
     public GameObject stopUI;
     public GameObject controlUI;
 
-    //private void Start()
-    //{
-    //    EventSystem.current.firstSelectedGameObject = first;
-    //}
+    public OrderManager orderManager;
 
-    void OnClick(InputValue value)
+    private void Start()
     {
-        GameObject current = EventSystem.current.currentSelectedGameObject; // 선택된 버튼 가져오기
-        current.GetComponent<Button>().onClick.Invoke();
+        orderManager = FindObjectOfType<OrderManager>();
     }
 
     public void Resume()
     {
         Time.timeScale = 1;
-        transform.gameObject.SetActive(false);
-        //paused = false;
+        UIManager.Instance.CloseUI(gameObject);
+        //UIManager.Instance.paused = false;
     }
 
     public void ReStart()
@@ -49,7 +44,7 @@ public class PausePanel : MonoBehaviour
     public void PopUpStop()
     {
         stopUI.SetActive(true);
-        // 인풋 매니저 움직이는 곳 바꿔주고 싶은데,,
+        UIManager.Instance.panels.Add(stopUI);
     }
 
     public void PopUpControl()
