@@ -156,18 +156,19 @@ public class Plate : Object
                 this.ingreicons.Add(ingreicon);
                 ingredient.transform.SetParent(transform.GetChild(0)); // attach point
                 ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
-                recipe = recipeManager.GetRecipe(ingreicons); // 재료리스트
+                this.recipe = recipeManager.GetRecipe(ingreicons); // 재료리스트
                 ingredient.icons.RemoveAt(0);
                 GetImageIcon(ingreicons);
-                if (recipe!= null)
+                if (this.recipe!= null)
                 {
-                    SetRecipe(recipe);
+                    SetRecipe(this.recipe);
                 }
                 return true;
             }
             return false;
         }
 
+        Recipe recipe = null;
         ingreicons.Add(ingreicon);
         recipe = recipeManager.GetRecipe(ingreicons); // OrderManager는 왼쪽 위 UI에 띄울 Recipe 관리하는거고
         // RecipeManager 하나 만들어서 가능한 모든 경우의 모델들 넣어주기
@@ -180,8 +181,9 @@ public class Plate : Object
         }
         else
         {
+            this.recipe = recipe;
             GetImageIcon(ingreicons);
-            SetRecipe(recipe);
+            SetRecipe(this.recipe);
         }
 
         ingredient.transform.SetParent(transform.GetChild(0)); // attach point

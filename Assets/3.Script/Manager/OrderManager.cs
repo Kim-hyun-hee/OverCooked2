@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -74,20 +75,36 @@ public class OrderManager : MonoBehaviour
         UpdateOrders();
         UpdateCrono();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+            //if (paused)
+            //{
+            //    Time.timeScale = 1;
+            //    PauseMenu.SetActive(false);
+            //    paused = false;
+            //}
+            //else
+            //{
+            //    Time.timeScale = 0;
+            //    PauseMenu.SetActive(true);
+            //    paused = true;
+            //}
+        //}
+    }
+
+    void OnExit(InputValue value)
+    {
+        if (paused)
         {
-            if(paused)
-            {
-                Time.timeScale = 1;
-                PauseMenu.SetActive(false);
-                paused = false;
-            }
-            else
-            {
-                Time.timeScale = 0;
-                PauseMenu.SetActive(true);
-                paused = true;
-            }
+            Time.timeScale = 1;
+            PauseMenu.SetActive(false);
+            paused = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            PauseMenu.SetActive(true);
+            paused = true;
         }
     }
 
@@ -246,15 +263,6 @@ public class OrderManager : MonoBehaviour
                 queue.Remove(order);
             }
         }
-    }
-
-    public void Resume()
-    {
-
-        Time.timeScale = 1;
-        PauseMenu.SetActive(false);
-        paused = false;
-
     }
 
     private void OnDestroy()

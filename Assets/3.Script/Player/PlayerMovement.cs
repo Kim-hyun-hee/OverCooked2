@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
@@ -28,6 +29,12 @@ public class PlayerMovement : MonoBehaviour
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.z = Input.GetAxisRaw("Vertical");
     }
+
+    //void OnMove(InputValue value)
+    //{
+    //    Vector2 input = value.Get<Vector2>();
+    //    dir = new Vector3(input.x, 0f, input.y);
+    //}
 
     private void FixedUpdate()
     {
