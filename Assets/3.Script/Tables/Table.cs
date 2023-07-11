@@ -65,7 +65,13 @@ public class Table : MonoBehaviour
     public virtual void ExtinguisFire()
     {
         fire.ExtinguisFire();
-        fireSound.Stop();
+        //fireSound.Stop();
+        // 탄 연기 여기서 테이블 위에 오브젝트(조리도구) 안에 재료(overcooked)일때 play
+        if(HasObject() && placedObject is KitchenTool && ((KitchenTool)placedObject).HasIngredient())
+        {
+            Debug.Log("여기");
+            ((KitchenTool)placedObject).PlayBurntSmoke();
+        }
         fireHealth = 100;
         spreadFireCounter = 5;
     }

@@ -23,15 +23,20 @@ public class Fire : MonoBehaviour
         fireHealth = 100;
     }
 
-    void OnParticleCollision(GameObject other)
+    private void OnTriggerStay(Collider other)
     {
-        if (fireParticles.isPlaying)
+        Debug.Log("trigger");
+        if (other.gameObject.name.Equals("FX_Steam_01"))
         {
-            fireHealth -= 15;
-            if (fireHealth <= 0)
+            if (fireParticles.isPlaying)
             {
-                ExtinguisFire();
-                transform.parent.GetComponent<Table>().ExtinguisFire();
+                Debug.Log("²¨Áö´ÂÁß");
+                fireHealth -= Time.deltaTime * 60;
+                if (fireHealth <= 0)
+                {
+                    ExtinguisFire();
+                    transform.parent.GetComponent<Table>().ExtinguisFire();
+                }
             }
         }
     }

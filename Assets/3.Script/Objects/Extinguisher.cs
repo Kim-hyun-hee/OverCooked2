@@ -18,6 +18,7 @@ public class Extinguisher : Object
         if (!fire.isPlaying)
         {
             fire.Play();
+            fire.GetComponent<BoxCollider>().enabled = true;
         }
     }
 
@@ -26,6 +27,7 @@ public class Extinguisher : Object
         if (fire.isPlaying)
         {
             fire.Stop();
+            fire.GetComponent<BoxCollider>().enabled = false;
         }
     }
 

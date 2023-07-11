@@ -44,9 +44,9 @@ public class Player : MonoBehaviour
 
     private void PutObjectOnFloor()
     {
+        carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
         carriedObject.transform.SetParent(floor);
         carriedObject.gameObject.AddComponent<Rigidbody>();
-        carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
         carriedObject = null;
     }
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
     private void GetNearObject()
     {
-        foreach (RaycastHit hit in Physics.SphereCastAll(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, 0.2f, transform.forward, 0.2f))
+        foreach (RaycastHit hit in Physics.SphereCastAll(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, 0.4f, transform.forward, 0.4f))
         {
             if (hit.collider.gameObject.GetComponentInParent<Object>() != null)
             {
@@ -82,9 +82,9 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt) && carriedObject != null && carriedObject is Ingredient)
         {
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject.transform.SetParent(floor);
             carriedObject.gameObject.AddComponent<Rigidbody>();
-            carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject.GetComponent<Rigidbody>().AddForce(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).forward * throwForce, ForceMode.Impulse);
             carriedObject = null;
         }
@@ -130,9 +130,9 @@ public class Player : MonoBehaviour
         if (placedObject != null)
         {
             carriedObject = placedObject;
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = false;
             carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
             carriedObject.transform.localPosition = new Vector3(0.0f, 0.0058f, 0.006f);
-            carriedObject.GetComponentInChildren<MeshCollider>().enabled = false;
 
             if (placedObject is Extinguisher)
             {
