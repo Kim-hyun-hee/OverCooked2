@@ -113,6 +113,10 @@ public class Ingredient : Object
         {
             UpdateUI();
         }
+        else if(choppable)
+        {
+            slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
+        }
     }
 
     private void UpdateIconImg()
@@ -151,7 +155,6 @@ public class Ingredient : Object
 
     public void StartCut()
     {
-        slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
         StartCoroutine(Cut_co());
     }
 
