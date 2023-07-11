@@ -8,8 +8,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody playerRb;
     private Vector3 dir = Vector3.zero;
-    private float moveSpeed = 5f;
-    [SerializeField] private float dashForce = 3.5f;
+    private float moveSpeed;
+    private float defaultSpeed = 5f;
+    [SerializeField] private float dashForce = 10f;
     private PlayerAnimationController playerAnimationController;
 
     private bool isPlay = false;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         TryGetComponent(out playerRb);
         objectPool = FindObjectOfType<ObjectPool>();
         puffTransform = GameObject.FindGameObjectWithTag("PuffPos").transform;
+        moveSpeed = defaultSpeed;
     }
 
     private void Update()
@@ -45,13 +47,16 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator StartCooldown_co()
     {
         isDashReady = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
+        moveSpeed = defaultSpeed;
+        yield return new WaitForSeconds(0.8f);
         isDashReady = true;
     }
 
     private void Dash()
     {
-        playerRb.DOMove(transform.position + transform.forward * dashForce, 0.5f);
+        //playerRb.DOMove(transform.position + transform.forward * dashForce, 0.5f);
+        moveSpeed = dashForce;
     }
 
     private void FixedUpdate()
@@ -97,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator Puff_co()
     {
         isPlay = true;
-        WaitForSeconds wfs = new WaitForSeconds(0.15f);
+        WaitForSeconds wfs = new WaitForSeconds(0.1f);
         while (true)
         {
             GameObject puff = objectPool.GetObject();

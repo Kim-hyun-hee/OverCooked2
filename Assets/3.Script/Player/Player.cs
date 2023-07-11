@@ -271,7 +271,7 @@ public class Player : MonoBehaviour
             // 애니메이션
             // Wash();
         }
-        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()))
+        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject())) // HasWashableObject()가 return (dirtyPlates.Count != 0); 이라서 문제임
         {
             washingTable.StopWash();
             playerAnimationController.StopWash();
