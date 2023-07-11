@@ -8,27 +8,25 @@ public class Extinguisher : Object
 
     public void Start()
     {
-        //fire = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+        fire = transform.GetChild(1).GetChild(0).gameObject.GetComponent<ParticleSystem>();
     }
 
     override public void Burn() { }
 
     public void Activate()
     {
-        Debug.Log("소화기 분사");
-        //if (!fire.isPlaying)
-        //{
-        //    fire.Play();
-        //}
+        if (!fire.isPlaying)
+        {
+            fire.Play();
+        }
     }
 
     public void Deactivate()
     {
-        Debug.Log("소화기 분사 끝");
-        //if (fire.isPlaying)
-        //{
-        //    fire.Stop();
-        //}
+        if (fire.isPlaying)
+        {
+            fire.Stop();
+        }
     }
 
     override public void ThrowToBin() { }
