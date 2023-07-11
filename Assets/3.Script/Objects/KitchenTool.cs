@@ -20,6 +20,7 @@ public class KitchenTool : Object
     public void Start()
     {
         burntSmoke = transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>();
+        smoke = transform.GetChild(0).GetChild(1).GetComponent<ParticleSystem>();
         uiTransform = GameObject.FindGameObjectWithTag("ObjectUI").transform;
         missingIcon = transform.GetChild(2).GetComponent<Image>();
         missingIcon.transform.SetParent(uiTransform);
@@ -28,16 +29,19 @@ public class KitchenTool : Object
 
     public void Update()
     {
-        if(HasIngredient())
+        if (HasIngredient() && (GetIngredient().GetState()) != State.OVERCOOKED)
         {
-            //if(!smoke.isPlaying)
-            //{
-            //    smoke.Play();
-            //}
-            //else
-            //{
-            //    smoke.Stop();
-            //}
+            if (!smoke.isPlaying)
+            {
+                smoke.Play();
+            }
+        }
+        else
+        {
+            if (smoke.isPlaying)
+            {
+                smoke.Stop();
+            }
         }
 
         UpdateUI();

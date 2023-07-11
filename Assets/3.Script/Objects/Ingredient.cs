@@ -28,7 +28,7 @@ public class Ingredient : Object
     public bool choppable, cookable = false;
     public float chopTime, cookTime, overcookTime;
     public float remainingOvercookTime, remainingChopTime, remainingCookTime;
-    private bool overcooking = false;
+    //private bool overcooking = false;
 
     public GameObject raw, chopped, cooked, overcooked, plated;
     private GameObject[] states = new GameObject[5];
@@ -207,7 +207,7 @@ public class Ingredient : Object
         {
             if (state == State.COOKED)
             {
-                overcooking = true;
+                //overcooking = true;
                 remainingOvercookTime -= Time.deltaTime;
 
                 if (remainingOvercookTime <= 0)
