@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 5197664402155156587}
   - component: {fileID: 7370204871307173994}
   - component: {fileID: 3225711074374033432}
+  - component: {fileID: 5927956441314716004}
   m_Layer: 0
   m_Name: m_ingredients_seaweed_01_0
   m_TagString: Untagged
@@ -226,6 +227,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5927956441314716004
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157146330166604742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6288962990022169689, guid: 587d5fa31a8f2024db04d7ce0f1c4688, type: 3}
 --- !u!1 &2252833617139664765
 GameObject:
   m_ObjectHideFlags: 0

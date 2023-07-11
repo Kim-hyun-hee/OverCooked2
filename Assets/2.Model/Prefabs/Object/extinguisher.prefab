@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2152775899333412664}
   - component: {fileID: 7704601281752865478}
   m_Layer: 0
-  m_Name: Extinguisher
+  m_Name: extinguisher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 8757258807788863206}
   - component: {fileID: 885183155220282848}
   - component: {fileID: 245724082520813163}
+  - component: {fileID: 1669365373013788257}
   m_Layer: 0
   m_Name: Mesh 9
   m_TagString: Untagged
@@ -126,6 +127,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1669365373013788257
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603779046579495695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -862789994468657012, guid: d022d5cf0bc12884fa0ff82c14e1cb54, type: 3}
 --- !u!1 &8581989882071838946
 GameObject:
   m_ObjectHideFlags: 0

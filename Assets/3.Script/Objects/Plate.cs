@@ -156,6 +156,7 @@ public class Plate : Object
                 this.ingreicons.Add(ingreicon);
                 ingredient.transform.SetParent(transform.GetChild(0)); // attach point
                 ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
+                ingredient.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
                 this.recipe = recipeManager.GetRecipe(ingreicons); // 재료리스트
                 ingredient.icons.RemoveAt(0);
                 GetImageIcon(ingreicons);
@@ -188,6 +189,7 @@ public class Plate : Object
 
         ingredient.transform.SetParent(transform.GetChild(0)); // attach point
         ingredient.transform.localPosition = new Vector3(0f, 0f, 0f);
+        ingredient.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
         return true;
     }
 

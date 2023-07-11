@@ -5,9 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Table nearTable;
+    [SerializeField] private Object nearObject;
     private CutTable cuttingTable;
     private WashTable washingTable;
     private Table preTable;
+
+    [SerializeField] private Transform floor;
 
     private PlayerAnimationController playerAnimationController;
     [SerializeField] private Object carriedObject;
@@ -20,10 +23,12 @@ public class Player : MonoBehaviour
     private void Update()
     {
         GetNearTable();
+        GetNearObject();
         TableInteraction();
         CutIngredient();
         WashDish();
         UseExtinguisher();
+        ThrowObject();
 
         if (carriedObject == null)
         {
@@ -33,6 +38,44 @@ public class Player : MonoBehaviour
         {
             playerAnimationController.Carry();
         }
+    }
+
+    private void PutObjectOnFloor()
+    {
+        carriedObject.transform.SetParent(floor);
+        carriedObject.gameObject.AddComponent<Rigidbody>();
+        carriedObject = null;
+    }
+
+    private void GetObjectOnFloor()
+    {
+        carriedObject = nearObject;
+        Rigidbody rig = carriedObject.GetComponent<Rigidbody>();
+        Destroy(rig);
+        carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
+        carriedObject.transform.localPosition = new Vector3(0.0f, 0.0058f, 0.006f);
+        carriedObject.transform.localRotation = Quaternion.identity;
+    }
+
+    private void GetNearObject()
+    {
+        foreach (RaycastHit hit in Physics.SphereCastAll(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, 0.5f, transform.forward, 1f))
+        {
+            if (hit.collider.gameObject.GetComponentInParent<Object>() != null)
+            {
+                nearObject = hit.collider.gameObject.GetComponentInParent<Object>();
+                break;
+            }
+            else
+            {
+                nearObject = null;
+            }
+        }
+    }
+
+    private void ThrowObject()
+    {
+
     }
 
     private void TableInteraction()
@@ -46,6 +89,17 @@ public class Player : MonoBehaviour
             else
             {
                 PutObjectOnTable();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && nearTable == null)
+        {
+            if (carriedObject == null && nearObject != null)
+            {
+                GetObjectOnFloor();
+            }
+            else if (carriedObject != null)
+            {
+                PutObjectOnFloor();
             }
         }
     }
@@ -98,7 +152,7 @@ public class Player : MonoBehaviour
         }
 
         bool isTable = false;
-        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 1f))
+        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 0.6f))
         {
             if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
             {
@@ -110,7 +164,7 @@ public class Player : MonoBehaviour
 
         if(!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 1f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 0.6f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {
@@ -123,7 +177,7 @@ public class Player : MonoBehaviour
 
         if (!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 1f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 0.6f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 159370870274451631}
   - component: {fileID: 159370870274451630}
   - component: {fileID: -6000085830496990716}
+  - component: {fileID: 3569661340891594997}
   m_Layer: 0
   m_Name: DirtyPlate
   m_TagString: Untagged
@@ -94,5 +95,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73e2d4183b3484a91edcf633e64b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredients: []
-  recipe: {fileID: 0}
+  isDirty: 0
+  icons: []
+--- !u!64 &3569661340891594997
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159370870274451629}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3032154381418243694, guid: d022d5cf0bc12884fa0ff82c14e1cb54, type: 3}
