@@ -25,12 +25,10 @@ public class Fire : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("trigger");
         if (other.gameObject.name.Equals("FX_Steam_01"))
         {
             if (fireParticles.isPlaying)
             {
-                Debug.Log("²¨Áö´ÂÁß");
                 fireHealth -= Time.deltaTime * 60;
                 if (fireHealth <= 0)
                 {
