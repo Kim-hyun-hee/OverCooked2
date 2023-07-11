@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private CutTable cuttingTable;
     private WashTable washingTable;
     private Table preTable;
+    [SerializeField] private float throwForce;
 
     [SerializeField] private Transform floor;
 
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerAnimationController = FindObjectOfType<PlayerAnimationController>();
+        throwForce = 7;
     }
 
     private void Update()
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
         CutIngredient();
         WashDish();
         UseExtinguisher();
-        ThrowObject();
+        ThrowIngredient();
 
         if (carriedObject == null)
         {
@@ -44,12 +46,14 @@ public class Player : MonoBehaviour
     {
         carriedObject.transform.SetParent(floor);
         carriedObject.gameObject.AddComponent<Rigidbody>();
+        carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
         carriedObject = null;
     }
 
-    private void GetObjectOnFloor()
+    private void GetObjectFromFloor()
     {
         carriedObject = nearObject;
+        carriedObject.GetComponentInChildren<MeshCollider>().enabled = false;
         Rigidbody rig = carriedObject.GetComponent<Rigidbody>();
         Destroy(rig);
         carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
@@ -59,11 +63,12 @@ public class Player : MonoBehaviour
 
     private void GetNearObject()
     {
-        foreach (RaycastHit hit in Physics.SphereCastAll(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, 0.5f, transform.forward, 1f))
+        foreach (RaycastHit hit in Physics.SphereCastAll(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, 0.2f, transform.forward, 0.2f))
         {
             if (hit.collider.gameObject.GetComponentInParent<Object>() != null)
             {
                 nearObject = hit.collider.gameObject.GetComponentInParent<Object>();
+                Debug.DrawRay(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(1).position, transform.forward * 10f, Color.red, Time.deltaTime);
                 break;
             }
             else
@@ -73,18 +78,33 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ThrowObject()
+    private void ThrowIngredient()
     {
-
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && carriedObject != null && carriedObject is Ingredient)
+        {
+            carriedObject.transform.SetParent(floor);
+            carriedObject.gameObject.AddComponent<Rigidbody>();
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
+            carriedObject.GetComponent<Rigidbody>().AddForce(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).forward * throwForce, ForceMode.Impulse);
+            carriedObject = null;
+        }
     }
 
     private void TableInteraction()
     {
         if (Input.GetKeyDown(KeyCode.Space) && nearTable != null)
         {
-            if (carriedObject == null)
+            if (carriedObject == null && nearObject == null)
             {
                 GetObjectFromTable();
+            }
+            else if (carriedObject == null && nearObject != null)
+            {
+                GetObjectFromTable();
+                if(carriedObject == null && nearObject != null)
+                {
+                    GetObjectFromFloor();
+                }
             }
             else
             {
@@ -95,7 +115,7 @@ public class Player : MonoBehaviour
         {
             if (carriedObject == null && nearObject != null)
             {
-                GetObjectOnFloor();
+                GetObjectFromFloor();
             }
             else if (carriedObject != null)
             {
@@ -112,8 +132,9 @@ public class Player : MonoBehaviour
             carriedObject = placedObject;
             carriedObject.transform.SetParent(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(1));
             carriedObject.transform.localPosition = new Vector3(0.0f, 0.0058f, 0.006f);
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = false;
 
-            if(placedObject is Extinguisher)
+            if (placedObject is Extinguisher)
             {
                 placedObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
@@ -124,6 +145,7 @@ public class Player : MonoBehaviour
     {
         if (nearTable.PutObject(carriedObject))
         {
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject = null;
         }
     }
@@ -152,7 +174,7 @@ public class Player : MonoBehaviour
         }
 
         bool isTable = false;
-        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 0.6f))
+        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 0.8f))
         {
             if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
             {
@@ -164,7 +186,7 @@ public class Player : MonoBehaviour
 
         if(!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 0.6f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 0.8f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {
@@ -177,7 +199,7 @@ public class Player : MonoBehaviour
 
         if (!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 0.6f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 0.8f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {

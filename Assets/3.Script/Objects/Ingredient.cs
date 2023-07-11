@@ -251,6 +251,7 @@ public class Ingredient : Object
     private void UpdateModel(State state)
     {
         transform.GetChild(0).GetComponent<MeshFilter>().mesh = states[(int)state].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
+        transform.GetChild(0).GetComponent<MeshCollider>().sharedMesh = states[(int)state].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
         //transform.GetChild(0).GetComponent<Renderer>().materials = states[(int)state].transform.GetChild(0).GetComponent<Renderer>().sharedMaterials;
     }
 
