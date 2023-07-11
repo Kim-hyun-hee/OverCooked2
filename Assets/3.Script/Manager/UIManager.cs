@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject EndMenu;
     public GameObject PauseMenu;
+    public GameObject Intro;
 
     public List<GameObject> panels = new List<GameObject>();
 
