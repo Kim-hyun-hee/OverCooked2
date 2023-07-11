@@ -8,10 +8,13 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody playerRb;
     private Vector3 dir = Vector3.zero;
-    private float moveSpeed = 10f;
+    private float moveSpeed = 5f;
+    [SerializeField] private float dashForce = 3.5f;
     private PlayerAnimationController playerAnimationController;
 
     private bool isPlay = false;
+    private bool isDashReady = true;
+    
     private ObjectPool objectPool;
     private Coroutine running;
     private Transform puffTransform;
@@ -28,13 +31,28 @@ public class PlayerMovement : MonoBehaviour
     {
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.z = Input.GetAxisRaw("Vertical");
+
+        if (isDashReady)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                Dash();
+                StartCoroutine(StartCooldown_co());
+            }
+        }
     }
 
-    //void OnMove(InputValue value)
-    //{
-    //    Vector2 input = value.Get<Vector2>();
-    //    dir = new Vector3(input.x, 0f, input.y);
-    //}
+    private IEnumerator StartCooldown_co()
+    {
+        isDashReady = false;
+        yield return new WaitForSeconds(1f);
+        isDashReady = true;
+    }
+
+    private void Dash()
+    {
+        playerRb.DOMove(transform.position + transform.forward * dashForce, 0.5f);
+    }
 
     private void FixedUpdate()
     {
@@ -44,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (dir.magnitude > 0)
         {
-            // Walk or Run animation
             playerAnimationController.Walk();
             if(!isPlay)
             {
@@ -53,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Idle animation
             playerAnimationController.Idle();
             if(isPlay)
             {
@@ -62,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void PlayPuff() // puff DeQueue
+    public void PlayPuff()
     {
         running = StartCoroutine(Puff_co());
     }

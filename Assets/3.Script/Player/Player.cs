@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerAnimationController = FindObjectOfType<PlayerAnimationController>();
-        throwForce = 7;
+        throwForce = 8;
     }
 
     private void Update()
