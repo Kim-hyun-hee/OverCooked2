@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 
     private void ThrowIngredient()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && carriedObject != null && carriedObject is Ingredient)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && carriedObject != null && carriedObject is Ingredient)
         {
             carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject.transform.SetParent(floor);
