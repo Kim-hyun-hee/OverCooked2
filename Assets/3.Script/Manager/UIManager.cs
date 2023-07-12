@@ -51,22 +51,22 @@ public class UIManager : MonoBehaviour
         ui.SetActive(true);
     }
 
-    public void DropDown(GameObject ui, float value, float duration)
-    {
-        ui.SetActive(true);
-        ui.transform.DOLocalMoveY(value, duration).SetRelative();
-    }
+    //public void DropDown(GameObject ui, float value, float duration)
+    //{
+    //    ui.SetActive(true);
+    //    ui.transform.DOLocalMoveY(value, duration).SetRelative();
+    //}
 
-    public void CancelDropDown(GameObject ui, float value, float duration)
-    {
-        ui.transform.DOLocalMoveY(value, duration).SetRelative();
-        ui.SetActive(false);
-    }
+    //public void CancelDropDown(GameObject ui, float value, float duration)
+    //{
+    //    ui.transform.DOLocalMoveY(value, duration).SetRelative();
+    //    ui.SetActive(false);
+    //}
 
-    public void MoveDefaultPos(GameObject ui, Transform defaulttransform, float duration)
-    {
-        ui.transform.DOLocalMoveY(defaulttransform.position.y, duration);
-    }
+    //public void MoveYDefaultLocalPos(GameObject ui, float y, float duration)
+    //{
+    //    ui.transform.DOLocalMoveY(y, duration);
+    //}
 
 
     //private static UIManager instance;
