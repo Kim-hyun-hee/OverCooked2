@@ -8,7 +8,6 @@ public class Table : MonoBehaviour
 
     [SerializeField] private AudioSource fireSound;
     [SerializeField] protected List<GameObject> nearTables = new List<GameObject>();
-    protected AudioManager audioManager;
 
     [SerializeField] protected Fire fire;
 

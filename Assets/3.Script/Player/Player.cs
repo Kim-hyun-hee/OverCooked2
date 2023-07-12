@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        GetNearTable();
+        //GetNearTable();
         GetNearObject();
         TableInteraction();
         CutIngredient();
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
             else
             {
                 nearObject = null;
+                GetNearTable();
             }
         }
     }

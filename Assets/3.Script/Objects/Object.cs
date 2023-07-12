@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Object : MonoBehaviour
 {
-    protected AudioManager audioManager;
 
     public void Awake()
     {

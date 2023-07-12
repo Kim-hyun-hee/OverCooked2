@@ -21,7 +21,7 @@ public class PausePanel : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
-        UIManager.Instance.CloseUI(gameObject);
+        //UIManager.Instance.CloseUI(gameObject);
         //UIManager.Instance.paused = false;
     }
 
@@ -44,7 +44,7 @@ public class PausePanel : MonoBehaviour
     public void PopUpStop()
     {
         stopUI.SetActive(true);
-        UIManager.Instance.panels.Add(stopUI);
+        //UIManager.Instance.panels.Add(stopUI);
     }
 
     public void PopUpControl()

@@ -19,13 +19,26 @@ public class Sound
 }
 
 
-public class AudioManager : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
+    private static SoundManager instance;
+    public static SoundManager Instance { get { return instance; } }
+
     public Sound[] sounds;
     private bool underOneMinute = false;
-
-    void Awake()
+    
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         foreach (Sound sound in sounds)
         {
             sound.source = gameObject.AddComponent<AudioSource>();

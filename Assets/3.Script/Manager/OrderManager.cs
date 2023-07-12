@@ -99,7 +99,7 @@ public class OrderManager : MonoBehaviour
             cronoRunning = false;
             remainingTime = 0;
             Time.timeScale = 0;
-            UIManager.Instance.EndMenu.SetActive(true);
+            //UIManager.Instance.EndMenu.SetActive(true);
         }
 
         int minutes = (Mathf.CeilToInt(remainingTime) / 60);
