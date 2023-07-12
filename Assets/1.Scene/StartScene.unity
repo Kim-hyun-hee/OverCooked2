@@ -214,7 +214,6 @@ GameObject:
   - component: {fileID: 100073870}
   - component: {fileID: 100073869}
   - component: {fileID: 100073868}
-  - component: {fileID: 100073867}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -242,21 +241,6 @@ RectTransform:
   m_AnchoredPosition: {x: 326.5, y: -328.42856}
   m_SizeDelta: {x: 550, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &100073867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100073865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8923a71af10cf8c4db93f2363569b464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btn: {fileID: 100073868}
-  sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
-  defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
 --- !u!114 &100073868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,6 +1379,10 @@ MonoBehaviour:
   btn: {fileID: 406679556}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1845196147}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &406679556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,6 +1782,10 @@ MonoBehaviour:
   btn: {fileID: 545981780}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 84936243}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &545981780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2117,7 +2109,6 @@ GameObject:
   - component: {fileID: 687207214}
   - component: {fileID: 687207213}
   - component: {fileID: 687207212}
-  - component: {fileID: 687207211}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -2145,21 +2136,6 @@ RectTransform:
   m_AnchoredPosition: {x: 326.5, y: -210.57144}
   m_SizeDelta: {x: 550, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &687207211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687207209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8923a71af10cf8c4db93f2363569b464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btn: {fileID: 687207212}
-  sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
-  defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
 --- !u!114 &687207212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,6 +2496,10 @@ MonoBehaviour:
   btn: {fileID: 788724892}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1029635423}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &788724892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2736,6 +2716,10 @@ MonoBehaviour:
   btn: {fileID: 869183230}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 873738119}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &869183230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3118,6 +3102,10 @@ MonoBehaviour:
   btn: {fileID: 980759354}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 559829686}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &980759354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5219,6 +5207,10 @@ MonoBehaviour:
   btn: {fileID: 1554421750}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 131253669}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1591852752
 GameObject:
   m_ObjectHideFlags: 0
@@ -5431,6 +5423,10 @@ MonoBehaviour:
   btn: {fileID: 1593977127}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1179771254}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1604612723
 GameObject:
   m_ObjectHideFlags: 0
@@ -5695,6 +5691,10 @@ MonoBehaviour:
   btn: {fileID: 1668892019}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 2124303370}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1668892019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5832,6 +5832,10 @@ MonoBehaviour:
   btn: {fileID: 1692707471}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 444062464}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1692707471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6342,6 +6346,10 @@ MonoBehaviour:
   btn: {fileID: 1773193291}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1241542905}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1773193291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6507,7 +6515,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1775365721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 405917783}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Map
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1775365721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6561,6 +6581,10 @@ MonoBehaviour:
   btn: {fileID: 1775365720}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 225698166}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1826037297
 GameObject:
   m_ObjectHideFlags: 0
@@ -7212,6 +7236,10 @@ MonoBehaviour:
   btn: {fileID: 2003230340}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1043755055}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2010540004
 GameObject:
   m_ObjectHideFlags: 0
@@ -7267,6 +7295,10 @@ MonoBehaviour:
   btn: {fileID: 2010540007}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1948695936}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2010540007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7554,6 +7586,10 @@ MonoBehaviour:
   btn: {fileID: 2081192227}
   sprite: {fileID: 21300000, guid: f529caefad68c0049ab25fe90acb4f5c, type: 3}
   defaultSprite: {fileID: 21300000, guid: ffb5935baa885444c8ae28434739e623, type: 3}
+  isChangeTextColor: 1
+  text: {fileID: 1247389659}
+  defaultColor: {r: 0.36078432, g: 0.5019608, b: 0.62352943, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2081192227
 MonoBehaviour:
   m_ObjectHideFlags: 0
