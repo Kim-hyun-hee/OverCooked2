@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        UIManager.Instance.Init();
         StartCoroutine(LoadScene_co(sceneName));
     }
 
