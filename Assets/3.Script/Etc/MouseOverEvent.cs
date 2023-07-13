@@ -26,6 +26,7 @@ public class MouseOverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             text.color = color;
         }
+        SoundManager.Instance.PlaySE("UI_Highlight");
     }
 
     public void OnPointerExit(PointerEventData eventData)

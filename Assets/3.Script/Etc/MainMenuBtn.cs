@@ -17,6 +17,11 @@ public class MainMenuBtn : MonoBehaviour, IPointerEnterHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         btn.image.sprite = sprite;
+        if(!isDown)
+        {
+            SoundManager.Instance.PlaySE("UI_Highlight");
+            SoundManager.Instance.PlaySE("UI_Button_Drop");
+        }
         bg.SetActive(true);
         isDown = true;
 
