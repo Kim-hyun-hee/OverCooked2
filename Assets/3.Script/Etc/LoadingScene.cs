@@ -12,12 +12,16 @@ public class LoadingScene : MonoBehaviour
     public static void LoadScene(string sceneMame)
     {
         nextSceneName = sceneMame;
-        SoundManager.Instance.PlaySE("UI_Screen_In");
         SceneManager.LoadScene("LoadingScene");
     }
 
     private void Start()
     {
+        GameManager.Instance.transitionIn.SetActive(false);
+        GameManager.Instance.transitionOut.SetActive(false);
+        GameManager.Instance.blackBackGround.SetActive(false);
+        SoundManager.Instance.PlaySE("UI_Screen_In");
+        GameManager.Instance.transitionIn.SetActive(true);
         StartCoroutine(LoadSceneProcess_co());
     }
 
@@ -36,14 +40,16 @@ public class LoadingScene : MonoBehaviour
             else
             {
                 time += Time.unscaledDeltaTime;
-                loadingBar.value = Mathf.Lerp(0.9f, 1f, time);
+                loadingBar.value = Mathf.Lerp(0.9f, 1f, time/2);
 
                 if (loadingBar.value >= 1f)
                 {
+                    GameManager.Instance.transitionIn.SetActive(false);
                     SoundManager.Instance.PlaySE("UI_Screen_Out");
-                    yield return new WaitForSecondsRealtime(0.8f);
+                    GameManager.Instance.transitionOut.SetActive(true);
+                    yield return new WaitForSecondsRealtime(0.6f);
+                    GameManager.Instance.blackBackGround.SetActive(true);
                     op.allowSceneActivation = true;
-                    SoundManager.Instance.PlaySE("UI_Screen_In");
                     yield break;
                 }
             }

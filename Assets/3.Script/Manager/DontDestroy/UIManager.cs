@@ -26,8 +26,7 @@ public class UIManager : MonoBehaviour
 
     public void Init() // 씬 전환될 때 사용
     {
-        //UIStack = new Stack<GameObject>();
-        Debug.Log("dd");
+        UIStack = new Stack<GameObject>();
     }
 
     public int GetUIStackCount()
