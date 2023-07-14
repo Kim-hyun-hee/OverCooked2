@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultSpeed = 5f;
     [SerializeField] private float dashForce = 10f;
     private PlayerAnimationController playerAnimationController;
+    private Quaternion finalRotation;
 
     private bool isPlay = false;
     private bool isDashReady = true;
@@ -63,7 +64,9 @@ public class PlayerMovement : MonoBehaviour
     {
         dir.Normalize();
         playerRb.velocity = dir * moveSpeed;
-        transform.LookAt(transform.position + dir, Vector3.up);
+        //transform.LookAt(transform.position + dir, Vector3.up);
+        finalRotation = Quaternion.LookRotation(transform.forward + dir);
+        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 15);
 
         if (dir.magnitude > 0)
         {
