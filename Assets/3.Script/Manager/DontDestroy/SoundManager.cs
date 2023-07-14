@@ -1,5 +1,6 @@
 using UnityEngine.Audio;
 using UnityEngine;
+using DG.Tweening;
 
 [System.Serializable]
 public class Sound
@@ -105,6 +106,16 @@ public class SoundManager : MonoBehaviour
             }
         }
         Debug.Log("재생중인" + _name + "사운드가 없습니다");
+    }
+
+    public void FadeBGM(float endValue, float duration)
+    {
+        audioSourceBgm.DOFade(endValue, duration);
+    }
+
+    public void SetBGMVolume(float value)
+    {
+        audioSourceBgm.volume = value;
     }
 
 

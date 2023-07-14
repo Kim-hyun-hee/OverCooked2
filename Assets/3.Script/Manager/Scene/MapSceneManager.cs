@@ -7,6 +7,7 @@ public class MapSceneManager : MonoBehaviour
     void Start()
     {
         SoundManager.Instance.PlayBGM("MapScreen");
+        SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.transitionIn.SetActive(false);
         GameManager.Instance.transitionOut.SetActive(false);
         GameManager.Instance.blackBackGround.SetActive(false);

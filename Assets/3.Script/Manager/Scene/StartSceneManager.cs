@@ -19,6 +19,7 @@ public class StartSceneManager : MonoBehaviour
     {
         shutter.GetComponent<Animator>().TryGetComponent(out shutterOpen);
         SoundManager.Instance.PlayBGM("Frontend");
+        SoundManager.Instance.SetBGMVolume(1);
 
         if (!GameManager.Instance.isOpenShutter)
         {
