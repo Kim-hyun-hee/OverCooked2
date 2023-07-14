@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         playerRb.velocity = dir * moveSpeed;
         //transform.LookAt(transform.position + dir, Vector3.up);
         finalRotation = Quaternion.LookRotation(transform.forward + dir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 15);
+        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 30);
 
         if (dir.magnitude > 0)
         {
