@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class MapVanController : MonoBehaviour
 {
     private Rigidbody vanRb;
     private Vector3 dir = Vector3.zero;
     private float moveSpeed;
-    private float defaultSpeed = 3f;
-    [SerializeField] private float dashForce = 6f;
+    private float defaultSpeed = 4f;
+    [SerializeField] private float dashForce = 8f;
     private Quaternion finalRotation;
     //private PlayerAnimationController vanAnimationController;
 
@@ -58,26 +59,25 @@ public class MapVanController : MonoBehaviour
     private void FixedUpdate()
     {
         dir.Normalize();
-        finalRotation = Quaternion.LookRotation(transform.forward + dir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 6);
-        if (dir.magnitude > 0)
+        if(dir.magnitude > 0)
         {
-            vanRb.velocity = transform.forward * moveSpeed;
-            //vanAnimationController.Walk();
-            //if (!isPlay)
+            //if ((Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x)) || (Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z)))
             //{
-            //    PlayPuff();
+            //    transform.Rotate(0, 1, 0);
             //}
+            finalRotation = Quaternion.LookRotation(transform.forward + dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 5);
+            vanRb.velocity = transform.forward * moveSpeed;
         }
         else
         {
             vanRb.velocity = Vector3.zero;
-        //    vanAnimationController.Idle();
-        //    if (isPlay)
-        //    {
-        //        StopPuff();
-        //    }
         }
+    }
+
+    private Vector3 eulers(Vector3 vector3)
+    {
+        throw new NotImplementedException();
     }
 
     //public void PlayPuff()

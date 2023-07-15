@@ -64,6 +64,13 @@ public class PlayerMovement : MonoBehaviour
     {
         dir.Normalize();
         playerRb.velocity = dir * moveSpeed;
+        if(dir != Vector3.zero)
+        {
+            if ((Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x)) || (Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z)))
+            {
+                transform.Rotate(0, 1, 0);
+            }
+        }
         //transform.LookAt(transform.position + dir, Vector3.up);
         finalRotation = Quaternion.LookRotation(transform.forward + dir);
         transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 30);
