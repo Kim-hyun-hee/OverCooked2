@@ -31,7 +31,7 @@ public class StartSceneManager : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.TransitionIn();
+            GameManager.Instance.TransitionIn(false);
             Camera.main.transform.position = new Vector3(cameraEndTransform.position.x, cameraEndTransform.position.y, cameraEndTransform.position.z);
             Camera.main.transform.rotation = Quaternion.Euler(0, 4.194f, 0);
             shutter.SetActive(false);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1337,10 +1337,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d585bc75f22e4dc48875a2ee1c16f548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageManager: {fileID: 0}
   isOpenShutter: 0
   transitionOut: {fileID: 1715985526}
   transitionIn: {fileID: 1260158807}
   blackBackGround: {fileID: 1531143661}
+  summaryStar: 0
 --- !u!1 &406679553
 GameObject:
   m_ObjectHideFlags: 0
@@ -4477,7 +4479,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 25b87f4930db3fa4dabfd368fd6d6650, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -6607,7 +6609,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bcc32a536c17bab459a117f8a40ef0c4, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -7752,11 +7754,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1f773ad0cfd038b468ce1a6ed210fe27, type: 3}
   - name: UI_Screen_Out
     clip: {fileID: 8300000, guid: 21e4833272d205646be8771a16a0d59f, type: 3}
+  - name: Go
+    clip: {fileID: 8300000, guid: 58b8d481f7a0d5244a84e433405cb721, type: 3}
+  - name: Ready
+    clip: {fileID: 8300000, guid: 55bd6ca0df723a84da2b288b1aa35b86, type: 3}
   bgmSound:
   - name: Frontend
     clip: {fileID: 8300000, guid: 4645260c2c3d6d04ba36f3b5cbd9db83, type: 3}
   - name: MapScreen
     clip: {fileID: 8300000, guid: 5342bfa33a757d24890aa2b8d2029d2f, type: 3}
+  - name: TheNeonCity
+    clip: {fileID: 8300000, guid: 86c97a124f5a4404c9f0bf6dc94a1c10, type: 3}
 --- !u!82 &1942732363
 AudioSource:
   m_ObjectHideFlags: 0

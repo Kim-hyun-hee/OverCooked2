@@ -61,13 +61,11 @@ public class MapVanController : MonoBehaviour
         dir.Normalize();
         if(dir.magnitude > 0)
         {
-            //if ((Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x)) || (Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z)))
-            //{
-            //    transform.Rotate(0, 1, 0);
-            //}
-            finalRotation = Quaternion.LookRotation(transform.forward + dir);
-            transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * 5);
-            vanRb.velocity = transform.forward * moveSpeed;
+            if ((Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x)) || (Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z)))
+            {
+                transform.Rotate(0, 1, 0);
+            }
+            vanRb.velocity = dir * moveSpeed;
         }
         else
         {

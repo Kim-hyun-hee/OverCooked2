@@ -24,26 +24,20 @@ public class OrderManager : MonoBehaviour
     public static OrderManager Instance { get { return instance; } }
 
     public List<Recipe> recipes = new List<Recipe>();
-    public float levelTime = 180.0f;
-    public float remainingTime;
     public float orderTime = 180.0f;
     public const int TIP = 8;
     public int tip;
 
-    public GameObject uiMoney, uiCrono;
+    public GameObject uiMoney;
     public GameObject getPrefab, tipPrefab;
-    public Slider cronoSlider;
-    private float hue;
     public List<GameObject> uiOrderPrefabs = new List<GameObject>();
     public Transform uiOrders;
 
     private List<Order> queue = new List<Order>();
     private float timeToNewOrder = 10f;
     private int money;
-    private bool cronoRunning = true;
 
     private int combo;
-    private bool isRing = true;
 
 
     private void Awake()
@@ -60,16 +54,13 @@ public class OrderManager : MonoBehaviour
 
     public void Start()
     {
-        remainingTime = levelTime;
-        hue = (float)120 / 360;
         money = 0;
     }
 
     private void Update()
     {
-        UpdateNewOrder();
-        UpdateOrders();
-        UpdateCrono();
+        //UpdateNewOrder();
+        //UpdateOrders();
     }
 
     //void OnExit(InputValue value)
@@ -88,76 +79,76 @@ public class OrderManager : MonoBehaviour
     //    }
     //}
 
-    private void UpdateCrono()
-    {
-        if (remainingTime > 0 && cronoRunning)
-        {
-            remainingTime -= Time.deltaTime;
-        }
-        else if (cronoRunning)
-        {
-            cronoRunning = false;
-            remainingTime = 0;
-            Time.timeScale = 0;
-            //UIManager.Instance.EndMenu.SetActive(true);
-        }
+    //private void UpdateCrono()
+    //{
+    //    if (remainingTime > 0 && cronoRunning)
+    //    {
+    //        remainingTime -= Time.deltaTime;
+    //    }
+    //    else if (cronoRunning)
+    //    {
+    //        cronoRunning = false;
+    //        remainingTime = 0;
+    //        Time.timeScale = 0;
+    //        //UIManager.Instance.EndMenu.SetActive(true);
+    //    }
 
-        int minutes = (Mathf.CeilToInt(remainingTime) / 60);
-        int seconds = Mathf.CeilToInt(remainingTime % 60);
+    //    int minutes = (Mathf.CeilToInt(remainingTime) / 60);
+    //    int seconds = Mathf.CeilToInt(remainingTime % 60);
 
-        if(seconds == 60)
-        {
-            seconds = 0;
-        }
+    //    if(seconds == 60)
+    //    {
+    //        seconds = 0;
+    //    }
 
-        if(seconds == 0 && !isRing)
-        {
-            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
-            isRing = true;
-        }
-        else if(seconds == 30 && minutes != 0 && !isRing)
-        {
-            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
-            isRing = true;
-        }
-        else if(seconds <= 30 && minutes == 0 && !isRing)
-        {
-            uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("infalram");
-            isRing = true;
-        }
+    //    if(seconds == 0 && !isRing)
+    //    {
+    //        uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+    //        isRing = true;
+    //    }
+    //    else if(seconds == 30 && minutes != 0 && !isRing)
+    //    {
+    //        uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+    //        isRing = true;
+    //    }
+    //    else if(seconds <= 30 && minutes == 0 && !isRing)
+    //    {
+    //        uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("infalram");
+    //        isRing = true;
+    //    }
 
-        if(seconds != 0 && seconds != 30)
-        {
-            isRing = false;
-        }
+    //    if(seconds != 0 && seconds != 30)
+    //    {
+    //        isRing = false;
+    //    }
 
-        string minutesString;
-        string secondsString;
+    //    string minutesString;
+    //    string secondsString;
 
-        if (minutes < 10)
-        {
-            minutesString = string.Format("0{0}", minutes);
-        }
-        else
-        {
-            minutesString = string.Format("{0}", minutes);
-        }
+    //    if (minutes < 10)
+    //    {
+    //        minutesString = string.Format("0{0}", minutes);
+    //    }
+    //    else
+    //    {
+    //        minutesString = string.Format("{0}", minutes);
+    //    }
 
-        if (seconds < 10)
-        {
-            secondsString = string.Format("0{0}", seconds);
-        }
-        else
-        {
-            secondsString = string.Format("{0}", seconds);
-        }
+    //    if (seconds < 10)
+    //    {
+    //        secondsString = string.Format("0{0}", seconds);
+    //    }
+    //    else
+    //    {
+    //        secondsString = string.Format("{0}", seconds);
+    //    }
 
-        uiCrono.transform.GetChild(2).GetComponent<Text>().text = minutesString + ":" + secondsString;
-        cronoSlider.value = remainingTime / levelTime;
-        float hue = this.hue;
-        hue *= cronoSlider.value;
-        cronoSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.HSVToRGB(hue, 1, 0.85f);
-    }
+    //    uiCrono.transform.GetChild(2).GetComponent<Text>().text = minutesString + ":" + secondsString;
+    //    cronoSlider.value = remainingTime / levelTime;
+    //    float hue = this.hue;
+    //    hue *= cronoSlider.value;
+    //    cronoSlider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.HSVToRGB(hue, 1, 0.85f);
+    //}
 
     private GameObject InstantiateOrderInUI(Order newOrder, int index, int add)
     {

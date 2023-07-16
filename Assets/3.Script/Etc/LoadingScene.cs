@@ -17,17 +17,20 @@ public class LoadingScene : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.transitionIn.SetActive(false);
-        GameManager.Instance.transitionOut.SetActive(false);
-        GameManager.Instance.blackBackGround.SetActive(false);
-        SoundManager.Instance.PlaySE("UI_Screen_In");
+        //GameManager.Instance.TransitionIn(false);
+        //GameManager.Instance.transitionIn.SetActive(false);
+        //GameManager.Instance.transitionOut.SetActive(false);
+        //GameManager.Instance.blackBackGround.SetActive(false);
+        //SoundManager.Instance.PlaySE("UI_Screen_In");
         SoundManager.Instance.FadeBGM(0, 1.7f);
-        GameManager.Instance.transitionIn.SetActive(true);
+        //GameManager.Instance.transitionIn.SetActive(true);
         StartCoroutine(LoadSceneProcess_co());
     }
 
     private IEnumerator LoadSceneProcess_co()
     {
+        GameManager.Instance.TransitionIn(false);
+        yield return new WaitForSecondsRealtime(1f);
         AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);
         op.allowSceneActivation = false;
 
