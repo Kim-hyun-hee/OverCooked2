@@ -162,36 +162,40 @@ public class OrderManager : MonoBehaviour
         return UIOrder;
     }
 
-    private void UpdateNewOrder()
+    public IEnumerator UpdateNewOrder()
     {
-        timeToNewOrder -= Time.deltaTime;
-        if(timeToNewOrder <= 0.0f && queue.Count < 5)
+        while (true)
         {
-            timeToNewOrder = 10 + timeToNewOrder;
-            int index = Random.Range(0, recipes.Count);
-            Order NewOrder = new Order(recipes[index], orderTime);
-            queue.Add(NewOrder);
-            GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, 0);
-            OrderMovement(UIOrder);
-        }
-        else if (queue.Count == 0)
-        {
-            for (int i = 0; i < 2; i++)
+            timeToNewOrder -= Time.deltaTime;
+            if (timeToNewOrder <= 0.0f && queue.Count < 5)
+            {
+                timeToNewOrder = 10 + timeToNewOrder;
+                int index = Random.Range(0, recipes.Count);
+                Order NewOrder = new Order(recipes[index], orderTime);
+                queue.Add(NewOrder);
+                GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, 0);
+                OrderMovement(UIOrder);
+            }
+            else if (queue.Count == 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int index = Random.Range(0, recipes.Count);
+                    Order NewOrder = new Order(recipes[index], orderTime);
+                    queue.Add(NewOrder);
+                    GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, i * 210);
+                    OrderMovement(UIOrder);
+                }
+            }
+            else if (queue.Count == 1)
             {
                 int index = Random.Range(0, recipes.Count);
                 Order NewOrder = new Order(recipes[index], orderTime);
                 queue.Add(NewOrder);
-                GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, i * 210);
+                GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, 0);
                 OrderMovement(UIOrder);
             }
-        }
-        else if (queue.Count == 1)
-        {
-            int index = Random.Range(0, recipes.Count);
-            Order NewOrder = new Order(recipes[index], orderTime);
-            queue.Add(NewOrder);
-            GameObject UIOrder = InstantiateOrderInUI(NewOrder, index, 0);
-            OrderMovement(UIOrder);
+            yield return null;
         }
     }
 
@@ -206,33 +210,37 @@ public class OrderManager : MonoBehaviour
         UIOrder.transform.DOLocalMoveX(targetX, 0.5f);
     }
 
-    private void UpdateOrders()
+    public IEnumerator UpdateOrders()
     {
-        foreach (Order order in queue.ToArray())
+        while(true)
         {
-            order.remainingTime -= Time.deltaTime;
+            foreach (Order order in queue.ToArray())
+            {
+                order.remainingTime -= Time.deltaTime;
             
-            if(order.remainingTime > orderTime * 2 / 3)
-            {
-                order.sliders[2].value = (((order.remainingTime * 3) / orderTime) - 2);
-            }
-            else if(order.remainingTime > orderTime / 3)
-            {
-                order.sliders[2].value = 0;
-                order.sliders[1].value = ( ((order.remainingTime * 3) / orderTime) - 1);
-            }
-            else
-            {
-                order.sliders[1].value = 0;
-                order.sliders[0].value =  ((order.remainingTime * 3) / orderTime);
-            }
+                if(order.remainingTime > orderTime * 2 / 3)
+                {
+                    order.sliders[2].value = (((order.remainingTime * 3) / orderTime) - 2);
+                }
+                else if(order.remainingTime > orderTime / 3)
+                {
+                    order.sliders[2].value = 0;
+                    order.sliders[1].value = ( ((order.remainingTime * 3) / orderTime) - 1);
+                }
+                else
+                {
+                    order.sliders[1].value = 0;
+                    order.sliders[0].value =  ((order.remainingTime * 3) / orderTime);
+                }
 
-            if (order.remainingTime <= 0) // 시간 다 되어서 사라짐
-            {
-                order.sliders[0].value = 0;
-                DeleteOrderFromUI(queue.IndexOf(order));
-                queue.Remove(order);
+                if (order.remainingTime <= 0) // 시간 다 되어서 사라짐
+                {
+                    order.sliders[0].value = 0;
+                    DeleteOrderFromUI(queue.IndexOf(order));
+                    queue.Remove(order);
+                }
             }
+            yield return null;
         }
     }
 
@@ -306,6 +314,7 @@ public class OrderManager : MonoBehaviour
                 DeleteOrderFromUI(queue.IndexOf(order));
                 queue.Remove(order);
                 SetMoney(money + recipe.GetPrice() + tip, recipe.GetPrice(), tip);
+                SoundManager.Instance.PlaySE("SuccessfulDelivery");
                 return;
             }
         }

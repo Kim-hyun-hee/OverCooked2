@@ -29,7 +29,7 @@ public class KitchenTool : Object
 
     public void Update()
     {
-        if (HasIngredient() && (GetIngredient().GetState()) != State.OVERCOOKED)
+        if (HasIngredient() && (GetIngredient().GetState()) != State.OVERCOOKED && (GetIngredient().GetState()) == State.COOKED)
         {
             if (!smoke.isPlaying)
             {

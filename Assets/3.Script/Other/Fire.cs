@@ -5,21 +5,30 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     private ParticleSystem fireParticles;
+    private AudioSource audioSource;
+    public AudioClip fireSound;
     private float fireHealth = 120f;
 
     void Awake()
     {
+        gameObject.AddComponent<AudioSource>();
+        TryGetComponent(out audioSource);
         fireParticles = GetComponent<ParticleSystem>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = fireSound;
     }
 
     public virtual void ActivateFire()
     {
         fireParticles.Play();
+        audioSource.Play();
+        SoundManager.Instance.PlaySE("FireIgnition");
     }
 
     public virtual void ExtinguisFire()
     {
         fireParticles.Stop();
+        audioSource.Stop();
         fireHealth = 100;
     }
 

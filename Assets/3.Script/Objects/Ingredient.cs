@@ -108,8 +108,8 @@ public class Ingredient : Object
         //    audioSource.Stop();
         //    cookCheat = !cookCheat;
         //}
-        UpdateIconImg();
-        if(cookable)
+        icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 55f, Camera.main.WorldToScreenPoint(transform.position).z);
+        if (cookable)
         {
             UpdateUI();
         }
@@ -117,11 +117,6 @@ public class Ingredient : Object
         {
             slider.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 65f, Camera.main.WorldToScreenPoint(transform.position).z);
         }
-    }
-
-    private void UpdateIconImg()
-    {
-        icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 55f, Camera.main.WorldToScreenPoint(transform.position).z);
     }
 
     public IngredientName GetIngredientName()
@@ -244,6 +239,7 @@ public class Ingredient : Object
                     slider.gameObject.SetActive(false);
                     done.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
                     done.gameObject.SetActive(true);
+                    SoundManager.Instance.PlaySE("ImCooked");
                 }
             }
         }

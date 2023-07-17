@@ -101,8 +101,40 @@ public class SoundManager : MonoBehaviour
         {
             if (playSoundName[i] == _name)
             {
-                audioSourcesEffects[i].Stop();
+                if(audioSourcesEffects[i].isPlaying)
+                {
+                    audioSourcesEffects[i].Stop();
+                    return;
+                }
+            }
+        }
+        Debug.Log("재생중인" + _name + "사운드가 없습니다");
+    }
+
+    public void LoopSE(string _name)
+    {
+        for (int i = 0; i < audioSourcesEffects.Length; i++)
+        {
+            if (playSoundName[i] == _name)
+            {
+                audioSourcesEffects[i].loop = true;
                 return;
+            }
+        }
+        Debug.Log("재생중인" + _name + "사운드가 없습니다");
+    }
+
+    public void StopLoopSE(string _name)
+    {
+        for (int i = 0; i < audioSourcesEffects.Length; i++)
+        {
+            if (playSoundName[i] == _name)
+            {
+                if(audioSourcesEffects[i].loop)
+                {
+                    audioSourcesEffects[i].loop = false;
+                    return;
+                }
             }
         }
         Debug.Log("재생중인" + _name + "사운드가 없습니다");

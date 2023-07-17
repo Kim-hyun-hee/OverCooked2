@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         //playerRb.DOMove(transform.position + transform.forward * dashForce, 0.5f);
+        SoundManager.Instance.PlaySE("Dash");
         moveSpeed = dashForce;
     }
 

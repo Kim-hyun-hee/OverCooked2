@@ -5,10 +5,13 @@ using UnityEngine;
 public class Extinguisher : Object
 {
     private ParticleSystem fire;
+    private AudioSource audioSource;
+    private bool isSound = false;
 
     public void Start()
     {
         fire = transform.GetChild(1).GetChild(0).gameObject.GetComponent<ParticleSystem>();
+        TryGetComponent(out audioSource);
     }
 
     override public void Burn() { }
@@ -18,6 +21,11 @@ public class Extinguisher : Object
         if (!fire.isPlaying)
         {
             fire.Play();
+            if(!isSound)
+            {
+                audioSource.Play();
+                isSound = false;
+            }
             fire.GetComponent<BoxCollider>().enabled = true;
         }
     }
@@ -27,6 +35,7 @@ public class Extinguisher : Object
         if (fire.isPlaying)
         {
             fire.Stop();
+            audioSource.Stop();
             fire.GetComponent<BoxCollider>().enabled = false;
         }
     }

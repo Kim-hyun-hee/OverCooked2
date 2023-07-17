@@ -34,6 +34,7 @@ public class PlateReturnTable : Table
         placedObject = Instantiate(dirtyPlate.GetComponent<Object>());
         placedObject.transform.SetParent(transform.GetChild(1));
         placedObject.transform.localPosition = new Vector3(0f, 0.005f + (dirtyPlates.Count * 0.001f), 0f);
+        SoundManager.Instance.PlaySE("WashedPlate");
         ((Plate)placedObject).isDirty = true;
         dirtyPlates.Push(placedObject);
     }

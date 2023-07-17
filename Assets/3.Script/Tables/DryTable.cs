@@ -31,6 +31,7 @@ public class DryTable : Table
 
     public void AddCleanPlate()
     {
+        SoundManager.Instance.PlaySE("WashedPlate");
         placedObject = Instantiate(cleanPlate.GetComponent<Object>());
         placedObject.transform.SetParent(transform.GetChild(1));
         placedObject.transform.localPosition = new Vector3(0f, cleanPlates.Count * 0.001f, 0f);

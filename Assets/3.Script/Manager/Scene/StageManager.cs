@@ -6,8 +6,12 @@ using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
+    private OrderManager orderManager;
+
     public GameObject ready;
     public GameObject go;
+
+    public GameObject endPanel;
 
     public GameObject uiCrono;
     public Slider cronoSlider;
@@ -15,9 +19,13 @@ public class StageManager : MonoBehaviour
     public float levelTime = 180.0f;
     public float remainingTime;
     private bool isRing = true;
+    private bool is30Sound = false;
+    private bool is10Sound = false;
 
     void Start()
     {
+        orderManager = FindObjectOfType<OrderManager>();
+
         remainingTime = levelTime;
         hue = (float)120 / 360;
 
@@ -36,9 +44,16 @@ public class StageManager : MonoBehaviour
     {
         ready.SetActive(true);
         SoundManager.Instance.PlaySE("Ready");
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2f);
         ready.SetActive(false);
+        go.SetActive(true);
+        SoundManager.Instance.PlaySE("Go");
+        yield return new WaitForSecondsRealtime(1f);
+        go.SetActive(false);
         StartCoroutine(UpdateCrono_co());
+        StartCoroutine(orderManager.UpdateNewOrder());
+        StartCoroutine(orderManager.UpdateOrders());
+
     }
     private IEnumerator UpdateCrono_co()
     {
@@ -68,16 +83,33 @@ public class StageManager : MonoBehaviour
             if (seconds == 0 && !isRing)
             {
                 uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+                SoundManager.Instance.PlaySE("30SecondsGone");
                 isRing = true;
             }
             else if (seconds == 30 && minutes != 0 && !isRing)
             {
                 uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("alram");
+                SoundManager.Instance.PlaySE("30SecondsGone");
                 isRing = true;
             }
-            else if (seconds <= 30 && minutes == 0 && !isRing)
+            else if (seconds > 10 && seconds <= 30 && minutes == 0 && !isRing)
             {
                 uiCrono.transform.GetChild(1).GetChild(1).GetComponent<Animator>().SetTrigger("infalram");
+                if(!is30Sound)
+                {
+                    SoundManager.Instance.PlaySE("30SecondsLeft");
+                    is30Sound = true;
+                }
+                isRing = true;
+            }
+            else if (seconds <= 10 && minutes == 0 && !isRing)
+            {
+                if(!is10Sound)
+                {
+                    Debug.Log("10초 남았다");
+                    SoundManager.Instance.PlaySE("10SecondsLeft");
+                    is10Sound = true;
+                }
                 isRing = true;
             }
 
@@ -115,9 +147,20 @@ public class StageManager : MonoBehaviour
             remainingTime -= Time.deltaTime;
             if(remainingTime <= 0)
             {
+                uiCrono.transform.GetChild(2).GetComponent<Text>().text = "00:00";
                 break;
             }
             yield return null;
         }
+        EndStage();
     }
+
+    public void EndStage()
+    {
+        StopAllCoroutines();
+        Time.timeScale = 0;
+        Debug.Log("게임 종료");
+    }
+
 }
+

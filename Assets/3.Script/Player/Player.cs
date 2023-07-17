@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
             carriedObject.transform.SetParent(floor);
             carriedObject.gameObject.AddComponent<Rigidbody>();
             carriedObject.GetComponent<Rigidbody>().AddForce(transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).forward * throwForce, ForceMode.Impulse);
+            SoundManager.Instance.PlaySE("Throw");
             carriedObject = null;
         }
     }
@@ -139,6 +140,7 @@ public class Player : MonoBehaviour
             {
                 placedObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
+            SoundManager.Instance.PlaySE("PickUp");
         }
     }
 
@@ -146,6 +148,7 @@ public class Player : MonoBehaviour
     {
         if (nearTable.PutObject(carriedObject))
         {
+            SoundManager.Instance.PlaySE("PutDown");
             carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject = null;
         }

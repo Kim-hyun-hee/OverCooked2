@@ -49,6 +49,7 @@ public class Table : MonoBehaviour
 
     protected virtual void ActivateFire()
     {
+        Debug.Log("2");
         fire.ActivateFire();
         //fireSound.Play();
 
@@ -115,30 +116,35 @@ public class Table : MonoBehaviour
         else if (newObject is KitchenTool && placedObject is Ingredient && ((KitchenTool)newObject).AddIngredient(((Ingredient)placedObject)))
         {
             placedObject = null; // 재료랑 조리도구랑 합쳐서 손에 들고있음
+            SoundManager.Instance.PlaySE("PickUp");
             return false;
         }
         // 접시 위에 조리도구 / 조리도구 안에 있는 재료가 접시 위에 올라갈 수 있을때 (정해진 레시피에 따라 판단)
         else if (newObject is KitchenTool && placedObject is Plate && ((Plate)placedObject).AddIngredient(((KitchenTool)newObject).GetIngredient()))
         {
             ((KitchenTool)newObject).DeleteIngredient(); // 조리도구에서 재료 빼기
+            SoundManager.Instance.PlaySE("PickUp");
             return false;
         }
         // 재료 위에 접시 / 재료가 접시 위에 올라갈 수 있을때 (정해진 레시피에 따라 판단)
         else if (newObject is Plate && placedObject is Ingredient && ((Plate)newObject).AddIngredient((Ingredient)placedObject))
         {
             placedObject = null;
+            SoundManager.Instance.PlaySE("PickUp");
             return false;
         }
         // 조리도구 위에 접시 / 조리도구 안에 있는 재료가 접시 위에 올라갈 수 있을때 (정해진 레시피와 조리방법에 따라 판단)
         else if (newObject is Plate && placedObject is KitchenTool && ((Plate)newObject).AddIngredient(((KitchenTool)placedObject).GetIngredient()))
         {
             ((KitchenTool)placedObject).DeleteIngredient(); // 조리도구 안에 있는 재료 빼기
+            SoundManager.Instance.PlaySE("PickUp");
             return false;
         }
         // 접시 위에 접시 / newObject위에 있는 재료가 placedObject에 있는 재료 위에 올라갈 수 있을때 (정해진 레시피와 조리방법에 따라 판단)
         else if (newObject is Plate && placedObject is Plate && ((Plate)placedObject).AddIngredients(((Plate)newObject).GetIngredients()))
         {
             ((Plate)newObject).MoveRecipe();
+            SoundManager.Instance.PlaySE("PutDown");
             return false;
         }
 

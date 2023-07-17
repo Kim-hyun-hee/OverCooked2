@@ -9,9 +9,14 @@ public class FireTable : Table
     public Image warning;
     public Transform uiTransform;
 
+    public AudioSource audioSource;
+
+    private bool isBubble = false;
+
     private void Start()
     {
         fire = this.transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
+        TryGetComponent(out audioSource);
         placedObject = Instantiate(pot).GetComponent<Object>();
         placedObject.transform.SetParent(transform.GetChild(1));
         placedObject.transform.localPosition = new Vector3(0.0f, 0.0061f, 0.0f);
@@ -46,7 +51,30 @@ public class FireTable : Table
 
         if(placedObject != null && !((KitchenTool)placedObject).Cook())
         {
+            Debug.Log("1");
             ActivateFire();
+            if(isBubble)
+            {
+                Debug.Log("3");
+                audioSource.Stop();
+                isBubble = false;
+            }
+        }
+        else if(placedObject != null && ((KitchenTool)placedObject).Cook() && ((KitchenTool)placedObject).HasIngredient())
+        {
+            if(!isBubble)
+            {
+                audioSource.Play();
+                isBubble = true;
+            }
+        }
+        else if(placedObject != null && ((KitchenTool)placedObject).Cook() && !((KitchenTool)placedObject).HasIngredient())
+        {
+            if (isBubble)
+            {
+                audioSource.Stop();
+                isBubble = false;
+            }
         }
 
         if(placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
