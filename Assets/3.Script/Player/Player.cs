@@ -311,4 +311,14 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public void ChopSound()
+    {
+        SoundManager.Instance.PlaySE("KnifeChop");
+    }
+
+    public void WashSound()
+    {
+        SoundManager.Instance.PlaySE("Washing");
+    }
 }
