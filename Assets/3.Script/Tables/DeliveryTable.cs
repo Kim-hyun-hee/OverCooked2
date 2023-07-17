@@ -27,22 +27,17 @@ public class DeliveryTable : Table
         if (newObject is Plate && ((Plate)newObject).IsRecipe())
         {
             OrderManager.Instance.AddRecipe(((Plate)newObject).GetRecipe());
-            //((Plate)newObject).ThrowToBin();
-            //Destroy(((Plate)newObject).gameObject);
-            //StartCoroutine(AddDirtyPlate_co());
-            //audioManager.Play("Delivery");
-            //money.Play();
-            //return true;
         }
         else if(newObject is Plate && !((Plate)newObject).IsRecipe())
         {
             OrderManager.Instance.UpdateCombo(0);
             Debug.Log("틀림");
-            // 콤보 초기화 해 줘야함 아마도?
+            Debug.Log("틀린 소리 여기");
         }
         else if (!(newObject is Plate))
         {
             Debug.Log("접시 필요!");
+            Debug.Log("접시 소리 여기");
             GameObject needPlateUI = Instantiate(needPlate, uiMoney.transform.GetChild(3));
             needPlateUI.transform.localPosition = new Vector3(-76.5f, -135f, 0);
             needPlateUI.transform.DOLocalMoveY(40, 1).SetRelative();

@@ -17,14 +17,7 @@ public class LoadingScene : MonoBehaviour
 
     private void Start()
     {
-        //GameManager.Instance.TransitionIn(false);
-        //GameManager.Instance.transitionIn.SetActive(false);
-        //GameManager.Instance.transitionOut.SetActive(false);
-        //GameManager.Instance.blackBackGround.SetActive(false);
-        //SoundManager.Instance.PlaySE("UI_Screen_In");
         SoundManager.Instance.FadeBGM(0, 1.5f);
-        Debug.Log("ÆäÀÌµå¾Æ¿ô");
-        //GameManager.Instance.transitionIn.SetActive(true);
         StartCoroutine(LoadSceneProcess_co());
     }
 

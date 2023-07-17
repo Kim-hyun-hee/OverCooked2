@@ -10,7 +10,7 @@ public class StageManager : MonoBehaviour
 
     public GameObject ready;
     public GameObject go;
-    public GameManager end;
+    public GameObject end;
 
     public GameObject endMenu;
     public GameObject pauseMenu;
@@ -65,6 +65,8 @@ public class StageManager : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+
+        // endMenu true 상태에서 스페이스바 누르면 로딩창 > 맵
     }
 
     public void StartGame()
@@ -182,6 +184,16 @@ public class StageManager : MonoBehaviour
     {
         StopAllCoroutines();
         Time.timeScale = 0;
+        SoundManager.Instance.PlaySE("TImesUpSting");
+        end.SetActive(true);
+        StartCoroutine(EndPanel_Co());
+    }
+
+    public IEnumerator EndPanel_Co()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        end.SetActive(false);
+        endMenu.SetActive(true);
     }
 
 }

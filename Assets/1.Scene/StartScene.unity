@@ -8949,11 +8949,13 @@ MonoBehaviour:
   - name: RecipeTimeout
     clip: {fileID: 8300000, guid: dca495cfcfbcc7349af5f49a756029e8, type: 3}
   - name: Dash
-    clip: {fileID: 8300000, guid: 5c5be39831def57479cf8db0c10b86b6, type: 3}
+    clip: {fileID: 8300000, guid: f4ef07af95703424a9bd971c88a58795, type: 3}
   - name: Throw
     clip: {fileID: 8300000, guid: 0372459cd8636cb4aa9983fb45228521, type: 3}
   - name: UI_Transition_In
     clip: {fileID: 8300000, guid: 011a09f700c00f34fb824b5d2440f921, type: 3}
+  - name: TImesUpSting
+    clip: {fileID: 8300000, guid: 43084f1758c1e2b4286bc7223965cfa2, type: 3}
   bgmSound:
   - name: Frontend
     clip: {fileID: 8300000, guid: 4645260c2c3d6d04ba36f3b5cbd9db83, type: 3}

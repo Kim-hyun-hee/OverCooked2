@@ -225,7 +225,8 @@ public class OrderManager : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("레시피 모델은 있지만 오더에 없는 음식");
+        Debug.Log("레시피 모델은 있지만 오더에 없는 음식 / 틀림");
+        Debug.Log("틀린 소리 여기");
         combo = 0;
         uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame
         uiMoney.transform.GetChild(0).GetChild(1).GetChild(4).gameObject.SetActive(false);
