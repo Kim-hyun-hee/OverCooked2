@@ -13,8 +13,7 @@ public class GameManager : MonoBehaviour
     public StageManager stageManager;
 
     // StartSceneManager에서 사용
-    [Header("StartScnenManager에서 사용")]
-    public bool isOpenShutter = false;
+    [Header("다른 Scene에서 사용")]
     public GameObject transitionOut;
     public GameObject transitionIn;
     public GameObject blackBackGround;
@@ -38,7 +37,11 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void LoadScene(string sceneName)
@@ -60,10 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void TransitionIn(bool isStage)
     {
-        //transitionIn.SetActive(false);
         transitionOut.SetActive(false);
-        //blackBackGround.SetActive(false);
-        //SoundManager.Instance.PlaySE("UI_Screen_In");
         StartCoroutine(TransitionIn_co(isStage));
     }
 

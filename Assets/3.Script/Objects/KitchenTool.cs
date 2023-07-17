@@ -145,6 +145,7 @@ public class KitchenTool : Object
         {
             //transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
             ingredient.icons.ForEach(icon => Destroy(icon));
+            SoundManager.Instance.PlaySE("PutDown");
             Destroy(ingredient.gameObject);
             ingredient = null;
         }

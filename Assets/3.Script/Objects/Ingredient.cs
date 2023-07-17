@@ -257,6 +257,7 @@ public class Ingredient : Object
     override public void ThrowToBin()
     {
         icons.ForEach(icon => Destroy(icon));
+        SoundManager.Instance.PlaySE("PutDown");
         Destroy(gameObject);
     }
 

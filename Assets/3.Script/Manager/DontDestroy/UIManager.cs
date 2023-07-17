@@ -36,12 +36,12 @@ public class UIManager : MonoBehaviour
 
     public GameObject PopUI()
     {
-        GameObject ui = UIStack.Pop();
-        //if(ui != null)
-        //{
-        //    ui.SetActive(false);
-        //}
-        return ui;
+        if(UIStack.Count > 0)
+        {
+            GameObject ui = UIStack.Pop();
+            return ui;
+        }
+        return null;
     }
 
     public void PushUI(GameObject ui)
@@ -50,90 +50,19 @@ public class UIManager : MonoBehaviour
         ui.SetActive(true);
     }
 
-    //public void DropDown(GameObject ui, float value, float duration)
-    //{
-    //    ui.SetActive(true);
-    //    ui.transform.DOLocalMoveY(value, duration).SetRelative();
-    //}
+    public void CloseAllUI()
+    {
+        while(UIStack.Count > 0)
+        {
+            GameObject ui = UIStack.Pop();
+            ui.SetActive(false);
+        }
+    }
 
-    //public void CancelDropDown(GameObject ui, float value, float duration)
-    //{
-    //    ui.transform.DOLocalMoveY(value, duration).SetRelative();
-    //    ui.SetActive(false);
-    //}
-
-    //public void MoveYDefaultLocalPos(GameObject ui, float y, float duration)
-    //{
-    //    ui.transform.DOLocalMoveY(y, duration);
-    //}
-
-
-    //private static UIManager instance;
-    //public static UIManager Instance { get { return instance; } }
-
-    //public GameObject EndMenu;
-    //public GameObject PauseMenu;
-    //public GameObject Intro;
-
-    //public List<GameObject> panels = new List<GameObject>();
-
-    ////public bool paused = false;
-
-    //private void Awake()
-    //{
-    //    if (instance != null && instance != this)
-    //    {
-    //        Destroy(this.gameObject);
-    //    }
-    //    else
-    //    {
-    //        instance = this;
-    //    }
-    //}
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        //if (paused)
-    //        //{
-    //        //    Time.timeScale = 1;
-    //        //    PauseMenu.SetActive(false);
-    //        //    //paused = false;
-    //        //}
-    //        //else
-    //        //{
-    //        //    Time.timeScale = 0;
-    //        //    PauseMenu.SetActive(true);
-    //        //    //paused = true;
-    //        //}
-
-    //        if (panels.Count > 1)
-    //        {
-    //            //panels[panels.Count - 1].SetActive(false);
-    //            //panels.RemoveAt(panels.Count - 1);
-    //        }
-    //        else if (panels.Count == 1)
-    //        {
-    //            Time.timeScale = 1;
-    //            panels[0].SetActive(false);
-    //            panels.RemoveAt(panels.Count - 1);
-    //            //paused = false;
-    //        }
-    //        else
-    //        {
-    //            Time.timeScale = 0;
-    //            PauseMenu.SetActive(true);
-    //            panels.Add(PauseMenu);
-    //            //paused = true;
-    //        }
-    //    }
-    //}
-
-    //public void CloseUI(GameObject obj)
-    //{
-    //    obj.SetActive(false);
-    //    panels.Remove(obj);
-    //}
+    public void CloseUI()
+    {
+        GameObject ui = UIStack.Pop();
+        ui.SetActive(false);
+    }
 }
 

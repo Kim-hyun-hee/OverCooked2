@@ -8,20 +8,23 @@ public class StartSceneManager : MonoBehaviour
 {
     [SerializeField] private Text continueTxt;
     [SerializeField] private GameObject menubar;
+    [SerializeField] private GameObject stopPanel;
 
     [SerializeField] private GameObject shutter;
     [SerializeField] private Animator shutterOpen;
+    private bool isOpenShutter = false;
 
     [SerializeField] private Transform cameraStartTransform;
     [SerializeField] private Transform cameraEndTransform;
 
     private void Start()
     {
+        Time.timeScale = 1;
         shutter.GetComponent<Animator>().TryGetComponent(out shutterOpen);
         SoundManager.Instance.PlayBGM("Frontend");
         SoundManager.Instance.SetBGMVolume(1);
 
-        if (!GameManager.Instance.isOpenShutter)
+        if (!isOpenShutter)
         {
             Camera.main.transform.position = new Vector3(cameraStartTransform.position.x, cameraStartTransform.position.y, cameraStartTransform.position.z);
             Camera.main.transform.rotation = Quaternion.Euler(0, -4.053f, 0);
@@ -42,7 +45,7 @@ public class StartSceneManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.isOpenShutter)
+        if(Input.GetKeyDown(KeyCode.Space) && !isOpenShutter)
         {
             CameraMoving();// 카메라 무빙
             shutterOpen.SetTrigger("open"); // 셔터 열리는 애니메이션
@@ -50,7 +53,26 @@ public class StartSceneManager : MonoBehaviour
             SoundManager.Instance.PlaySE("UI_PressStart");
             menubar.SetActive(true); // UI 등장
             continueTxt.gameObject.SetActive(false);
-            GameManager.Instance.isOpenShutter = true;
+            isOpenShutter = true;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape) && isOpenShutter)
+        {
+            if (UIManager.Instance.GetUIStackCount() > 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+            }
+            else if (UIManager.Instance.GetUIStackCount() == 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+            }
+            else
+            {
+                UIManager.Instance.PushUI(stopPanel);
+                SoundManager.Instance.PlaySE("UI_Transition_In");
+            }
         }
     }
 

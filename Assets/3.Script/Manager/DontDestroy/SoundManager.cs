@@ -142,7 +142,9 @@ public class SoundManager : MonoBehaviour
 
     public void FadeBGM(float endValue, float duration)
     {
-        audioSourceBgm.DOFade(endValue, duration);
+        //Debug.Log(audioSourceBgm == null);
+        //audioSourceBgm.DOFade(endValue, duration);
+        StartCoroutine((FadeOut(endValue)));
     }
 
     public void SetBGMVolume(float value)
@@ -150,7 +152,18 @@ public class SoundManager : MonoBehaviour
         audioSourceBgm.volume = value;
     }
 
-
+    private System.Collections.IEnumerator FadeOut(float endValue)
+    {
+        float volume = 1;
+        while(volume >= endValue)
+        {
+            audioSourceBgm.volume = volume;
+            volume -= 0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        audioSourceBgm.volume = endValue;
+    }
+     
     // 다른 클래스에서 오디오 클립 불러오는 법
     // 스크립트에 변수선언 - [SerializeField] private string 노래명;
     // SoundManager.instance.PlaySE(노래명);

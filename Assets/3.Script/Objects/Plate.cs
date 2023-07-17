@@ -241,6 +241,7 @@ public class Plate : Object
             }
             recipe = null;
             ingreicons = new List<IngredientIcon>();
+            SoundManager.Instance.PlaySE("PutDown");
             icons.ForEach(img => Destroy(img.gameObject));
             icons = new List<Image>();
         }
@@ -248,6 +249,7 @@ public class Plate : Object
         {
             ingreicons.ForEach(ingreicon => Destroy(ingreicon.ingredient.gameObject));
             ingreicons = new List<IngredientIcon>();
+            SoundManager.Instance.PlaySE("PutDown");
             icons.ForEach(img => Destroy(img.gameObject));
             icons = new List<Image>();
         }

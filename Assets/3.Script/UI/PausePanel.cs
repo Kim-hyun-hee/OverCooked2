@@ -9,6 +9,7 @@ public class PausePanel : MonoBehaviour
 {
     public GameObject btn_stop;
     public GameObject stopUI;
+    public GameObject restartUI;
     public GameObject controlUI;
 
     public OrderManager orderManager;
@@ -20,16 +21,15 @@ public class PausePanel : MonoBehaviour
 
     public void Resume()
     {
-        Time.timeScale = 1;
-        //UIManager.Instance.CloseUI(gameObject);
-        //UIManager.Instance.paused = false;
+        GameObject ui = UIManager.Instance.PopUI();
+        ui.SetActive(false);
     }
 
-    public void ReStart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1;
-    }
+    //public void ReStart()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //    Time.timeScale = 1;
+    //}
 
     public void Control()
     {
@@ -43,12 +43,21 @@ public class PausePanel : MonoBehaviour
 
     public void PopUpStop()
     {
-        stopUI.SetActive(true);
-        //UIManager.Instance.panels.Add(stopUI);
+        UIManager.Instance.PushUI(stopUI);
     }
 
     public void PopUpControl()
     {
-        controlUI.SetActive(true);
+        UIManager.Instance.PushUI(controlUI);
+    }
+
+    public void PopUpRestart()
+    {
+        UIManager.Instance.PushUI(restartUI);
+    }
+
+    public void CancelBtn()
+    {
+        UIManager.Instance.CloseUI();
     }
 }

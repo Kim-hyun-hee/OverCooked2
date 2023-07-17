@@ -10,14 +10,18 @@ public class StageManager : MonoBehaviour
 
     public GameObject ready;
     public GameObject go;
+    public GameManager end;
 
-    public GameObject endPanel;
+    public GameObject endMenu;
+    public GameObject pauseMenu;
 
     public GameObject uiCrono;
     public Slider cronoSlider;
     private float hue;
     public float levelTime = 180.0f;
     public float remainingTime;
+
+    private bool isPause = false;
     private bool isRing = true;
     private bool is30Sound = false;
     private bool is10Sound = false;
@@ -25,6 +29,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         orderManager = FindObjectOfType<OrderManager>();
+        SoundManager.Instance.audioSourceBgm.pitch = 1.0f;
 
         remainingTime = levelTime;
         hue = (float)120 / 360;
@@ -33,6 +38,33 @@ public class StageManager : MonoBehaviour
         SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.TransitionIn(true);
         Time.timeScale = 0;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (UIManager.Instance.GetUIStackCount() > 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+            }
+            else if(UIManager.Instance.GetUIStackCount() == 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                UIManager.Instance.PushUI(pauseMenu);
+            }
+        }
+
+        if(UIManager.Instance.GetUIStackCount() != 0)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void StartGame()
@@ -59,17 +91,6 @@ public class StageManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SoundManager.Instance.PlayBGM("TheNeonCity");
-        //if (remainingTime > 0 && cronoRunning)
-        //{
-        //    remainingTime -= Time.deltaTime;
-        //}
-        //else if (cronoRunning)
-        //{
-        //    cronoRunning = false;
-        //    remainingTime = 0;
-        //    Time.timeScale = 0;
-        //    //UIManager.Instance.EndMenu.SetActive(true);
-        //}
         while (true)
         {
             int minutes = (Mathf.CeilToInt(remainingTime) / 60);
@@ -98,6 +119,7 @@ public class StageManager : MonoBehaviour
                 if(!is30Sound)
                 {
                     SoundManager.Instance.PlaySE("30SecondsLeft");
+                    SoundManager.Instance.audioSourceBgm.pitch = 1.2f;
                     is30Sound = true;
                 }
                 isRing = true;
@@ -106,7 +128,6 @@ public class StageManager : MonoBehaviour
             {
                 if(!is10Sound)
                 {
-                    Debug.Log("10초 남았다");
                     SoundManager.Instance.PlaySE("10SecondsLeft");
                     is10Sound = true;
                 }
@@ -148,6 +169,8 @@ public class StageManager : MonoBehaviour
             if(remainingTime <= 0)
             {
                 uiCrono.transform.GetChild(2).GetComponent<Text>().text = "00:00";
+                SoundManager.Instance.audioSourceBgm.pitch = 1.0f;
+                SoundManager.Instance.audioSourceBgm.Stop();
                 break;
             }
             yield return null;
@@ -159,7 +182,6 @@ public class StageManager : MonoBehaviour
     {
         StopAllCoroutines();
         Time.timeScale = 0;
-        Debug.Log("게임 종료");
     }
 
 }
