@@ -144,6 +144,7 @@ public class OrderManager : MonoBehaviour
                 {
                     order.sliders[0].value = 0;
                     DeleteOrderFromUI(queue.IndexOf(order));
+                    Debug.Log("실패한 주문 / 시간 다 되어서 레시피 사라짐");
                     queue.Remove(order);
                 }
             }
@@ -183,6 +184,7 @@ public class OrderManager : MonoBehaviour
         }
         int get = recipe + tip;
         uiMoney.transform.GetChild(1).GetComponent<Text>().text = this.money.ToString();
+        StageManager.Instance.totalScore = this.money;
         InstantiateMoneyUI(getPrefab, "+" + get.ToString(), 2);
         InstantiateMoneyUI(tipPrefab, "+" + tip.ToString() + " Tip!", 3);
         uiMoney.transform.GetChild(0).GetChild(3).GetChild(0).GetComponent<Animator>().SetTrigger("spin");
@@ -220,8 +222,11 @@ public class OrderManager : MonoBehaviour
                 }
                 DeleteOrderFromUI(queue.IndexOf(order));
                 queue.Remove(order);
+                StageManager.Instance.tip += tip;
+                StageManager.Instance.successScore += recipe.GetPrice();
                 SetMoney(money + recipe.GetPrice() + tip, recipe.GetPrice(), tip);
                 SoundManager.Instance.PlaySE("SuccessfulDelivery");
+                StageManager.Instance.successOrder += 1;
                 return;
             }
         }

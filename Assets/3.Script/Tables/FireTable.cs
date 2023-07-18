@@ -25,6 +25,8 @@ public class FireTable : Table
         warning.transform.SetParent(uiTransform);
         warning.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x + 15f, Camera.main.WorldToScreenPoint(transform.position).y - 20f, Camera.main.WorldToScreenPoint(transform.position).z);
         warning.gameObject.SetActive(false);
+        
+        StageManager.Instance.EndStage += SoundOff;
     }
 
     private void Update()
@@ -36,6 +38,11 @@ public class FireTable : Table
         {
             // sound
         }
+    }
+
+    private void SoundOff()
+    {
+        audioSource.Stop();
     }
 
     public void Cook()
@@ -51,11 +58,9 @@ public class FireTable : Table
 
         if(placedObject != null && !((KitchenTool)placedObject).Cook())
         {
-            Debug.Log("1");
             ActivateFire();
             if(isBubble)
             {
-                Debug.Log("3");
                 audioSource.Stop();
                 isBubble = false;
             }

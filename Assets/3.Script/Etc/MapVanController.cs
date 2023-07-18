@@ -7,10 +7,13 @@ using System;
 public class MapVanController : MonoBehaviour
 {
     private Rigidbody vanRb;
-    private Vector3 dir = Vector3.zero;
+
+    private float inputX;
+    private float inputY;
+
     private float moveSpeed;
     private float defaultSpeed = 4f;
-    [SerializeField] private float dashForce = 8f;
+    [SerializeField] private float dashForce = 10f;
     private Quaternion finalRotation;
     //private PlayerAnimationController vanAnimationController;
 
@@ -30,8 +33,11 @@ public class MapVanController : MonoBehaviour
 
     private void Update()
     {
-        dir.x = Input.GetAxisRaw("Horizontal");
-        dir.z = Input.GetAxisRaw("Vertical");
+        inputX = Input.GetAxisRaw("Horizontal");
+        inputY = Input.GetAxisRaw("Vertical");
+
+        Move();
+        Rotate();
 
         if (isDashReady)
         {
@@ -56,27 +62,32 @@ public class MapVanController : MonoBehaviour
         moveSpeed = dashForce;
     }
 
-    private void FixedUpdate()
+    private void Move()
     {
-        dir.Normalize();
-        if(dir.magnitude > 0)
+        //_rigidbody.velocity = new Vector3(inputX, 0, inputY) * velocity;
+        if (inputX != 0 || inputY != 0)
         {
-            if ((Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x)) || (Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z)))
-            {
-                transform.Rotate(0, 1, 0);
-            }
-            vanRb.velocity = dir * moveSpeed;
+            vanRb.velocity = transform.forward * moveSpeed;
+            return;
+        }
+        vanRb.velocity = Vector3.zero;
+    }
+
+    private void Rotate()
+    {
+        Quaternion lookdirection;
+        if (inputX == 0 && inputY == 0)
+        {
+            lookdirection = transform.rotation;
         }
         else
         {
-            vanRb.velocity = Vector3.zero;
+            Vector3 direction = new Vector3(inputX, 0, inputY) * moveSpeed;
+            lookdirection = Quaternion.LookRotation(direction);
         }
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookdirection, 0.025f);
     }
 
-    private Vector3 eulers(Vector3 vector3)
-    {
-        throw new NotImplementedException();
-    }
 
     //public void PlayPuff()
     //{

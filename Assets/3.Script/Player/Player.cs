@@ -20,6 +20,20 @@ public class Player : MonoBehaviour
     {
         playerAnimationController = FindObjectOfType<PlayerAnimationController>();
         throwForce = 8;
+        PlayerControlOn();
+        StageManager.Instance.EndStage += PlayerControlOff;
+    }
+
+    private void PlayerControlOff()
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<Player>().enabled = false;
+    }
+
+    private void PlayerControlOn()
+    {
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<Player>().enabled = true;
     }
 
     private void Update()
@@ -178,7 +192,7 @@ public class Player : MonoBehaviour
         }
 
         bool isTable = false;
-        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 0.8f))
+        foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.forward, 1f))
         {
             if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
             {
@@ -190,7 +204,7 @@ public class Player : MonoBehaviour
 
         if(!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 0.8f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, transform.right, 1f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {
@@ -203,7 +217,7 @@ public class Player : MonoBehaviour
 
         if (!isTable)
         {
-            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 0.8f))
+            foreach (RaycastHit hit in Physics.RaycastAll(transform.position, -transform.right, 1f))
             {
                 if (hit.collider.gameObject.GetComponentInParent<Table>() != null)
                 {

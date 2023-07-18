@@ -8956,6 +8956,22 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 011a09f700c00f34fb824b5d2440f921, type: 3}
   - name: TImesUpSting
     clip: {fileID: 8300000, guid: 43084f1758c1e2b4286bc7223965cfa2, type: 3}
+  - name: LevelVictorySound
+    clip: {fileID: 8300000, guid: 25b81559975d37e408926e98f21d4a6e, type: 3}
+  - name: RoundResults_Description_0
+    clip: {fileID: 8300000, guid: c3da9469b5f0b64429f67efd2573c4b5, type: 3}
+  - name: RoundResults_Description_2
+    clip: {fileID: 8300000, guid: bbc535c68f8a0b649b0fd30605e96a83, type: 3}
+  - name: RoundResults_Description_4
+    clip: {fileID: 8300000, guid: 101ce160a2b28a34185ab0bbdad1f7cb, type: 3}
+  - name: RoundResults_FinalScore
+    clip: {fileID: 8300000, guid: 657bcefc1676a3f4c9a233bea2aeb8b5, type: 3}
+  - name: RoundResults_Star_1
+    clip: {fileID: 8300000, guid: 132e39ce4f6296f429636a4228b1703a, type: 3}
+  - name: RoundResults_Star_2
+    clip: {fileID: 8300000, guid: 10d10520449bc2444be01fc27ed53811, type: 3}
+  - name: RoundResults_Star_3
+    clip: {fileID: 8300000, guid: 66d04c50f7e0a0d4bacdd788f5ce4adb, type: 3}
   bgmSound:
   - name: Frontend
     clip: {fileID: 8300000, guid: 4645260c2c3d6d04ba36f3b5cbd9db83, type: 3}
@@ -8963,6 +8979,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5342bfa33a757d24890aa2b8d2029d2f, type: 3}
   - name: TheNeonCity
     clip: {fileID: 8300000, guid: 86c97a124f5a4404c9f0bf6dc94a1c10, type: 3}
+  - name: RoundResults
+    clip: {fileID: 8300000, guid: 607ac52f93f677f42ae64d2b839e964c, type: 3}
 --- !u!82 &1942732363
 AudioSource:
   m_ObjectHideFlags: 0

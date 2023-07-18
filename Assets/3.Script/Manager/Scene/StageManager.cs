@@ -6,6 +6,24 @@ using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
+    private static StageManager instance;
+    public static StageManager Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public delegate void OnEndStage();
+    public event OnEndStage EndStage;
+
     private OrderManager orderManager;
 
     public GameObject ready;
@@ -21,10 +39,18 @@ public class StageManager : MonoBehaviour
     public float levelTime = 180.0f;
     public float remainingTime;
 
-    private bool isPause = false;
     private bool isRing = true;
     private bool is30Sound = false;
     private bool is10Sound = false;
+
+    public int successOrder;
+    public int successScore;
+    public int tip;
+    public int failOrder;
+    public int totalScore;
+
+    // endPanel에서 별 조건 점수
+    public int[] score = new int[3];
 
     void Start()
     {
@@ -89,6 +115,7 @@ public class StageManager : MonoBehaviour
         StartCoroutine(orderManager.UpdateOrders());
 
     }
+
     private IEnumerator UpdateCrono_co()
     {
         Time.timeScale = 1;
@@ -177,13 +204,16 @@ public class StageManager : MonoBehaviour
             }
             yield return null;
         }
-        EndStage();
+        End();
     }
 
-    public void EndStage()
+    public void End()
     {
         StopAllCoroutines();
         Time.timeScale = 0;
+
+        EndStage?.Invoke();
+
         SoundManager.Instance.PlaySE("TImesUpSting");
         end.SetActive(true);
         StartCoroutine(EndPanel_Co());
@@ -191,7 +221,7 @@ public class StageManager : MonoBehaviour
 
     public IEnumerator EndPanel_Co()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(4f);
         end.SetActive(false);
         endMenu.SetActive(true);
     }

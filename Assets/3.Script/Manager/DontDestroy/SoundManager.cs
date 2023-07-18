@@ -151,7 +151,6 @@ public class SoundManager : MonoBehaviour
     {
         audioSourceBgm.volume = value;
     }
-
     private System.Collections.IEnumerator FadeOut(float endValue)
     {
         float volume = 1;
@@ -160,6 +159,7 @@ public class SoundManager : MonoBehaviour
             audioSourceBgm.volume = volume;
             volume -= 0.01f;
             yield return new WaitForSeconds(0.01f);
+
         }
         audioSourceBgm.volume = endValue;
     }

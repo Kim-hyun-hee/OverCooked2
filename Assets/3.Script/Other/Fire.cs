@@ -18,6 +18,16 @@ public class Fire : MonoBehaviour
         audioSource.clip = fireSound;
     }
 
+    private void Start()
+    {
+        StageManager.Instance.EndStage += SoundOff;
+    }
+
+    private void SoundOff()
+    {
+        audioSource.Stop();
+    }
+
     public virtual void ActivateFire()
     {
         fireParticles.Play();

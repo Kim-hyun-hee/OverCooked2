@@ -49,7 +49,6 @@ public class Table : MonoBehaviour
 
     protected virtual void ActivateFire()
     {
-        Debug.Log("2");
         fire.ActivateFire();
         //fireSound.Play();
 

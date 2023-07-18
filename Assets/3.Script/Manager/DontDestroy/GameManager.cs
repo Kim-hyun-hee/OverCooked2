@@ -35,6 +35,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //MapSceneManager.OpenStage -= () => Time.timeScale = 1;
+        //MapSceneManager.OpenStage += () => Time.timeScale = 1;
+        //MapSceneManager.OpenStage -= () => SoundManager.Instance.PlayBGM("MapScreen");
+        //MapSceneManager.OpenStage += () => SoundManager.Instance.PlayBGM("MapScreen");
+        //MapSceneManager.OpenStage -= () => { SoundManager.Instance.SetBGMVolume(1); Debug.Log("7"); };
+        //MapSceneManager.OpenStage += () => { SoundManager.Instance.SetBGMVolume(1); Debug.Log("7"); };
+        //MapSceneManager.OpenStage -= () => TransitionIn(false);
+        //MapSceneManager.OpenStage += () => TransitionIn(false);
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR

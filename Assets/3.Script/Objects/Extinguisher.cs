@@ -12,9 +12,15 @@ public class Extinguisher : Object
     {
         fire = transform.GetChild(1).GetChild(0).gameObject.GetComponent<ParticleSystem>();
         TryGetComponent(out audioSource);
+        StageManager.Instance.EndStage += SoundOff;
     }
 
     override public void Burn() { }
+
+    private void SoundOff()
+    {
+        audioSource.Stop();
+    }
 
     public void Activate()
     {

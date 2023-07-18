@@ -15,10 +15,15 @@ public class LoadingScene : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
     }
 
-    private void Start()
+    private void OnEnable()
     {
         SoundManager.Instance.FadeBGM(0, 1.5f);
         StartCoroutine(LoadSceneProcess_co());
+    }
+
+    private void Start()
+    {
+        
     }
 
     private IEnumerator LoadSceneProcess_co()
