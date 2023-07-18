@@ -99,8 +99,13 @@ public class EndPanel : MonoBehaviour
         if (StageManager.Instance.totalScore >= StageManager.Instance.score[0])
         {
             MapSceneManager.OpenStage += () => Debug.Log("이벤트에 추가 완료");
+            // clear -> van 위치 현재 스테이지 깃발 위치로, 다음 스테이지 열리는 애니메이션 재생
+            // // 재생 끝나면 van스크립트 enabled true (MapSceneManager에 메소드 하나 만들어서 애니메이션에 이벤트로 추가)
         }
-        //Time.timeScale = 1f;
+        else
+        {
+            // fail -> van 위치 현재 스테이지 깃발 위치로, van스크립트 enabled true
+        }
         GameManager.Instance.LoadScene("MapScene");
     }
 }

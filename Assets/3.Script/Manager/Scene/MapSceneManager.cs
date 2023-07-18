@@ -30,7 +30,8 @@ public class MapSceneManager : MonoBehaviour
         SoundManager.Instance.PlayBGM("MapScreen");
         SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.TransitionIn(false);
-        OpenStage?.Invoke();
+        //van스크립트 enabled false
+        OpenStage?.Invoke(); // 
     }
 
     private void Update()
@@ -58,5 +59,10 @@ public class MapSceneManager : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+    }
+
+    private void OnDisable()
+    {
+        OpenStage = null;
     }
 }
