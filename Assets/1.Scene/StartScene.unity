@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1343,6 +1343,7 @@ MonoBehaviour:
   transitionIn: {fileID: 1260158807}
   blackBackGround: {fileID: 1531143661}
   summaryStar: 0
+  isOpenShutter: 0
 --- !u!1 &406679553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,7 +2747,6 @@ MonoBehaviour:
   stopUI: {fileID: 0}
   restartUI: {fileID: 0}
   controlUI: {fileID: 0}
-  orderManager: {fileID: 0}
 --- !u!114 &738710430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10500,50 +10500,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948695934}
   m_CullTransparentMesh: 1
---- !u!1 &1959734021
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1959734023}
-  - component: {fileID: 1959734022}
-  m_Layer: 0
-  m_Name: DBManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1959734022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959734021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf32d71fc99ddbc4da0a8f676321d5a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DBurl: https://overcooked2-df596-default-rtdb.firebaseio.com/
---- !u!4 &1959734023
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959734021}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17141092, y: 10.481887, z: 10.739655}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002611963
 GameObject:
   m_ObjectHideFlags: 0
