@@ -10,13 +10,13 @@ using System;
 [System.Serializable]
 public class User
 {
-    public string username;
-    public string password;
+    public string userId;
+    public string userPw;
 
-    public User(string username, string password)
+    public User(string userId, string userPw)
     {
-        this.username = username;
-        this.password = password;
+        this.userId = userId;
+        this.userPw = userPw;
     }
 }
 
@@ -75,7 +75,7 @@ public class DBManager : MonoBehaviour
     public void CreateAccount(string id, string password)
     {
         DatabaseReference duplicateRef = reference.Child("Account").Child("ID").Child(id);
-        duplicateRef.GetValueAsync().ContinueWith(task =>
+        duplicateRef.GetValueAsync().ContinueWith(task => // 해당 경로의 데이터를 비동기적으로 가져옴
         {
             if (task.IsFaulted)
             {
@@ -84,9 +84,9 @@ public class DBManager : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
+                if (snapshot.Exists) // 가져온 데이터가 존재하는 경우
                 {
-                    //Managers.Event.DBEvent?.Invoke(Define.DB_Event.DuplicateID);
+                    Debug.Log("중복된 아이디");
                     return;
                 }
                 else
@@ -99,9 +99,9 @@ public class DBManager : MonoBehaviour
                             Debug.Log("계정 생성 중 오류 발생");
                         }
                         else if (task.IsCompleted)
-                        {
+                        {   // 비번저장
                             reference.Child("Account").Child("ID").Child(id).Child("Password").SetValueAsync(password);
-                            //Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessCreateNewAccount);
+                            Debug.Log("계정 생성 완료");
                         }
                     });
                 }
@@ -125,32 +125,15 @@ public class DBManager : MonoBehaviour
                 {
                     if (snapshot.Child("Password").Value.ToString() == password)
                     {
-                        //CurrecntUserID = id;
-                        //if (snapshot.HasChild(_dataSlot1))
-                        //{
-                        //    LoadData(Slot1Data, Slot1SkillData, Slot1InventoryData, Slot1EquipmantData, snapshot, _dataSlot1);
-                        //}
-                        //if (snapshot.HasChild(_dataSlot2))
-                        //{
-                        //    LoadData(Slot2Data, Slot2SkillData, Slot2InventoryData, Slot2EquipmantData, snapshot, _dataSlot2);
-                        //}
-                        //if (snapshot.HasChild(_dataSlot3))
-                        //{
-                        //    LoadData(Slot3Data, Slot3SkillData, Slot3InventoryData, Slot3EquipmantData, snapshot, _dataSlot3);
-                        //}
-
-                        //Managers.Event.DBEvent?.Invoke(Define.DB_Event.SuccessLogin);
                         Debug.Log("로그인 성공");
                     }
                     else
                     {
-                        //Managers.Event.DBEvent?.Invoke(Define.DB_Event.WrongPassword);
                         Debug.Log("비번 틀림");
                     }
                 }
                 else
                 {
-                    //Managers.Event.DBEvent?.Invoke(Define.DB_Event.NonExistID);
                     Debug.Log("아이디 없음");
                 }
             }
