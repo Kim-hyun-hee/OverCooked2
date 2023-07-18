@@ -100,7 +100,7 @@ public class EndPanel : MonoBehaviour
         {
             MapSceneManager.OpenStage += () => Debug.Log("이벤트에 추가 완료");
         }
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         GameManager.Instance.LoadScene("MapScene");
     }
 }

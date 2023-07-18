@@ -12,17 +12,11 @@ public class PausePanel : MonoBehaviour
     public GameObject restartUI;
     public GameObject controlUI;
 
-    public OrderManager orderManager;
-
-    private void Start()
-    {
-        orderManager = FindObjectOfType<OrderManager>();
-    }
-
     public void Resume()
     {
         GameObject ui = UIManager.Instance.PopUI();
         ui.SetActive(false);
+        Time.timeScale = 1;
     }
 
     //public void ReStart()

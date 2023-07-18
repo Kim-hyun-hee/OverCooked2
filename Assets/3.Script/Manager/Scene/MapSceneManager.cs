@@ -7,6 +7,8 @@ public class MapSceneManager : MonoBehaviour
     private static MapSceneManager instance;
     public static MapSceneManager Instance { get { return instance; } }
 
+    public GameObject pauseMenu;
+
     private void Awake()
     {
         if (instance == null)
@@ -29,5 +31,32 @@ public class MapSceneManager : MonoBehaviour
         SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.TransitionIn(false);
         OpenStage?.Invoke();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (UIManager.Instance.GetUIStackCount() > 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+            }
+            else if (UIManager.Instance.GetUIStackCount() == 1)
+            {
+                GameObject ui = UIManager.Instance.PopUI();
+                ui.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                UIManager.Instance.PushUI(pauseMenu);
+            }
+        }
+
+        if (UIManager.Instance.GetUIStackCount() != 0)
+        {
+            Time.timeScale = 0;
+        }
     }
 }

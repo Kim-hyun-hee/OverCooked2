@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public StageManager stageManager;
 
     // StartSceneManager에서 사용
-    [Header("다른 Scene에서 사용")]
+    [Header("다른 Scene들에서 사용")]
     public GameObject transitionOut;
     public GameObject transitionIn;
     public GameObject blackBackGround;
@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     // MapScnen에서 사용 (총 모은 별)
     [Header("MapScnen에서 사용 (총 모은 별)")]
     public int summaryStar;
+
+    [Header("StartScene에서 사용")]
+    public bool isOpenShutter = false;
 
     private void Awake()
     {
@@ -35,18 +38,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        //MapSceneManager.OpenStage -= () => Time.timeScale = 1;
-        //MapSceneManager.OpenStage += () => Time.timeScale = 1;
-        //MapSceneManager.OpenStage -= () => SoundManager.Instance.PlayBGM("MapScreen");
-        //MapSceneManager.OpenStage += () => SoundManager.Instance.PlayBGM("MapScreen");
-        //MapSceneManager.OpenStage -= () => { SoundManager.Instance.SetBGMVolume(1); Debug.Log("7"); };
-        //MapSceneManager.OpenStage += () => { SoundManager.Instance.SetBGMVolume(1); Debug.Log("7"); };
-        //MapSceneManager.OpenStage -= () => TransitionIn(false);
-        //MapSceneManager.OpenStage += () => TransitionIn(false);
-    }
-
     public void Quit()
     {
 #if UNITY_EDITOR
@@ -58,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        Time.timeScale = 1;
         UIManager.Instance.Init();
         StartCoroutine(LoadScene_co(sceneName));
     }
