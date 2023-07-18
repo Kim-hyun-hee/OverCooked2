@@ -58,10 +58,13 @@ public class Player : MonoBehaviour
 
     private void PutObjectOnFloor()
     {
-        carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
-        carriedObject.transform.SetParent(floor);
-        carriedObject.gameObject.AddComponent<Rigidbody>();
-        carriedObject = null;
+        if(carriedObject is Ingredient)
+        {
+            carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
+            carriedObject.transform.SetParent(floor);
+            carriedObject.gameObject.AddComponent<Rigidbody>();
+            carriedObject = null;
+        }
     }
 
     private void GetObjectFromFloor()
