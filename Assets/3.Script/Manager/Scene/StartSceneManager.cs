@@ -16,6 +16,8 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] private Transform cameraStartTransform;
     [SerializeField] private Transform cameraEndTransform;
 
+    [SerializeField] private Text playerId;
+
     private void Start()
     {
         Time.timeScale = 1;
@@ -40,6 +42,8 @@ public class StartSceneManager : MonoBehaviour
             menubar.SetActive(true);
             continueTxt.gameObject.SetActive(false);
         }
+
+        playerId.text = DBManager.Instance.playerInfo.id + "님 환영합니다";
     }
 
     private void Update()

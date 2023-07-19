@@ -110,7 +110,7 @@ public class DBManager : MonoBehaviour
                     {
                         Debug.Log("로그인 성공");
                         LoadData(snapshot);
-                        LoginToStart.LoadStartScene("StartScene");
+                        LoginManager.OnSuccessLogin += () => LoginToStart.LoadStartScene("StartScene");
                     }
                     else
                     {

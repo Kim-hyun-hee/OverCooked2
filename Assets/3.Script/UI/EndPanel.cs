@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,8 @@ public class EndPanel : MonoBehaviour
         resultText[6] = "합계";
         resultText[7] = string.Format("{0}", StageManager.Instance.totalScore);
 
-        // 여기서 DB에 저장 하면 될거 같음!
+        SaveStageInfo();
+        DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
     }
 
     private void Update()
@@ -107,5 +109,18 @@ public class EndPanel : MonoBehaviour
             // fail -> van 위치 현재 스테이지 깃발 위치로, van스크립트 enabled true
         }
         GameManager.Instance.LoadScene("MapScene");
+    }
+
+    private void SaveStageInfo()
+    {
+        if(StageManager.Instance.totalScore >= StageManager.Instance.score[0])
+        {
+            DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].isClear = true;
+        }
+
+        if(StageManager.Instance.totalScore > DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].highScore)
+        {
+            DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].highScore = StageManager.Instance.totalScore;
+        }
     }
 }

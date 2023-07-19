@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance { get { return instance; }}
 
+    [Header("endPanel에서 스테이지에 점수 저장할 때 사용")]
     public StageManager stageManager;
 
     // StartSceneManager에서 사용

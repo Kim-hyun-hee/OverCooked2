@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
+    public StageName stageName;
     private static StageManager instance;
     public static StageManager Instance { get { return instance; } }
 
@@ -225,6 +226,5 @@ public class StageManager : MonoBehaviour
         end.SetActive(false);
         endMenu.SetActive(true);
     }
-
 }
 

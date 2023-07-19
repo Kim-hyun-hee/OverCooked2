@@ -16,7 +16,6 @@ public class MenuLevel : MonoBehaviour
     {
         GameObject ui = Instantiate(stagePanel, canvas);
         StartCoroutine(SetPosition_co(ui));
-        // 스테이지별 정보(스테이지 이름, 사진, 점수 등등) 세팅해주기,,
         return ui;
     }
 
