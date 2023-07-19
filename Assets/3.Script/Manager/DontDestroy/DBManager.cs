@@ -6,17 +6,21 @@ using Firebase.Database;
 using Firebase.Extensions;
 using System;
 
-// 사용자 데이터 모델
-[System.Serializable]
-public class User
+public class PlayerInfo
 {
-    public string userId;
-    public string userPw;
+    public string id;
+    public List<StageInfo> stageInfos = new List<StageInfo>();
+}
 
-    public User(string userId, string userPw)
+public class StageInfo
+{
+    public bool isClear;
+    public float highScore;
+
+    public StageInfo(bool isClear = false, float highScore = 0f)
     {
-        this.userId = userId;
-        this.userPw = userPw;
+        this.isClear = isClear;
+        this.highScore = highScore;
     }
 }
 
@@ -27,6 +31,8 @@ public class DBManager : MonoBehaviour
 
     public string DBurl = "https://overcooked2-df596-default-rtdb.firebaseio.com/";
     DatabaseReference reference;
+
+    public PlayerInfo playerInfo = new PlayerInfo();
 
     private void Awake()
     {
@@ -45,31 +51,6 @@ public class DBManager : MonoBehaviour
     {
         FirebaseApp.DefaultInstance.Options.DatabaseUrl = new Uri(DBurl);
         reference = FirebaseDatabase.DefaultInstance.RootReference;
-    }
-
-    public void WriteUserData(string userId, string userPassword)
-    {
-        reference.Child("Account").Child("ID").Child(userId).SetValueAsync(userPassword);
-        reference.Child("Account").Child("ID").Child(userId).Child("Password").SetValueAsync(userPassword);
-    }
-
-    public void ReadUserData()
-    {
-        FirebaseDatabase.DefaultInstance.GetReference("Account")
-            .GetValueAsync().ContinueWithOnMainThread(task =>
-            {
-                if (task.IsFaulted)
-                {
-                    // Handle the error...
-                }
-                else if (task.IsCompleted)
-                {
-                    DataSnapshot snapshot = task.Result;
-                    // Do something with snapshot...
-                    Debug.Log(snapshot.Child("ID").Child("asdfzxcv0731").Key);
-
-                }
-            });
     }
 
     public void CreateAccount(string id, string password)
@@ -102,6 +83,8 @@ public class DBManager : MonoBehaviour
                         {   // 비번저장
                             reference.Child("Account").Child("ID").Child(id).Child("Password").SetValueAsync(password);
                             Debug.Log("계정 생성 완료");
+                            
+                            CreateData(id);
                         }
                     });
                 }
@@ -126,6 +109,8 @@ public class DBManager : MonoBehaviour
                     if (snapshot.Child("Password").Value.ToString() == password)
                     {
                         Debug.Log("로그인 성공");
+                        LoadData(snapshot);
+                        LoginToStart.LoadStartScene("StartScene");
                     }
                     else
                     {
@@ -138,5 +123,41 @@ public class DBManager : MonoBehaviour
                 }
             }
         });
+    }
+
+    public void CreateData(string id)
+    {
+        DatabaseReference duplicateRef = reference.Child("Account").Child("ID").Child(id);
+        duplicateRef.GetValueAsync().ContinueWith(task => // 해당 경로의 데이터를 비동기적으로 가져옴
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("데이터 생성 중 오류 발생");
+                return;
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                StageInfo stageInfo = new StageInfo();
+                string stageInfoJson = JsonUtility.ToJson(stageInfo);
+
+                for (int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
+                {
+                    reference.Child("Account").Child("ID").Child(id).Child("Stage").Child(Enum.GetName(typeof(StageName), i)).SetRawJsonValueAsync(stageInfoJson);
+                }
+                Debug.Log("초기 데이터 생성 완료");
+            }
+        });
+    }
+
+    private void LoadData(DataSnapshot snapshot)
+    {
+        playerInfo.id = snapshot.Key;
+        for (int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
+        {
+            playerInfo.stageInfos.Add(new StageInfo(bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isClear").Value.ToString()),
+                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("highScore").Value.ToString())));
+        }
+        Debug.Log("LoadData");
     }
 }

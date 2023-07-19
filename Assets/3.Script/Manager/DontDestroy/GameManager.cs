@@ -5,6 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public enum StageName
+{
+    S1_1,
+    S1_2,
+    S1_3
+};
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;

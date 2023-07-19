@@ -12,7 +12,6 @@ public class LoginManager : MonoBehaviour
     public void Login()
     {
         DBManager.Instance.Login(id.text, pw.text);
-        LoginToStart.LoadStartScene("StartScene");
     }
 
     public void SignIn()
