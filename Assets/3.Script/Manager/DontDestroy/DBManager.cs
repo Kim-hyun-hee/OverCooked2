@@ -160,4 +160,27 @@ public class DBManager : MonoBehaviour
         }
         Debug.Log("LoadData");
     }
+
+    public void SaveData(PlayerInfo playerInfo)
+    {
+        DatabaseReference dataRef = reference.Child("Account").Child("ID").Child(playerInfo.id);
+        dataRef.GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("데이터 저장 중 오류");
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+
+                for(int i = 0; i < playerInfo.stageInfos.Count; i++)
+                {
+                    string stageInfoJson = JsonUtility.ToJson(playerInfo.stageInfos[i]);
+                    reference.Child("Account").Child("ID").Child(playerInfo.id).Child("Stage").Child(Enum.GetName(typeof(StageName), i)).SetRawJsonValueAsync(stageInfoJson);
+                }
+                Debug.Log("데이터 저장 완료");
+            }
+        });
+    }
 }
