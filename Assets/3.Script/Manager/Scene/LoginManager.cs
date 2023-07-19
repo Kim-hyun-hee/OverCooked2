@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class LoginManager : MonoBehaviour
     public void Login()
     {
         DBManager.Instance.Login(id.text, pw.text);
+        LoginToStart.LoadStartScene("StartScene");
     }
 
     public void SignIn()
