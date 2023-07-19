@@ -1,6 +1,8 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapSceneManager : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class MapSceneManager : MonoBehaviour
     public static MapSceneManager Instance { get { return instance; } }
 
     public GameObject pauseMenu;
+
+    public Text totalStar;
+    private int total = 0;
 
     private void Awake()
     {
@@ -30,6 +35,12 @@ public class MapSceneManager : MonoBehaviour
         SoundManager.Instance.PlayBGM("MapScreen");
         SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.TransitionIn(false);
+        for(int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
+        {
+            total += DBManager.Instance.playerInfo.stageInfos[i].star;
+        }
+        totalStar.text = total.ToString();
+        DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
         //van스크립트 enabled false
         OpenStage?.Invoke(); // 
     }

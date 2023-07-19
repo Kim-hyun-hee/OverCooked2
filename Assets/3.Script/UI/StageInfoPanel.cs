@@ -31,6 +31,15 @@ public class StageInfoPanel : MonoBehaviour
         for (int i = 0; i < scores.Length; i++)
         {
             scores[i].text = score[i].ToString();
+            if((int)DBManager.Instance.playerInfo.stageInfos[(int)stageName].highScore == 0)
+            {
+                highScore.text = "----";
+            }
+            else
+            {
+                highScore.text = DBManager.Instance.playerInfo.stageInfos[(int)stageName].highScore.ToString();
+            }
+
             if((int)DBManager.Instance.playerInfo.stageInfos[(int)stageName].highScore >= score[i])
             {
                 stars[i].SetActive(true);
@@ -38,6 +47,5 @@ public class StageInfoPanel : MonoBehaviour
         }
 
         id.text = DBManager.Instance.playerInfo.id;
-        highScore.text = DBManager.Instance.playerInfo.stageInfos[(int)stageName].highScore.ToString();
     }
 }

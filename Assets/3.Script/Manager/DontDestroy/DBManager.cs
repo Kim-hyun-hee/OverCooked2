@@ -16,11 +16,13 @@ public class StageInfo
 {
     public bool isClear;
     public float highScore;
+    public int star;
 
-    public StageInfo(bool isClear = false, float highScore = 0f)
+    public StageInfo(bool isClear = false, float highScore = 0f, int star = 0)
     {
         this.isClear = isClear;
         this.highScore = highScore;
+        this.star = star;
     }
 }
 
@@ -140,7 +142,6 @@ public class DBManager : MonoBehaviour
                 DataSnapshot snapshot = task.Result;
                 StageInfo stageInfo = new StageInfo();
                 string stageInfoJson = JsonUtility.ToJson(stageInfo);
-
                 for (int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
                 {
                     reference.Child("Account").Child("ID").Child(id).Child("Stage").Child(Enum.GetName(typeof(StageName), i)).SetRawJsonValueAsync(stageInfoJson);
@@ -156,7 +157,8 @@ public class DBManager : MonoBehaviour
         for (int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
         {
             playerInfo.stageInfos.Add(new StageInfo(bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isClear").Value.ToString()),
-                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("highScore").Value.ToString())));
+                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("highScore").Value.ToString()),
+                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("star").Value.ToString())));
         }
         Debug.Log("LoadData");
     }
@@ -174,7 +176,7 @@ public class DBManager : MonoBehaviour
             {
                 DataSnapshot snapshot = task.Result;
 
-                for(int i = 0; i < playerInfo.stageInfos.Count; i++)
+                for (int i = 0; i < playerInfo.stageInfos.Count; i++)
                 {
                     string stageInfoJson = JsonUtility.ToJson(playerInfo.stageInfos[i]);
                     reference.Child("Account").Child("ID").Child(playerInfo.id).Child("Stage").Child(Enum.GetName(typeof(StageName), i)).SetRawJsonValueAsync(stageInfoJson);

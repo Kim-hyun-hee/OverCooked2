@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class EndPanel : MonoBehaviour
 {
-    [SerializeField] private GameObject[] star = new GameObject[3];
+    [SerializeField] private GameObject[] stars = new GameObject[3];
 
     [Header("성공 > 팁 > 실패 > 합계")]
     [SerializeField] private GameObject[] text = new GameObject[8];
 
     private readonly string[] resultText = new string[8];
+    private int star = 0;
 
     void Start()
     {
@@ -64,7 +65,8 @@ public class EndPanel : MonoBehaviour
         {
             if(StageManager.Instance.score[i] <= StageManager.Instance.totalScore)
             {
-                star[i].SetActive(true);
+                stars[i].SetActive(true);
+                star += 1;
                 string name = "RoundResults_Star_" + string.Format("{0}", i + 1);
                 SoundManager.Instance.PlaySE(name);
                 yield return new WaitForSecondsRealtime(0.5f);
@@ -74,6 +76,8 @@ public class EndPanel : MonoBehaviour
                 break;
             }
         }
+
+        DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].star = star;
     }
 
     private IEnumerator Text()
