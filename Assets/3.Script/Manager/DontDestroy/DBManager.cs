@@ -15,12 +15,14 @@ public class PlayerInfo
 public class StageInfo
 {
     public bool isClear;
+    public bool isOpen;
     public float highScore;
     public int star;
 
-    public StageInfo(bool isClear = false, float highScore = 0f, int star = 0)
+    public StageInfo(bool isClear = false, bool isOpen = false, float highScore = 0f, int star = 0)
     {
         this.isClear = isClear;
+        this.isOpen = isOpen;
         this.highScore = highScore;
         this.star = star;
     }
@@ -156,9 +158,12 @@ public class DBManager : MonoBehaviour
         playerInfo.id = snapshot.Key;
         for (int i = 0; i < Enum.GetValues(typeof(StageName)).Length; i++)
         {
-            playerInfo.stageInfos.Add(new StageInfo(bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isClear").Value.ToString()),
+            playerInfo.stageInfos.Add(new StageInfo(
+                bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isClear").Value.ToString()),
+                bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isOpen").Value.ToString()),
                 int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("highScore").Value.ToString()),
-                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("star").Value.ToString())));
+                int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("star").Value.ToString())
+                ));
         }
         Debug.Log("LoadData");
     }

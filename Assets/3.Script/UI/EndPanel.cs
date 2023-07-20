@@ -31,6 +31,7 @@ public class EndPanel : MonoBehaviour
         resultText[6] = "합계";
         resultText[7] = string.Format("{0}", StageManager.Instance.totalScore);
 
+        AnimationEvent();
         SaveStageInfo();
         DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
     }
@@ -39,10 +40,11 @@ public class EndPanel : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if (StageManager.Instance.totalScore >= StageManager.Instance.score[0])
-            {
-                MapSceneManager.OpenStage += () => Debug.Log("이벤트에 추가 완료");
-            }
+            //if (StageManager.Instance.totalScore >= StageManager.Instance.score[0])
+            //{
+            //    AnimationEvent();
+            //}
+            DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
             Time.timeScale = 1f;
             GameManager.Instance.LoadScene("MapScene");
         }
@@ -57,6 +59,21 @@ public class EndPanel : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         StartCoroutine(Star());
         StartCoroutine(Text());
+    }
+
+    private void AnimationEvent()
+    {
+        if(!DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].isClear && StageManager.Instance.totalScore >= StageManager.Instance.score[0])
+        {
+            MapSceneManager.OpenStage += () => Debug.Log("이벤트에 애니메이션 추가 완료");
+            // clear -> van 위치 현재 스테이지 깃발 위치로, 다음 스테이지 열리는 애니메이션 재생
+            // // 재생 끝나면 van스크립트 enabled true (MapSceneManager에 메소드 하나 만들어서 애니메이션에 이벤트로 추가)
+        }
+        else
+        {
+            Debug.Log("실패");
+            // fail -> van 위치 현재 스테이지 깃발 위치로, van스크립트 enabled true
+        }
     }
 
     private IEnumerator Star()
@@ -102,16 +119,7 @@ public class EndPanel : MonoBehaviour
         SoundManager.Instance.PlayBGM("RoundResults");
         yield return new WaitForSecondsRealtime(36f);
 
-        if (StageManager.Instance.totalScore >= StageManager.Instance.score[0])
-        {
-            MapSceneManager.OpenStage += () => Debug.Log("이벤트에 추가 완료");
-            // clear -> van 위치 현재 스테이지 깃발 위치로, 다음 스테이지 열리는 애니메이션 재생
-            // // 재생 끝나면 van스크립트 enabled true (MapSceneManager에 메소드 하나 만들어서 애니메이션에 이벤트로 추가)
-        }
-        else
-        {
-            // fail -> van 위치 현재 스테이지 깃발 위치로, van스크립트 enabled true
-        }
+        DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
         GameManager.Instance.LoadScene("MapScene");
     }
 

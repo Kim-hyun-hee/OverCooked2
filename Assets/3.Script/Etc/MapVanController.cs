@@ -13,21 +13,28 @@ public class MapVanController : MonoBehaviour
 
     private float moveSpeed;
     private float defaultSpeed = 4f;
-    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private float dashForce = 11f;
     private Quaternion finalRotation;
-    //private PlayerAnimationController vanAnimationController;
+
+    public  AudioSource audioSource0;
+    public  AudioSource audioSource1;
+
+    [SerializeField] private AudioClip vanIn;
+    [SerializeField] private AudioClip vanEngine;
+    [SerializeField] private AudioClip vanOut;
 
     private bool isPlay = false;
     private bool isDashReady = true;
 
     private ObjectPool objectPool;
     private Coroutine running;
-    private Transform puffTransform;
+    [SerializeField] private Transform puffTransform;
 
     private void Start()
     {
         //vanAnimationController = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out vanRb);
+        objectPool = FindObjectOfType<ObjectPool>();
         moveSpeed = defaultSpeed;
     }
 
@@ -43,23 +50,49 @@ public class MapVanController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
+                audioSource0.clip = vanIn;
+                audioSource0.Play();
                 Dash();
+                isDashReady = false;
                 StartCoroutine(StartCooldown_co());
+            }
+        }
+
+        if (vanRb.velocity != Vector3.zero)
+        {
+            if (!isPlay)
+            {
+                PlayPuff();
+            }
+        }
+        else
+        {
+            if (isPlay)
+            {
+                StopPuff();
             }
         }
     }
 
     private IEnumerator StartCooldown_co()
     {
-        isDashReady = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.35f);
         moveSpeed = defaultSpeed;
+        yield return new WaitForSeconds(0.65f);
         isDashReady = true;
     }
 
     private void Dash()
     {
         moveSpeed = dashForce;
+        StartCoroutine(VanAudio_co());
+    }
+
+    private IEnumerator VanAudio_co()
+    {
+        yield return new WaitForSeconds(0.3f);
+        audioSource0.clip = vanOut;
+        audioSource0.Play();
     }
 
     private void Move()
@@ -89,31 +122,31 @@ public class MapVanController : MonoBehaviour
     }
 
 
-    //public void PlayPuff()
-    //{
-    //    running = StartCoroutine(Puff_co());
-    //}
+    public void PlayPuff()
+    {
+        running = StartCoroutine(Puff_co());
+    }
 
-    //public void StopPuff()
-    //{
-    //    StopCoroutine(running);
-    //    isPlay = false;
-    //}
+    public void StopPuff()
+    {
+        StopCoroutine(running);
+        isPlay = false;
+    }
 
-    //public bool IsPlay()
-    //{
-    //    return isPlay;
-    //}
+    public bool IsPlay()
+    {
+        return isPlay;
+    }
 
-    //private IEnumerator Puff_co()
-    //{
-    //    isPlay = true;
-    //    WaitForSeconds wfs = new WaitForSeconds(0.1f);
-    //    while (true)
-    //    {
-    //        GameObject puff = objectPool.GetObject();
-    //        puff.transform.position = puffTransform.position;
-    //        yield return wfs;
-    //    }
-    //}
+    private IEnumerator Puff_co()
+    {
+        isPlay = true;
+        WaitForSeconds wfs = new WaitForSeconds(0.1f);
+        while (true)
+        {
+            GameObject puff = objectPool.GetObject();
+            puff.transform.position = puffTransform.position;
+            yield return wfs;
+        }
+    }
 }

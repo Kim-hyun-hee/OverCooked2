@@ -18,11 +18,6 @@ public class StageInfoPanel : MonoBehaviour
     [SerializeField] private Text id;
     [SerializeField] private Text highScore;
 
-    //public static void Setting(StageName stageName, int[] score)
-    //{
-
-    //}
-
     private void OnEnable()
     {
         stage.text = stageName.ToString().Substring(1, 1) + "-" + stageName.ToString().Substring(3, 1);

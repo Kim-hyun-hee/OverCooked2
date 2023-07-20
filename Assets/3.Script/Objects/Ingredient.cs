@@ -9,7 +9,8 @@ public enum IngredientName
     RICE,
     SEAWEED,
     PRAWN,
-    CUCUMBER
+    CUCUMBER,
+    FISH
 };
 
 public enum State

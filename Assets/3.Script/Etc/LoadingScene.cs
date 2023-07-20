@@ -17,6 +17,7 @@ public class LoadingScene : MonoBehaviour
 
     private void Start()
     {
+        DBManager.Instance.SaveData(DBManager.Instance.playerInfo);
         SoundManager.Instance.FadeBGM(0, 1.5f);
         StartCoroutine(LoadSceneProcess_co());
     }
