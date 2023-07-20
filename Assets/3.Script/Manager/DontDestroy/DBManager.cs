@@ -16,13 +16,15 @@ public class StageInfo
 {
     public bool isClear;
     public bool isOpen;
+    public bool isTileReverse;
     public float highScore;
     public int star;
 
-    public StageInfo(bool isClear = false, bool isOpen = false, float highScore = 0f, int star = 0)
+    public StageInfo(bool isClear = false, bool isOpen = false, bool isTileReverse = false, float highScore = 0f, int star = 0)
     {
         this.isClear = isClear;
         this.isOpen = isOpen;
+        this.isTileReverse = isTileReverse;
         this.highScore = highScore;
         this.star = star;
     }
@@ -161,6 +163,7 @@ public class DBManager : MonoBehaviour
             playerInfo.stageInfos.Add(new StageInfo(
                 bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isClear").Value.ToString()),
                 bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isOpen").Value.ToString()),
+                bool.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("isTileReverse").Value.ToString()),
                 int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("highScore").Value.ToString()),
                 int.Parse(snapshot.Child("Stage").Child(Enum.GetName(typeof(StageName), i)).Child("star").Value.ToString())
                 ));
