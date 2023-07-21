@@ -8972,6 +8972,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 10d10520449bc2444be01fc27ed53811, type: 3}
   - name: RoundResults_Star_3
     clip: {fileID: 8300000, guid: 66d04c50f7e0a0d4bacdd788f5ce4adb, type: 3}
+  - name: WorldMapExposed
+    clip: {fileID: 8300000, guid: 9934878c454895a4f9527ec9f52ad1c8, type: 3}
+  - name: WorldMapRoad
+    clip: {fileID: 8300000, guid: 436269a50387bdd4e9e1d0bb01c14231, type: 3}
   bgmSound:
   - name: Frontend
     clip: {fileID: 8300000, guid: 4645260c2c3d6d04ba36f3b5cbd9db83, type: 3}

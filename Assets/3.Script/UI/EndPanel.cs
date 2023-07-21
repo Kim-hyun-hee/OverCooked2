@@ -14,6 +14,8 @@ public class EndPanel : MonoBehaviour
     private readonly string[] resultText = new string[8];
     private int star = 0;
 
+    [SerializeField] private Text id;
+
     void Start()
     {
         SoundManager.Instance.PlaySE("LevelVictorySound");
@@ -30,6 +32,8 @@ public class EndPanel : MonoBehaviour
 
         resultText[6] = "합계";
         resultText[7] = string.Format("{0}", StageManager.Instance.totalScore);
+
+        id.text = DBManager.Instance.playerInfo.id;
 
         AnimationEvent();
         SaveStageInfo();
@@ -66,13 +70,51 @@ public class EndPanel : MonoBehaviour
         if(!DBManager.Instance.playerInfo.stageInfos[(int)StageManager.Instance.stageName].isClear && StageManager.Instance.totalScore >= StageManager.Instance.score[0])
         {
             MapSceneManager.OpenStage += () => Debug.Log("이벤트에 애니메이션 추가 완료");
-            // clear -> van 위치 현재 스테이지 깃발 위치로, 다음 스테이지 열리는 애니메이션 재생
-            // // 재생 끝나면 van스크립트 enabled true (MapSceneManager에 메소드 하나 만들어서 애니메이션에 이벤트로 추가)
+            if(StageManager.Instance.stageName == StageName.S1_1)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_1[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_1[0][0].transform.position.z);
+                };
+
+                MapSceneManager.OpenStage += () => MapSceneManager.Instance.OpenStage1_2();
+            }
+            else if(StageManager.Instance.stageName == StageName.S1_2)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_2[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_2[0][0].transform.position.z);
+                };
+
+                MapSceneManager.OpenStage += () => MapSceneManager.Instance.OpenStage1_3();
+            }
+            else if(StageManager.Instance.stageName == StageName.S1_3)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_3[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_3[0][0].transform.position.z);
+                };
+            }
         }
         else
         {
-            Debug.Log("실패");
-            // fail -> van 위치 현재 스테이지 깃발 위치로, van스크립트 enabled true
+            Debug.Log("실패"); // 버스 위치 조정 만
+            if (StageManager.Instance.stageName == StageName.S1_1)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_1[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_1[0][0].transform.position.z);
+                };
+            }
+            else if (StageManager.Instance.stageName == StageName.S1_2)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_2[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_2[0][0].transform.position.z);
+                };
+            }
+            else if (StageManager.Instance.stageName == StageName.S1_3)
+            {
+                MapSceneManager.OpenStage += () => { MapSceneManager.Instance.van.transform.position
+                    = new Vector3(MapSceneManager.Instance.allTiles1_3[0][0].transform.position.x, 0.025f, MapSceneManager.Instance.allTiles1_3[0][0].transform.position.z);
+                };
+            }
+
         }
     }
 

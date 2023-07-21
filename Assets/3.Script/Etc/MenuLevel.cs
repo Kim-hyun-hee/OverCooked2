@@ -47,24 +47,27 @@ public class MenuLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isClear || (!isClear && isOpen)) // 클리어 / 클리어안했는데 오픈함
+        if (other.CompareTag("Player"))
         {
-            ui.SetActive(true);
-            ui = SetStageLevelUI(ui);
-        }
-        else if(!isClear) // 클리어 안함
-        {
-            if(stageName == 0) // 첫번째 스테이지면 ui_d
+            if(isClear || (!isClear && isOpen)) // 클리어 / 클리어안했는데 오픈함
             {
-                ui_d.SetActive(true);
-                ui_d = SetStageLevelUI(ui_d);
+                ui.SetActive(true);
+                ui = SetStageLevelUI(ui);
             }
-            else // 이전 스테이지 클리어 했을때 ui_d
+            else if(!isClear) // 클리어 안함
             {
-                if(DBManager.Instance.playerInfo.stageInfos[(int)stageName - 1].isClear)
+                if(stageName == 0) // 첫번째 스테이지면 ui_d
                 {
                     ui_d.SetActive(true);
                     ui_d = SetStageLevelUI(ui_d);
+                }
+                else // 이전 스테이지 클리어 했을때 ui_d
+                {
+                    if(DBManager.Instance.playerInfo.stageInfos[(int)stageName - 1].isClear)
+                    {
+                        ui_d.SetActive(true);
+                        ui_d = SetStageLevelUI(ui_d);
+                    }
                 }
             }
         }
@@ -77,6 +80,7 @@ public class MenuLevel : MonoBehaviour
             if (ui_d.activeInHierarchy)
             {
                 ui_d.SetActive(false);
+                SoundManager.Instance.PlaySE("WorldMapRoad");
                 ui.SetActive(true);
                 ui = SetStageLevelUI(ui);
                 isOpen = true;
@@ -128,8 +132,11 @@ public class MenuLevel : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        ui.SetActive(false);
-        ui_d.SetActive(false);
-        StopAllCoroutines();
+        if(other.CompareTag("Player"))
+        {
+            ui.SetActive(false);
+            ui_d.SetActive(false);
+            StopAllCoroutines();
+        }
     }
 }

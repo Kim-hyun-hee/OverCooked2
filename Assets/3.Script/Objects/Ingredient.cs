@@ -85,30 +85,6 @@ public class Ingredient : Object
 
     public void Update()
     {
-        //if (!overcooking && warning.gameObject.activeSelf)
-        //{
-        //    warning.gameObject.SetActive(false);
-        //}
-        //overcooking = false;
-
-        //if (state != State.OVERCOOKED && remainingOvercookTime < (0.75f * overcookTime))
-        //{
-        //    if (!audioSource.isPlaying)
-        //    {
-        //        audioSource.Play();
-        //    }
-        //}
-        //else if (audioSource.isPlaying)
-        //{
-        //    audioSource.Stop();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    //audioManager.Play("Delivery");
-        //    audioSource.Stop();
-        //    cookCheat = !cookCheat;
-        //}
         icon.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y + 55f, Camera.main.WorldToScreenPoint(transform.position).z);
         if (cookable)
         {
@@ -183,14 +159,7 @@ public class Ingredient : Object
 
     public override void Burn()
     {
-    //    if (cookable)
-    //    {
-    //        SetState(State.OVERCOOKED);
-    //    }
-    //    else
-    //    {
-    //        Destroy(gameObject);
-    //    }
+
     }
 
     public void UpdateUI()
@@ -222,9 +191,7 @@ public class Ingredient : Object
                 }
                 else if (remainingOvercookTime <= (0.75f * overcookTime))
                 {
-                    //warning.transform.position = new Vector3(Camera.main.WorldToScreenPoint(transform.position).x, Camera.main.WorldToScreenPoint(transform.position).y - 65f, Camera.main.WorldToScreenPoint(transform.position).z);
-                    //done.gameObject.SetActive(false);
-                    //warning.gameObject.SetActive(true);
+                    return true;
                 }
             }
             else

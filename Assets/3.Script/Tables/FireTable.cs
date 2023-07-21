@@ -82,10 +82,30 @@ public class FireTable : Table
             }
         }
 
-        if(placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+        // 2초 2초 4초 4초
+        if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.25f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+        {
+            warning.gameObject.SetActive(true);
+            // 매우 빠르게
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.5f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+        {
+            warning.gameObject.SetActive(true);
+            // 빠르게
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.625f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+        {
+            warning.gameObject.SetActive(true);
+            // 보통
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
             && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.75f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
         {
             warning.gameObject.SetActive(true);
+            // 느리게
         }
         else if(placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.OVERCOOKED)
         {

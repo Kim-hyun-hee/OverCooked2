@@ -7,6 +7,6 @@ public class CameraMovement : MonoBehaviour
     public GameObject van;
     private void Update()
     {
-        transform.position = new Vector3(van.transform.position.x, van.transform.position.y + 10f, van.transform.position.z - 5);
+        transform.position = new Vector3(van.transform.position.x, van.transform.position.y + 7f, van.transform.position.z - 5);
     }
 }
