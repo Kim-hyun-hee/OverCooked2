@@ -50,6 +50,10 @@ public class StageManager : MonoBehaviour
     public int failOrder;
     public int totalScore;
 
+    public Player player1;
+    public Player player2;
+    private bool isPlayerOne = true;
+
     // endPanel에서 별 조건 점수
     public int[] score = new int[3];
 
@@ -65,6 +69,9 @@ public class StageManager : MonoBehaviour
         SoundManager.Instance.SetBGMVolume(1);
         GameManager.Instance.TransitionIn(true);
         Time.timeScale = 0;
+
+        player1.isMove = true;
+        //player2.isMove = false;
     }
 
     private void Update()
@@ -92,6 +99,20 @@ public class StageManager : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+
+        //if(Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    if(isPlayerOne)
+        //    {
+        //        player1.isMove = false;
+        //        player2.isMove = true;
+        //    }
+        //    else
+        //    {
+        //        player1.isMove = true;
+        //        player2.isMove = false;
+        //    }
+        //}
 
         // endMenu true 상태에서 스페이스바 누르면 로딩창 > 맵
     }

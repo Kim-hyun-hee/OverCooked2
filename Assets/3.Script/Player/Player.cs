@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private PlayerAnimationController playerAnimationController;
     [SerializeField] private Object carriedObject;
 
+    public bool isMove;
+
     private void Start()
     {
         playerAnimationController = FindObjectOfType<PlayerAnimationController>();
@@ -24,13 +26,13 @@ public class Player : MonoBehaviour
         StageManager.Instance.EndStage += PlayerControlOff;
     }
 
-    private void PlayerControlOff()
+    public void PlayerControlOff()
     {
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Player>().enabled = false;
     }
 
-    private void PlayerControlOn()
+    public void PlayerControlOn()
     {
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<Player>().enabled = true;
@@ -98,7 +100,7 @@ public class Player : MonoBehaviour
 
     private void ThrowIngredient()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && carriedObject != null && carriedObject is Ingredient)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && carriedObject != null && carriedObject is Ingredient && isMove)
         {
             carriedObject.GetComponentInChildren<MeshCollider>().enabled = true;
             carriedObject.transform.SetParent(floor);
@@ -111,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void TableInteraction()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && nearTable != null)
+        if (Input.GetKeyDown(KeyCode.Space) && nearTable != null && isMove)
         {
             if (carriedObject == null && nearObject == null)
             {
@@ -130,7 +132,7 @@ public class Player : MonoBehaviour
                 PutObjectOnTable();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && nearTable == null)
+        else if (Input.GetKeyDown(KeyCode.Space) && nearTable == null && isMove)
         {
             if (carriedObject == null && nearObject != null)
             {
@@ -266,14 +268,14 @@ public class Player : MonoBehaviour
 
     private void CutIngredient()
     {
-        if(!IsCutting() && Input.GetKey(KeyCode.LeftControl) && nearTable is CutTable && ((CutTable)nearTable).HasCuttableObject()) // 처음 자를때
+        if(!IsCutting() && Input.GetKey(KeyCode.LeftControl) && nearTable is CutTable && ((CutTable)nearTable).HasCuttableObject() && isMove) // 처음 자를때
         {
             cuttingTable = (CutTable)nearTable;
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true); // 플레이어가 들고 있는 knife 활성화
             playerAnimationController.Cut();
             cuttingTable.StartCut();
         }
-        else if(IsCutting() && (!(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
+        else if(IsCutting() && (!(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject()) && isMove) // 자르다가 멈출때
         {
             playerAnimationController.StopCutting();
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
@@ -284,7 +286,7 @@ public class Player : MonoBehaviour
 
     private void WashDish()
     {
-        if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is WashTable && ((WashTable)nearTable).HasWashableObject())
+        if(!IsWashing() && Input.GetKey(KeyCode.LeftControl) && nearTable is WashTable && ((WashTable)nearTable).HasWashableObject() && isMove)
         {
             washingTable = (WashTable)nearTable;
             washingTable.StartWash();
@@ -292,7 +294,7 @@ public class Player : MonoBehaviour
             // 애니메이션
             // Wash();
         }
-        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject())) // HasWashableObject()가 return (dirtyPlates.Count != 0); 이라서 문제임
+        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()) && isMove) // HasWashableObject()가 return (dirtyPlates.Count != 0); 이라서 문제임
         {
             washingTable.StopWash();
             playerAnimationController.StopWash();
@@ -314,7 +316,7 @@ public class Player : MonoBehaviour
     {
         if (carriedObject != null && carriedObject is Extinguisher)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKey(KeyCode.LeftControl) && isMove)
             {
                 //if (!audioManager.IsPlaying("Fire Extinguisher"))
                 //    audioManager.Play("Fire Extinguisher");

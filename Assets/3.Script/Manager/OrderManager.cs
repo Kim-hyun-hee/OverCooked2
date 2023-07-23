@@ -55,6 +55,21 @@ public class OrderManager : MonoBehaviour
     public void Start()
     {
         money = 0;
+
+        if(StageManager.Instance.stageName == StageName.S1_1)
+        {
+            uiMoney.transform.GetChild(2).localPosition = new Vector2(1500, 734);
+            uiMoney.transform.GetChild(3).localPosition = new Vector2(1568, 879);
+        }
+        else if(StageManager.Instance.stageName == StageName.S1_2)
+        {
+
+        }
+        else
+        {
+            uiMoney.transform.GetChild(2).localPosition = new Vector2(162.7f, 220.6f);
+            uiMoney.transform.GetChild(3).localPosition = new Vector2(385.3f, 511.2f);
+        }
     }
 
     private GameObject InstantiateOrderInUI(Order newOrder, int index, int add)
