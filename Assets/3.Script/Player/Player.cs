@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,16 +14,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform floor;
 
-    private PlayerAnimationController playerAnimationController;
+    [SerializeField] private PlayerAnimationController playerAnimationController;
     [SerializeField] private Object carriedObject;
 
     public bool isMove;
+    [SerializeField] private Image indicator;
 
     private void Start()
     {
-        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
         throwForce = 8;
-        PlayerControlOn();
+        //PlayerControlOn();
         StageManager.Instance.EndStage += PlayerControlOff;
     }
 
@@ -36,6 +37,18 @@ public class Player : MonoBehaviour
     {
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<Player>().enabled = true;
+    }
+
+    public void PlayerMovementOff()
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+        indicator.gameObject.SetActive(false);
+    }
+
+    public void PlayerMovementOn()
+    {
+        GetComponent<PlayerMovement>().enabled = true;
+        indicator.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -275,7 +288,7 @@ public class Player : MonoBehaviour
             playerAnimationController.Cut();
             cuttingTable.StartCut();
         }
-        else if(IsCutting() && (!(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject()) && isMove) // 자르다가 멈출때
+        else if(IsCutting() && (!(nearTable is CutTable) || !((CutTable)nearTable).HasCuttableObject())) // 자르다가 멈출때
         {
             playerAnimationController.StopCutting();
             transform.GetChild(0).GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
@@ -294,7 +307,7 @@ public class Player : MonoBehaviour
             // 애니메이션
             // Wash();
         }
-        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject()) && isMove) // HasWashableObject()가 return (dirtyPlates.Count != 0); 이라서 문제임
+        else if(IsWashing() && (!(nearTable is WashTable) || !((WashTable)nearTable).HasWashableObject())) // HasWashableObject()가 return (dirtyPlates.Count != 0); 이라서 문제임
         {
             washingTable.StopWash();
             playerAnimationController.StopWash();

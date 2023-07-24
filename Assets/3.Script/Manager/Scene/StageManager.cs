@@ -71,7 +71,9 @@ public class StageManager : MonoBehaviour
         Time.timeScale = 0;
 
         player1.isMove = true;
-        //player2.isMove = false;
+        player1.PlayerMovementOn();
+        player2.isMove = false;
+        player2.PlayerMovementOff();
     }
 
     private void Update()
@@ -100,19 +102,26 @@ public class StageManager : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        //if(Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    if(isPlayerOne)
-        //    {
-        //        player1.isMove = false;
-        //        player2.isMove = true;
-        //    }
-        //    else
-        //    {
-        //        player1.isMove = true;
-        //        player2.isMove = false;
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SoundManager.Instance.PlaySE("ChangeChef");
+            if (isPlayerOne)
+            {
+                player1.isMove = false;
+                player1.PlayerMovementOff();
+                player2.isMove = true;
+                player2.PlayerMovementOn();
+                isPlayerOne = false;
+            }
+            else
+            {
+                player1.isMove = true;
+                player1.PlayerMovementOn();
+                player2.isMove = false;
+                player2.PlayerMovementOff();
+                isPlayerOne = true;
+            }
+        }
 
         // endMenu true 상태에서 스페이스바 누르면 로딩창 > 맵
     }

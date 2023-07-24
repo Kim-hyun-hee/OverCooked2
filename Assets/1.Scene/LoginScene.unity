@@ -1971,6 +1971,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9934878c454895a4f9527ec9f52ad1c8, type: 3}
   - name: WorldMapRoad
     clip: {fileID: 8300000, guid: 436269a50387bdd4e9e1d0bb01c14231, type: 3}
+  - name: ChangeChef
+    clip: {fileID: 8300000, guid: 2fc0b84d771ecb24d8407559488bfeaa, type: 3}
   bgmSound:
   - name: Frontend
     clip: {fileID: 8300000, guid: 4645260c2c3d6d04ba36f3b5cbd9db83, type: 3}

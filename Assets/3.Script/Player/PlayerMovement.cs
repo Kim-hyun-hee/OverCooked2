@@ -11,22 +11,19 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed;
     private float defaultSpeed = 5f;
     [SerializeField] private float dashForce = 10f;
-    private PlayerAnimationController playerAnimationController;
+    [SerializeField] private PlayerAnimationController playerAnimationController;
     private Quaternion finalRotation;
 
     private bool isPlay = false;
     private bool isDashReady = true;
     
-    private ObjectPool objectPool;
+    [SerializeField] private ObjectPool objectPool;
     private Coroutine running;
-    private Transform puffTransform;
+    [SerializeField] private Transform puffTransform;
 
     private void Start()
     {
-        playerAnimationController = FindObjectOfType<PlayerAnimationController>();
         TryGetComponent(out playerRb);
-        objectPool = FindObjectOfType<ObjectPool>();
-        puffTransform = GameObject.FindGameObjectWithTag("PuffPos").transform;
         moveSpeed = defaultSpeed;
     }
 

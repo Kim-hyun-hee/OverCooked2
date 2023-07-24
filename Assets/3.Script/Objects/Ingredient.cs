@@ -219,6 +219,11 @@ public class Ingredient : Object
     {
         transform.GetChild(0).GetComponent<MeshFilter>().mesh = states[(int)state].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
         transform.GetChild(0).GetComponent<MeshCollider>().sharedMesh = states[(int)state].transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
+
+        if(ingredientName == IngredientName.FISH && state == State.CHOPPED)
+        {
+            transform.GetChild(0).GetComponent<Renderer>().materials = states[(int)State.PLATED].transform.GetChild(0).GetComponent<Renderer>().sharedMaterials;
+        }
         //transform.GetChild(0).GetComponent<Renderer>().materials = states[(int)state].transform.GetChild(0).GetComponent<Renderer>().sharedMaterials;
     }
 
