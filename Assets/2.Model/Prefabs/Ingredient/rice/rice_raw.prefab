@@ -254,7 +254,7 @@ MonoBehaviour:
   cookable: 1
   chopTime: 0
   cookTime: 12
-  overcookTime: 16
+  overcookTime: 12
   remainingOvercookTime: 0
   remainingChopTime: 0
   remainingCookTime: 0

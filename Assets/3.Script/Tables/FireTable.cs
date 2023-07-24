@@ -13,6 +13,8 @@ public class FireTable : Table
 
     private bool isBubble = false;
 
+    private bool isWarning = false;
+
     private void Start()
     {
         fire = this.transform.Find("FX_Fire_Big_01").GetComponent<Fire>();
@@ -82,30 +84,126 @@ public class FireTable : Table
             }
         }
 
-        // 2초 2초 4초 4초
+        //2초 2초 3초 4초
         if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
-            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.25f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.125f)
         {
             warning.gameObject.SetActive(true);
-            // 매우 빠르게
         }
         else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
-            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.5f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.25f)
         {
             warning.gameObject.SetActive(true);
-            // 빠르게
         }
         else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
-            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.625f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.375f)
         {
             warning.gameObject.SetActive(true);
-            // 보통
         }
         else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
-            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= (0.75f * (((KitchenTool)placedObject).GetIngredient()).overcookTime))
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.5f)
         {
             warning.gameObject.SetActive(true);
-            // 느리게
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.625f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.75f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 0.875f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 1f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 1.25f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 1.5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 1.75f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 2f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 2.25f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 2.5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 2.75f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 3f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 3.5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 4f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 4.5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 5.5f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 6f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 7f)
+        {
+            warning.gameObject.SetActive(true);
+        }
+        else if (placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.COOKED
+            && (((KitchenTool)placedObject).GetIngredient()).remainingOvercookTime <= 8f)
+        {
+            warning.gameObject.SetActive(true);
         }
         else if(placedObject != null && ((KitchenTool)placedObject).HasIngredient() && ((((KitchenTool)placedObject).GetIngredient()).GetState()) == State.OVERCOOKED)
         {

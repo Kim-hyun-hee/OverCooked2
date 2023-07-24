@@ -189,10 +189,6 @@ public class Ingredient : Object
 
                     return false;
                 }
-                else if (remainingOvercookTime <= (0.75f * overcookTime))
-                {
-                    return true;
-                }
             }
             else
             {
