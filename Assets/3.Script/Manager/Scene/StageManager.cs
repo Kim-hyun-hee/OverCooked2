@@ -189,6 +189,7 @@ public class StageManager : MonoBehaviour
                 if(!is10Sound)
                 {
                     SoundManager.Instance.PlaySE("10SecondsLeft");
+                    StartCoroutine(CountDown_co());
                     is10Sound = true;
                 }
                 isRing = true;
@@ -236,6 +237,17 @@ public class StageManager : MonoBehaviour
             yield return null;
         }
         End();
+    }
+
+    private IEnumerator CountDown_co()
+    {
+        int count = 10;
+        while(count > 0)
+        {
+            SoundManager.Instance.PlaySE("LevelTimerBeep");
+            count--;
+            yield return new WaitForSecondsRealtime(1f);
+        }
     }
 
     public void End()
