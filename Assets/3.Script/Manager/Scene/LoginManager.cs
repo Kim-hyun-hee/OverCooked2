@@ -9,6 +9,7 @@ public class LoginManager : MonoBehaviour
 {
     public InputField id;
     public InputField pw;
+    public GameObject singIn;
 
     public delegate void OnLogin();
     public static event OnLogin OnSuccessLogin;
@@ -21,6 +22,12 @@ public class LoginManager : MonoBehaviour
     public void SignIn()
     {
         DBManager.Instance.CreateAccount(id.text, pw.text);
+        singIn.SetActive(true);
+    }
+
+    public void Okay()
+    {
+        singIn.SetActive(false);
     }
 
     private void Update()
