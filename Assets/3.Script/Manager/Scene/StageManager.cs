@@ -44,11 +44,11 @@ public class StageManager : MonoBehaviour
     private bool is30Sound = false;
     private bool is10Sound = false;
 
-    public int successOrder;
-    public int successScore;
-    public int tip;
-    public int failOrder;
-    public int totalScore;
+    public int successOrder = 0;
+    public int successScore = 0;
+    public int tip = 0;
+    public int failOrder = 0;
+    public int totalScore = 0;
 
     public Player player1;
     public Player player2;
