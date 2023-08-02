@@ -58,12 +58,14 @@ public class OrderManager : MonoBehaviour
 
         if(StageManager.Instance.stageName == StageName.S1_1)
         {
-            uiMoney.transform.GetChild(2).localPosition = new Vector2(1500, 734);
+            //uiMoney.transform.GetChild(2).localPosition = new Vector2(1500, 734);
+            uiMoney.transform.GetChild(2).localPosition = new Vector2(162.7f, 220.6f);
             uiMoney.transform.GetChild(3).localPosition = new Vector2(1568, 879);
         }
         else if(StageManager.Instance.stageName == StageName.S1_2)
         {
-
+            uiMoney.transform.GetChild(2).localPosition = new Vector2(162.7f, 220.6f);
+            uiMoney.transform.GetChild(3).localPosition = new Vector2(1207, 847);
         }
         else
         {
@@ -246,6 +248,7 @@ public class OrderManager : MonoBehaviour
             }
         }
         Debug.Log("레시피 모델은 있지만 오더에 없는 음식 / 틀림");
+        StageManager.Instance.failOrder += 1;
         Debug.Log("틀린 소리 여기");
         combo = 0;
         uiMoney.transform.GetChild(0).GetChild(2).gameObject.SetActive(false); // flame

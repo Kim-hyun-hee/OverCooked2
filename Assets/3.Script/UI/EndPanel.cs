@@ -28,10 +28,11 @@ public class EndPanel : MonoBehaviour
         resultText[3] = string.Format("{0}", StageManager.Instance.tip);
 
         resultText[4] = "실패한 주문 x " + string.Format("{0}", StageManager.Instance.failOrder);
-        resultText[5] = "점수 어케 하지";
+        resultText[5] = string.Format("{0}", StageManager.Instance.failOrder);
 
         resultText[6] = "합계";
-        resultText[7] = string.Format("{0}", StageManager.Instance.totalScore);
+        resultText[7] = string.Format("{0}", StageManager.Instance.totalScore - (StageManager.Instance.failOrder * 30));
+        StageManager.Instance.totalScore = StageManager.Instance.totalScore - (StageManager.Instance.failOrder * 30);
 
         id.text = DBManager.Instance.playerInfo.id;
 
