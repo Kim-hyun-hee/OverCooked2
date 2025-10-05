@@ -1,8 +1,9 @@
-# Overcooked (Unity 3D Clone)
+# Overcooked2 (Unity 3D Clone)
 
 > Unity 3D 개인 프로젝트 | 요리 게임 모작
 
-<img src="https://github.com/user-attachments/assets/your_image_id_here" width="400"/>
+<img src="https://github.com/user-attachments/assets/43162066-d009-49f3-9450-0a04362e0b1c" width="400"/>
+
 
 ## 📅 제작 기간
 - **2023.06.19 ~ 2023.07.21**
@@ -36,5 +37,5 @@
 [YouTube에서 보기](https://www.youtube.com/watch?v=skJnpO8Kl9k)
 
 ## 📌 참고 사항
-- 본 프로젝트는 **Overcooked** 게임의 일부 메커니즘을 분석 및 재현한 클론 프로젝트입니다.
+- 본 프로젝트는 **Overcooked2** 게임의 일부 메커니즘을 분석 및 재현한 클론 프로젝트입니다.
 - 상업적 목적 없이 **Unity 3D 학습 및 포트폴리오용**으로 제작되었습니다.
